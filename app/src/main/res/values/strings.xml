@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Gym Plan</string>
+    <string name="title_activity_bottom_menu_nav">bottom_menu_nav</string>
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_calendar">Calendar</string>
+</resources>
