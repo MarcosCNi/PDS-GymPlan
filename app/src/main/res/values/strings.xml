@@ -4,4 +4,7 @@
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_calendar">Calendar</string>
+    <string name="select">Select item</string>
+    <string name="tx_item_name">Workout name</string>
+    <string name="tx_item_description">Description</string>
 </resources>
