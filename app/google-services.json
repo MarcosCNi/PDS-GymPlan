@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "771414920505",
+    "project_id": "gym-plan-ef7bf",
+    "storage_bucket": "gym-plan-ef7bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771414920505:android:c542d74e7d8e8b9e616ce8",
+        "android_client_info": {
+          "package_name": "com.example.gymplan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771414920505-tauck8ur6sdeed9o7cck5j5l3rh5jbd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsjUTxI9MTXA5keEUETvb0SL8aWlKjbys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771414920505-tauck8ur6sdeed9o7cck5j5l3rh5jbd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

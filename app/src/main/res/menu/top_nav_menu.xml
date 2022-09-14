@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_back"
+        android:title="@string/title_back"
+        android:icon="@drawable/ic_back_24"/>
+    <item
+        android:id="@+id/navigation_options"
+        android:title="@string/title_options"
+        android:icon="@drawable/ic_options_24"/>
+
+</menu>

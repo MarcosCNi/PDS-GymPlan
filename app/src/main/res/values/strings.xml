@@ -7,4 +7,10 @@
     <string name="select">Select item</string>
     <string name="tx_item_name">Workout name</string>
     <string name="tx_item_description">Description</string>
+    <string name="page_title">Tittle</string>
+    <string name="title_back">Back</string>
+    <string name="title_options">Options</string>
+    <string name="weight">Weight</string>
+    <string name="sets">Sets</string>
+    <string name="rets">Reps</string>
 </resources>
