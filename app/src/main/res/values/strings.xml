@@ -13,4 +13,14 @@
     <string name="weight">Weight</string>
     <string name="sets">Sets</string>
     <string name="rets">Reps</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Register</string>
+    <string name="sign_in">Login</string>
+    <string name="forgot_my_password">Forgot my password</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="reset">SEND RESET EMAIL</string>
+    <string name="new_acount">Don\'t have a account?</string>
 </resources>

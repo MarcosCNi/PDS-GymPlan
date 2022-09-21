@@ -90,7 +90,7 @@ dependencies {
 
     //Firebase
     implementation 'com.google.firebase:firebase-bom:30.4.1'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.1.1'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
