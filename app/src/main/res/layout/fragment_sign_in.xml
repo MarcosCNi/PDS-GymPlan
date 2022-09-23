@@ -64,6 +64,19 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/forgot_my_password"
+            android:textSize="16sp"
+            android:textColor="?attr/colorOnSecondary"
+            app:layout_constraintBottom_toTopOf="@+id/sign_in_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
             android:id="@+id/sign_in_btn"
             android:layout_width="match_parent"
@@ -74,6 +87,7 @@
             android:text="@string/sign_in"
             android:textStyle="bold"
             android:textColor="@color/black"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toTopOf="@+id/register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -93,31 +107,23 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3" />
 
-        <TextView
-            android:id="@+id/forgot_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/forgot_my_password"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSecondary"
-            app:layout_constraintBottom_toTopOf="@+id/sign_in_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
+        <Button
             android:id="@+id/register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/new_acount"
-            android:textSize="16sp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:textColor="?attr/colorOnSecondary"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:enabled="true"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/sign_up"
+            android:backgroundTint="@color/green_200"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintHorizontal_bias="0.0"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

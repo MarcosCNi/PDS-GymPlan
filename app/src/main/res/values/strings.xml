@@ -22,5 +22,6 @@
     <string name="new_password">New password</string>
     <string name="confirm_new_password">Confirm new password</string>
     <string name="reset">SEND RESET EMAIL</string>
-    <string name="new_acount">Don\'t have a account?</string>
+    <string name="new_account">Register</string>
+    <string name="create_one">Create one</string>
 </resources>
