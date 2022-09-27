@@ -1,36 +1,52 @@
 package com.example.gymplan.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.gymplan.R
 import com.example.gymplan.databinding.FragmentHomeBinding
+import com.example.gymplan.ui.base.BaseFragment
+import com.example.gymplan.utils.gone
+import com.example.gymplan.utils.hide
+import com.example.gymplan.utils.show
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
-class HomeFragment : Fragment() {
+@AndroidEntryPoint
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
-    private val viewModel: HomeViewModel by viewModels()
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    override val viewModel: HomeViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val textView: TextView = binding.homeSelectTextView
-        viewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        checkUser()
+    }
+
+    private fun checkUser(){
+        viewModel.user.observe(viewLifecycleOwner){ user ->
+            val navController = findNavController()
+            val navBar = activity?.findViewById<BottomNavigationView>(R.id.bottomAppBar)
+            Log.e("HomeFragment", viewModel.user.value.toString())
+            if (user != null) {
+                Toast.makeText(context, "logado com sucesso", Toast.LENGTH_SHORT).show()
+                navBar?.show()
+            } else {
+                Toast.makeText(context, "logado sem sucesso", Toast.LENGTH_SHORT).show()
+                navBar?.gone()
+                navController.navigate(R.id.signInFragment2)
+            }
         }
-        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
+
 }

@@ -20,7 +20,7 @@ abstract class BaseFragment<VB: ViewBinding, VM: ViewModel>: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = getViewBinding(inflater, container)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return binding.root
     }
 
     protected abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): VB
