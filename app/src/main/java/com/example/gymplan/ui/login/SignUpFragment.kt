@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.gymplan.R
 import com.example.gymplan.databinding.FragmentSignUpBinding
 import com.example.gymplan.ui.base.BaseFragment
@@ -25,14 +26,19 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, LoginViewModel>() {
     private fun setupUI() = with(binding) {
         signUpBtn.setOnClickListener {
             if (newPassword.editText?.text.toString() == confirmNewPassword.editText?.text.toString()){
+
                 viewModel.password = newPassword.editText?.text.toString()
-            }
-            viewModel.email = userEmail.editText?.text.toString()
-            if(viewModel.email.isNullOrEmpty() || viewModel.password.isNullOrEmpty()){
-                Toast.makeText(context, R.string.empty_text, Toast.LENGTH_SHORT).show()
-            }else{
+                viewModel.email = userEmail.editText?.text.toString()
+
+                if(viewModel.email.isNullOrEmpty() || viewModel.password.isNullOrEmpty()){
+                    Toast.makeText(context, R.string.empty_text, Toast.LENGTH_SHORT).show()
+                }else{
 //                Log.e("SignUpFragment", newPassword.editText?.text.toString())
-                viewModel.signUp(context)
+                    viewModel.signUp(context)
+                    findNavController().navigate(R.id.signInFragment2)
+                }
+            }else{
+                Toast.makeText(context, R.string.different_password, Toast.LENGTH_SHORT).show()
             }
         }
     }
