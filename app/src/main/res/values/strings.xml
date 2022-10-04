@@ -28,4 +28,5 @@
     <string name="register_error_message">Please input all values</string>
     <string name="empty_text">Complete all the fields</string>
     <string name="different_password">"The passwords should be the same "</string>
+    <string name="an_error_occurred">An error occurred</string>
 </resources>

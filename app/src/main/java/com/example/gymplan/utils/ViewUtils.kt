@@ -1,23 +1,30 @@
 package com.example.gymplan.utils
 
-import android.content.Context
-import android.content.Intent
 import android.view.View
-import com.example.gymplan.ui.home.HomeFragment
-import com.example.gymplan.ui.login.SignInFragment
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import timber.log.Timber
 
+fun Fragment.toast(message: String, duration: Int = Toast.LENGTH_LONG) {
+    Toast.makeText(
+        requireContext(),
+        message,
+        duration,
+    ).show()
+}
 
-fun Context.startHomeActivity() =
-    Intent(this, HomeFragment::class.java).also {
-        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(it)
-    }
-
-fun Context.startLoginActivity() =
-    Intent(this, SignInFragment::class.java).also {
-        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(it)
-    }
+fun loadImg(
+    imageView: ImageView,
+    path: String
+) {
+    Timber.tag("LoadImg").e(path)
+    Glide.with(imageView.context)
+        .asGif()
+        .load(path)
+        .into(imageView)
+}
 
 fun View.show(){
     visibility = View.VISIBLE

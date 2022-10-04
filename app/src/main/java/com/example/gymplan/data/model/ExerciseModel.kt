@@ -1,10 +1,10 @@
 package com.example.gymplan.data.model
 
 data class ExerciseModel (
-    var bodyPart: String,
-    var equipment: String,
-    var gifUrl: String,
-    var id: String,
-    var name: String,
-    var target: String
+    var bodyPart: String? = null,
+    var equipment: String? = null,
+    var gifUrl: String? = null,
+    var id: String? = null,
+    var name: String? = null,
+    var target: String? = null
 )

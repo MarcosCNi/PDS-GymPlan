@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -46,5 +47,16 @@ class LoginViewModel @Inject constructor(
                 Toast.makeText(context, task.exception!!.message, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun resetPassword(context: Context?) = viewModelScope.launch {
+        firebaseAuth.sendPasswordResetEmail(email!!)
+            .addOnCompleteListener{ task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(context, "Check your email to reset your password", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, task.exception!!.message, Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 }

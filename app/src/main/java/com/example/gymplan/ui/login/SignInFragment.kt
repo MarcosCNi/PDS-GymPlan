@@ -48,6 +48,9 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, LoginViewModel>() {
         goToSignUpBtn.setOnClickListener {
             findNavController().navigate(R.id.signUpFragment)
         }
+        forgotPassword.setOnClickListener {
+            findNavController().navigate(R.id.resetPasswordFragment)
+        }
     }
 
     override fun getViewBinding(

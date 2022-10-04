@@ -19,12 +19,13 @@
         <ImageView
             android:id="@+id/imgExercise"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
             android:contentDescription="@string/app_name"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
@@ -53,62 +54,62 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvNameExercise"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textWeight"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/weight"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDescExercise">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/textWeight"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="@string/weight"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tvDescExercise">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textSets"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/sets"
-            android:layout_marginStart="10dp"
-            app:layout_constraintStart_toEndOf="@id/textWeight"
-            app:layout_constraintTop_toTopOf="@id/textWeight">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/textSets"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="@string/sets"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            app:layout_constraintStart_toEndOf="@id/textWeight"-->
+<!--            app:layout_constraintTop_toTopOf="@id/textWeight">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textReps"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/rets"
-            android:layout_marginStart="10dp"
-            app:layout_constraintStart_toEndOf="@id/textSets"
-            app:layout_constraintTop_toTopOf="@id/textWeight">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/textReps"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="@string/rets"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            app:layout_constraintStart_toEndOf="@id/textSets"-->
+<!--            app:layout_constraintTop_toTopOf="@id/textWeight">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                />-->
 
-        </com.google.android.material.textfield.TextInputLayout>
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@id/textReps"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textWeight"
-            style="@style/Widget.App.Switch"/>
+<!--        <com.google.android.material.switchmaterial.SwitchMaterial-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/textReps"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/textWeight"-->
+<!--            style="@style/Widget.App.Switch"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

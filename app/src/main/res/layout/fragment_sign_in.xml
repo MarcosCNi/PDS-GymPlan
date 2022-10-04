@@ -57,7 +57,7 @@
             android:inputType="textPassword"
             android:selectAllOnFocus="true"
             android:autofillHints="password"
-            app:layout_constraintBottom_toTopOf="@+id/forgot_password"
+            app:layout_constraintBottom_toTopOf="@+id/forgotPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -68,7 +68,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/forgot_password"
+            android:id="@+id/forgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"

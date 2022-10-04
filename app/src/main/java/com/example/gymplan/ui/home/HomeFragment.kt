@@ -31,18 +31,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         viewModel.user.observe(viewLifecycleOwner){ user ->
             val navController = findNavController()
             val navBar = activity?.findViewById<BottomNavigationView>(R.id.bottomAppBar)
-            Log.e("HomeFragment", viewModel.user.value.toString())
             if (user != null) {
-                Toast.makeText(context, "logado com sucesso", Toast.LENGTH_SHORT).show()
                 navBar?.show()
             } else {
-                Toast.makeText(context, "logado sem sucesso", Toast.LENGTH_SHORT).show()
                 navBar?.gone()
                 navController.navigate(R.id.signInFragment2)
             }
         }
     }
-
 
     override fun getViewBinding(
         inflater: LayoutInflater,
