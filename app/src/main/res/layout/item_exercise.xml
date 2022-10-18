@@ -5,7 +5,7 @@
     android:id="@+id/itemExerciseCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="8dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="6dp"
     android:backgroundTint="?attr/cardBackgroundColor">
@@ -13,14 +13,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_margin="8dp">
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/imgExercise"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="150dp"
             android:contentDescription="@string/app_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

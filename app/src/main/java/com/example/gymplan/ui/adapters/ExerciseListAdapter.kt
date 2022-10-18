@@ -1,6 +1,5 @@
 package com.example.gymplan.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -44,7 +43,7 @@ class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.ExerciseVie
         val exercise = exercises[position]
         holder.binding.apply {
             tvNameExercise.text = exercise.name
-            tvDescExercise.text = exercise.bodyPart
+            tvDescExercise.text = exercise.target!!.uppercase()
             loadImg(
                 imgExercise,
                 exercise.gifUrl.toString(),

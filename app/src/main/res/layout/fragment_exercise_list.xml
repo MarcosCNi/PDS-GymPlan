@@ -3,29 +3,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.list.ExerciseListFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_exercise_list"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tvInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:paddingBottom="4dp"
+        android:textColor="?attr/colorOnPrimary"
+        android:textColorHint="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edSearchExercise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="textNoSuggestions"
+            android:selectAllOnFocus="true"
+            android:textColor="?attr/colorOnPrimary"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/muscleFilter"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/muscle"
+        android:textColorHint="?attr/colorOnPrimary"
+        android:paddingRight="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvInputLayout"
+        app:layout_constraintEnd_toStartOf="@id/equipmentFilter">
+
+        <AutoCompleteTextView
+            android:id="@+id/muscleFilterDropdownText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/equipmentFilter"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:hint="@string/equipment"
+        android:textColorHint="?attr/colorOnPrimary"
+        android:paddingLeft="4dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintStart_toEndOf="@id/muscleFilter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvInputLayout">
+
+        <AutoCompleteTextView
+            android:id="@+id/equipmentFilterDropdownText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvExerciseList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_exercise_list"
+        app:layout_constraintTop_toBottomOf="@+id/equipmentFilter"
         tools:listitem="@layout/item_exercise" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,3 +8,4 @@ data class ExerciseModel (
     var name: String? = null,
     var target: String? = null
 )
+

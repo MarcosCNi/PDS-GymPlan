@@ -29,4 +29,60 @@
     <string name="empty_text">Complete all the fields</string>
     <string name="different_password">"The passwords should be the same "</string>
     <string name="an_error_occurred">An error occurred</string>
+    <string name="search_hint">Search a exercise</string>
+    <string name="muscle">Muscle</string>
+    <string name="body_part">Part</string>
+    <string name="equipment">Equipment</string>
+
+    <!-- Muscle list resource -->
+    <string-array name="muscle_list">
+        <item name="any_muscle">Any muscle</item>
+        <item name="abductors">Abductors</item>
+        <item name="abs">Abs</item>
+        <item name="adductors">Adductors</item>
+        <item name="biceps">Biceps</item>
+        <item name="calves">Calves</item>
+        <item name="cardio">Cardio</item>
+        <item name="delts">Delts</item>
+        <item name="forearms">Forearms</item>
+        <item name="glutes">Glutes</item>
+        <item name="serratus_anterior">Serratus anterior</item>
+        <item name="spine">Spine</item>
+        <item name="traps">Traps</item>
+        <item name="triceps">Triceps</item>
+        <item name="upper_back">Upper back</item>
+    </string-array>
+
+    <!-- Equipment list resource -->
+    <string-array name="equipment_list">
+        <item name="any_equipment">Any equipment</item>
+        <item name="assisted">Assisted</item>
+        <item name="band">Band</item>
+        <item name="barbel">Barbell</item>
+        <item name="body_weight">Body weight</item>
+        <item name="bosu_ball">Bosu ball</item>
+        <item name="dumbbell">Dumbbell</item>
+        <item name="elliptical_machine">Elliptical machine</item>
+        <item name="ez_barbell">Ez barbell</item>
+        <item name="hammer">Hammer</item>
+        <item name="kettlebell">Kettlebell</item>
+        <item name="leverage_machine">Leverage machine</item>
+        <item name="olympic_barbell">Olympic barbell</item>
+        <item name="resistance_band">Resistance band</item>
+        <item name="roller">Roller</item>
+        <item name="rope">Rope</item>
+        <item name="skierg_machine">Skierg machine</item>
+        <item name="sled_machine">Sled machine</item>
+        <item name="smith_machine">Smith machine</item>
+        <item name="stability_ball">Stability ball</item>
+        <item name="stationary_bike">Stationary bike</item>
+        <item name="stepmill_machine">Stepmill machine</item>
+        <item name="tire">Tire</item>
+        <item name="trap bar">Trap bar</item>
+        <item name="upper_body_ergometer">Upper body ergometer</item>
+        <item name="weighted">Weighted</item>
+        <item name="wheel_roller">Weighted</item>
+
+    </string-array>
+
 </resources>

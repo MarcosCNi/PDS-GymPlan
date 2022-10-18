@@ -5,13 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gymplan.data.model.ExerciseModel
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @HiltViewModel
 class ExerciseListViewModel @Inject constructor(
@@ -25,14 +24,14 @@ class ExerciseListViewModel @Inject constructor(
         fetch()
     }
 
-    private fun fetch() = viewModelScope.launch {
+     fun fetch() = viewModelScope.launch {
         safeFetch()
     }
 
     private fun safeFetch() {
-        firebaseDatabase.getReference("exercicios").addValueEventListener(object : ValueEventListener {
+        firebaseDatabase.getReference("exercises").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot){
-                var exercises: ArrayList<ExerciseModel> = arrayListOf()
+                val exercises: ArrayList<ExerciseModel> = arrayListOf()
                 if (snapshot.exists()) {
                     for (data in snapshot.children) {
                         val exercise = data.getValue(ExerciseModel::class.java)
@@ -47,6 +46,68 @@ class ExerciseListViewModel @Inject constructor(
                 TODO("Not yet implemented")
             }
         })
+    }
 
+    fun searchFetch(query: String) = viewModelScope.launch{
+        _list.value!!.clear()
+        firebaseDatabase.getReference("exercises").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val exercises: ArrayList<ExerciseModel> = arrayListOf()
+                if (snapshot.exists()){
+                    for (data in snapshot.children){
+                        val exercise = data.getValue(ExerciseModel::class.java)
+                        if (exercise!!.name!!.contains(query)){
+                            exercises.add(exercise)
+                        }
+                    }
+                    _list.value = exercises
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    fun filterByEquipment(equipment: String) = viewModelScope.launch {
+        _list.value!!.clear()
+        firebaseDatabase.getReference("exercises").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val exercises: ArrayList<ExerciseModel> = arrayListOf()
+                if (snapshot.exists()){
+                    for (data in snapshot.children){
+                        val exercise = data.getValue(ExerciseModel::class.java)
+                        if (exercise!!.equipment!!.contains(equipment.lowercase(Locale.getDefault()))){
+                            exercises.add(exercise)
+                        }
+                    }
+                    _list.value = exercises
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    fun filterByMuscle(muscle: String) {
+        _list.value!!.clear()
+        firebaseDatabase.getReference("exercises").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val exercises: ArrayList<ExerciseModel> = arrayListOf()
+                if (snapshot.exists()){
+                    for (data in snapshot.children){
+                        val exercise = data.getValue(ExerciseModel::class.java)
+                        if (exercise!!.target!!.contains(muscle.lowercase(Locale.getDefault()))){
+                            exercises.add(exercise)
+                        }
+                    }
+                    _list.value = exercises
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }

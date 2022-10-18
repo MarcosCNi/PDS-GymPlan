@@ -14,7 +14,7 @@
         android:layout_margin="10dp"
         android:hint="@string/select"
         app:boxBackgroundColor="?attr/colorPrimary"
-        android:textColorHint="?attr/colorOnSecondary"
+        android:textColorHint="?attr/colorOnPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

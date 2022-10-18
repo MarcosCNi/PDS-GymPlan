@@ -34,4 +34,5 @@
     <style name="ThemeOverlay.App.Switch" parent="">
         <item name="colorSecondary">@color/green_500</item>
     </style>
+
 </resources>
