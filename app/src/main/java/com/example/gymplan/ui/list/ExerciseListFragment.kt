@@ -23,16 +23,13 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        setupFilters()
+        muscleFilter()
+        equipmentFilter()
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
         searchInit(query)
         collectObserver()
     }
 
-    private fun setupFilters() {
-        muscleFilter()
-        equipmentFilter()
-    }
 
     private fun muscleFilter() = with(binding){
         val muscleItems = resources.getStringArray(R.array.muscle_list)
@@ -40,10 +37,11 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
         muscleFilterDropdownText.setAdapter(muscleAdapter)
         muscleFilterDropdownText.setOnItemClickListener { _, _, id, _ ->
             if (id == 0) {
-                viewModel.fetch()
+                viewModel.muscleFilter = ""
             } else {
-                viewModel.filterByMuscle(muscleFilterDropdownText.text.toString())
+                viewModel.muscleFilter = muscleFilterDropdownText.text.toString().lowercase()
             }
+            viewModel.fetch()
         }
     }
 
@@ -53,10 +51,11 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
         equipmentFilterDropdownText.setAdapter(equipmentAdapter)
         equipmentFilterDropdownText.setOnItemClickListener { _, _, id, _ ->
             if (id == 0) {
-                viewModel.fetch()
+                viewModel.equipmentFilter = ""
             } else {
-                viewModel.filterByEquipment(equipmentFilterDropdownText.text.toString())
+                viewModel.equipmentFilter = equipmentFilterDropdownText.text.toString().lowercase()
             }
+            viewModel.fetch()
         }
     }
 
@@ -83,10 +82,11 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
     private fun updateExerciseList() = with(binding) {
         edSearchExercise.editableText.trim().let {
             if (it.isEmpty()){
-                viewModel.fetch()
+                viewModel.query = ""
             }else{
-                viewModel.searchFetch(it.toString())
+                viewModel.query = it.toString().lowercase()
             }
+            viewModel.fetch()
         }
     }
 
