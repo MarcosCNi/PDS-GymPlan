@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/bg_bottom_sheet">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nothing_here"
+        android:textColor="@color/green_200"
+        android:textSize="24sp"
+        style="@style/TextAppearance.MaterialComponents.Subtitle2"
+        />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dividerColor="@color/green_500"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create workout plan"
+        android:textColor="@color/green_200"
+        android:textAlignment="textStart"
+        app:iconTint="@color/green_200"
+        app:icon="@drawable/ic_add_workout_plan"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create a new exercise list"
+        android:textColor="@color/green_200"
+        android:textAlignment="textStart"
+        app:iconTint="@color/green_200"
+        app:icon="@drawable/ic_add"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rename workout"
+        android:textColor="@color/green_200"
+        android:textAlignment="textStart"
+        app:iconTint="@color/green_200"
+        app:icon="@drawable/ic_edit"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Share workout"
+        android:textColor="@color/green_200"
+        android:textAlignment="textStart"
+        app:iconTint="@color/green_200"
+        app:icon="@drawable/ic_share"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete workout"
+        android:textColor="@color/red"
+        android:textAlignment="textStart"
+        app:iconTint="@color/red"
+        app:icon="@drawable/ic_delete"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        />
+</LinearLayout>

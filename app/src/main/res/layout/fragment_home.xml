@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="8dp"
     tools:context=".ui.home.HomeFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/selectItem"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:hint="@string/select"
-        app:boxBackgroundColor="?attr/colorPrimary"
-        android:textColorHint="?attr/colorOnPrimary"
+        android:layout_marginEnd="8dp"
+        app:hintTextColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/optionBtn"
         app:layout_constraintBottom_toTopOf="@+id/rvPlanList">
         
         <AutoCompleteTextView
@@ -28,6 +28,20 @@
             />
 
     </com.google.android.material.textfield.TextInputLayout>
+    
+    <ImageButton
+        android:id="@+id/optionBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_options_24"
+        android:contentDescription="@string/option_icon_button"
+        app:backgroundTint="?attr/cardBackgroundColor"
+        app:tint="?attr/colorOnPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/selectItem"
+        app:layout_constraintBottom_toBottomOf="@+id/selectItem"
+        app:layout_constraintStart_toEndOf="@+id/selectItem"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPlanList"

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/exerciseListFragment">
+    app:startDestination="@id/homeFragment2">
     <fragment
         android:id="@+id/exerciseListFragment"
         android:name="com.example.gymplan.ui.list.ExerciseListFragment"

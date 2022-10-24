@@ -33,6 +33,8 @@
     <string name="muscle">Muscle</string>
     <string name="body_part">Part</string>
     <string name="equipment">Equipment</string>
+    <string name="option_icon_button">Options menu</string>
+    <string name="nothing_here">Nothing here</string>
 
     <!-- Muscle list resource -->
     <string-array name="muscle_list">
