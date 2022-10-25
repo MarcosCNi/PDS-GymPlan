@@ -1,11 +1,17 @@
 package com.example.gymplan.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class ExerciseModel (
-    var bodyPart: String? = null,
-    var equipment: String? = null,
-    var gifUrl: String? = null,
-    var id: String? = null,
-    var name: String? = null,
-    var target: String? = null
+    val bodyPart: String? = null,
+    val equipment: String? = null,
+    val gifUrl: String? = null,
+    val id: String? = null,
+    @PrimaryKey(autoGenerate = false)
+    val name: String,
+    val workoutName: String,
+    val target: String? = null
 )
 

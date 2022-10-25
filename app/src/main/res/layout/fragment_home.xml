@@ -31,14 +31,16 @@
     
     <ImageButton
         android:id="@+id/optionBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/ic_options_24"
+        android:scaleType="fitXY"
         android:contentDescription="@string/option_icon_button"
-        app:backgroundTint="?attr/cardBackgroundColor"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="4dp"
         app:tint="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/selectItem"
+        app:layout_constraintTop_toTopOf="@id/selectItem"
         app:layout_constraintBottom_toBottomOf="@+id/selectItem"
         app:layout_constraintStart_toEndOf="@+id/selectItem"
         />
@@ -47,6 +49,7 @@
         android:id="@+id/rvPlanList"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/selectItem"
