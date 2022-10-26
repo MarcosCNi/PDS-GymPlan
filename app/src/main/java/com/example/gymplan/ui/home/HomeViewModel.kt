@@ -30,9 +30,4 @@ class HomeViewModel @Inject constructor(
     private fun verifyUser() = viewModelScope.launch{
         _user.value = firebaseAuth.currentUser
     }
-
-    fun createWorkoutPlan(name: String) = viewModelScope.launch{
-        dao.insertWorkoutPlan(WorkoutPlanModel(name))
-        Log.e("HomeViewModel", "Test")
-    }
 }

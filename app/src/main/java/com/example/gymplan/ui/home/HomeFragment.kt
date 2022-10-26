@@ -1,12 +1,9 @@
 package com.example.gymplan.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.gymplan.R
@@ -18,7 +15,6 @@ import com.example.gymplan.utils.show
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.log
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
@@ -28,22 +24,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkUser()
-        setupUi()
+        setupBottomSheet()
     }
 
-    private fun setupUi() = with(binding) {
-        optionBtn.setOnClickListener {showBottomSheet()}
-    }
-
-    private fun showBottomSheet() = with(binding) {
-        val dialog = BottomSheetDialog(requireContext())
-        dialog.setContentView(R.layout.workout_bottom_sheet)
-        dialog.show()
-        val bottomSheet : WorkoutBottomSheetBinding = WorkoutBottomSheetBinding.inflate(layoutInflater, null, false)
-        bottomSheet.btnCreateWorkoutPlan.setOnClickListener {
-            dialog.dismiss()
+    private fun setupBottomSheet() = with(binding) {
+        optionBtn.setOnClickListener {
+//            showBottomSheet()
         }
+
     }
+
+//    private fun showBottomSheet() = with(binding) {
+//        val dialog = BottomSheetDialog(requireContext())
+//        dialog.setContentView(R.layout.workout_bottom_sheet)
+//        dialog.show()
+//    }
 
     private fun checkUser(){
         viewModel.user.observe(viewLifecycleOwner){ user ->
@@ -62,5 +57,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
-
 }
