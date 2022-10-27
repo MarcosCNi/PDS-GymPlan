@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/option_1"
+        android:icon="@drawable/ic_add_workout_plan"
+        android:title="@string/create_workout_plan" />
+    <item android:id="@+id/option_2"
+        android:icon="@drawable/ic_add"
+        android:title="@string/create_exercise_list" />
+    <item android:id="@+id/option_3"
+        android:icon="@drawable/ic_edit"
+        android:title="@string/rename_workout" />
+    <item android:id="@+id/option_4"
+        android:icon="@drawable/ic_share"
+        android:title="@string/share_workout" />
+    <item android:id="@+id/option_5"
+        android:icon="@drawable/ic_delete"
+        android:title="@string/delete_workout" />
+</menu>

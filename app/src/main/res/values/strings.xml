@@ -84,7 +84,13 @@
         <item name="upper_body_ergometer">Upper body ergometer</item>
         <item name="weighted">Weighted</item>
         <item name="wheel_roller">Weighted</item>
-
     </string-array>
+
+    <!-- Home option menu items -->
+    <string name="create_workout_plan">Create workout plan</string>
+    <string name="create_exercise_list">Create new exercise list</string>
+    <string name="rename_workout">Rename workout</string>
+    <string name="share_workout">Share workout</string>
+    <string name="delete_workout">Delete workout</string>
 
 </resources>

@@ -16,6 +16,6 @@ interface ExerciseDao {
     suspend fun insertWorkout(workout: WorkoutModel)
 
     @Transaction
-    @Query("SELECT * FROM WorkoutPlanModel WHERE name = :workoutPlanName")
-    suspend fun getWorkoutPlanWithWorkout(workoutPlanName: String): List<WorkoutPlanWithWorkout>
+    @Query("SELECT * FROM WorkoutPlanModel")
+    suspend fun getWorkoutPlanWithWorkout(): List<WorkoutPlanWithWorkout>
 }
