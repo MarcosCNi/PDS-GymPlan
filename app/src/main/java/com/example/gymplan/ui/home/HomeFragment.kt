@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.gymplan.R
+import com.example.gymplan.data.model.ExerciseModel
 import com.example.gymplan.databinding.FragmentHomeBinding
 import com.example.gymplan.ui.base.BaseFragment
 import com.example.gymplan.utils.gone
@@ -26,7 +28,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkUser()
+        collectObserver()
         setupOptionBtn()
+    }
+
+    private fun collectObserver() = with(binding) {
+        viewModel.workoutPlanList.observe(viewLifecycleOwner){
+            val workoutPlanNameList: ArrayList<String> = arrayListOf()
+            for (item in it){
+                workoutPlanNameList.add(item.workoutPlan.name)
+            }
+            val equipmentAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, workoutPlanNameList)
+            homeSelectDropdownText.setAdapter(equipmentAdapter)
+        }
     }
 
     private fun setupOptionBtn() = with(binding) {
@@ -45,6 +59,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             when(item.itemId){
                 R.id.option_1 -> {
                     Toast.makeText(context, R.string.create_workout_plan, Toast.LENGTH_SHORT).show()
+                    viewModel.createWorkoutPlan("Test")
                     true
                 }
                 R.id.option_2 -> {

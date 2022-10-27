@@ -21,7 +21,7 @@
         app:layout_constraintBottom_toTopOf="@+id/rvPlanList">
         
         <AutoCompleteTextView
-            android:id="@+id/homeSelectTextView"
+            android:id="@+id/homeSelectDropdownText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:inputType="none"
