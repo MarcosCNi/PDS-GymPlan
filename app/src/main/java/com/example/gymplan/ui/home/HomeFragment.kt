@@ -1,23 +1,24 @@
 package com.example.gymplan.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.gymplan.R
-import com.example.gymplan.data.model.ExerciseModel
 import com.example.gymplan.databinding.FragmentHomeBinding
 import com.example.gymplan.ui.base.BaseFragment
 import com.example.gymplan.utils.gone
 import com.example.gymplan.utils.show
 import com.example.gymplan.utils.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,6 +41,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             }
             val equipmentAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, workoutPlanNameList)
             homeSelectDropdownText.setAdapter(equipmentAdapter)
+            homeSelectDropdownText.setOnClickListener {
+                viewModel.safeFetch()
+            }
+            homeSelectDropdownText.setOnItemClickListener { _, _, _, _ ->
+                Log.e("HomeFragment", it.toString())
+                viewModel.currentWorkoutPlan = homeSelectDropdownText.text.toString()
+            }
         }
     }
 
@@ -58,28 +66,68 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         popup.setOnMenuItemClickListener { item ->
             when(item.itemId){
                 R.id.option_1 -> {
-                    Toast.makeText(context, R.string.create_workout_plan, Toast.LENGTH_SHORT).show()
-                    viewModel.createWorkoutPlan("Test")
+                    setupWorkoutPlanDialog()
                     true
                 }
                 R.id.option_2 -> {
-                    Toast.makeText(context, R.string.create_exercise_list, Toast.LENGTH_SHORT).show()
+                    setupWorkoutDialog()
                     true
                 }
                 R.id.option_3 -> {
-                    Toast.makeText(context, R.string.rename_workout, Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.option_4 -> {
-                    Toast.makeText(context, R.string.share_workout, Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.option_5 -> {
-                    Toast.makeText(context, R.string.delete_workout, Toast.LENGTH_SHORT).show()
                     true
                 }
                 else -> super.onContextItemSelected(item)
             }
+        }
+    }
+
+    private fun setupWorkoutDialog() {
+        val builder = MaterialAlertDialogBuilder(requireContext(),R.style.ThemeOverlay_App_MaterialAlertDialog)
+        val dialogLayout = layoutInflater.inflate(R.layout.custom_dialog_layout, null)
+        val editText = dialogLayout.findViewById<TextInputEditText>(R.id.nameInputLayoutText)
+
+        with(builder){
+            setTitle(R.string.create_exercise_list)
+            setPositiveButton("Ok"){dialog, which ->
+                if (editText.text.toString().isEmpty()){
+                    toast(R.string.empty_text.toString())
+                }else{
+                    viewModel.createWorkout(editText.text.toString())
+                }
+            }
+            setNegativeButton("Cancel"){dialog, which ->
+
+            }
+            setView(dialogLayout)
+            show()
+        }
+    }
+
+    private fun setupWorkoutPlanDialog(){
+        val builder = MaterialAlertDialogBuilder(requireContext(),R.style.ThemeOverlay_App_MaterialAlertDialog)
+        val dialogLayout = layoutInflater.inflate(R.layout.custom_dialog_layout, null)
+        val editText = dialogLayout.findViewById<TextInputEditText>(R.id.nameInputLayoutText)
+
+        with(builder){
+            setTitle(R.string.create_workout_plan)
+            setPositiveButton("Ok"){dialog, which ->
+                if (editText.text.toString().isEmpty()){
+                    toast(R.string.empty_text.toString())
+                }else{
+                    viewModel.createWorkoutPlan(editText.text.toString())
+                }
+            }
+            setNegativeButton("Cancel"){dialog, which ->
+
+            }
+            setView(dialogLayout)
+            show()
         }
     }
 

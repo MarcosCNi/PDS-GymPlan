@@ -33,5 +33,19 @@
 
     <style name="ThemeOverlay.App.Switch" parent="">
         <item name="colorSecondary">@color/green_200</item>
+
     </style>
+
+    <!-- Alert Dialog style -->
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/green_200</item>
+        <item name="colorSecondary">@color/green_200</item>
+        <item name="colorSurface">@color/gray_green</item>
+        <item name="colorOnSurface">@color/green_700</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button</item>
+    </style>
+
 </resources>

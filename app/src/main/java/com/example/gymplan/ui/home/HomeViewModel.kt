@@ -1,12 +1,11 @@
 package com.example.gymplan.ui.home
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gymplan.data.local.ExerciseDao
+import com.example.gymplan.data.model.WorkoutModel
 import com.example.gymplan.data.model.WorkoutPlanModel
 import com.example.gymplan.data.model.relations.WorkoutPlanWithWorkout
 import com.google.firebase.auth.FirebaseAuth
@@ -27,12 +26,14 @@ class HomeViewModel @Inject constructor(
     private val _workoutPlanList = MutableLiveData<List<WorkoutPlanWithWorkout>>()
     val workoutPlanList: LiveData<List<WorkoutPlanWithWorkout>> get() = _workoutPlanList
 
+    var currentWorkoutPlan: String = ""
+
     init {
         verifyUser()
         safeFetch()
     }
 
-    private fun safeFetch() = viewModelScope.launch {
+    fun safeFetch() = viewModelScope.launch {
         fetch()
     }
 
@@ -46,5 +47,9 @@ class HomeViewModel @Inject constructor(
 
     fun createWorkoutPlan(name: String) = viewModelScope.launch{
         dao.insertWorkoutPlan(WorkoutPlanModel(name))
+    }
+
+    fun createWorkout(name: String) = viewModelScope.launch {
+        dao.insertWorkout(WorkoutModel(name, currentWorkoutPlan))
     }
 }

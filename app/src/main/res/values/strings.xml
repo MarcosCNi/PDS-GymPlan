@@ -92,5 +92,6 @@
     <string name="rename_workout">Rename workout</string>
     <string name="share_workout">Share workout</string>
     <string name="delete_workout">Delete workout</string>
+    <string name="type_name">Type a name</string>
 
 </resources>
