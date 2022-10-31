@@ -30,7 +30,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, LoginViewModel>() {
     private fun checkUser() {
         viewModel.user.observe(viewLifecycleOwner){ user ->
             if (user != null)
-                findNavController().navigate(R.id.homeFragment2)
+                findNavController().navigate(R.id.homeFragment)
         }
     }
 

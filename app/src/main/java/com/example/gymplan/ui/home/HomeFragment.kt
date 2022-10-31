@@ -10,10 +10,13 @@ import android.widget.PopupMenu
 import androidx.annotation.MenuRes
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymplan.R
 import com.example.gymplan.databinding.FragmentHomeBinding
+import com.example.gymplan.ui.adapters.WorkoutListAdapter
 import com.example.gymplan.ui.base.BaseFragment
 import com.example.gymplan.utils.gone
+import com.example.gymplan.utils.hide
 import com.example.gymplan.utils.show
 import com.example.gymplan.utils.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -25,27 +28,45 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override val viewModel: HomeViewModel by viewModels()
+    private val workoutAdapter by lazy { WorkoutListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
         checkUser()
         collectObserver()
         setupOptionBtn()
     }
 
+    private fun setupRecyclerView() = with(binding) {
+        rvPlanList.apply {
+            adapter = workoutAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
     private fun collectObserver() = with(binding) {
+        viewModel.getWorkoutPlan(homeSelectDropdownText.text.toString())
+        viewModel.safeFetch()
         viewModel.workoutPlanList.observe(viewLifecycleOwner){
+            emptyList.gone()
             val workoutPlanNameList: ArrayList<String> = arrayListOf()
             for (item in it){
                 workoutPlanNameList.add(item.workoutPlan.name)
             }
             val equipmentAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, workoutPlanNameList)
             homeSelectDropdownText.setAdapter(equipmentAdapter)
-            homeSelectDropdownText.setOnClickListener {
-                viewModel.safeFetch()
-            }
             homeSelectDropdownText.setOnItemClickListener { _, _, _, _ ->
-                Log.e("HomeFragment", it.toString())
+                viewModel.getWorkoutPlan(homeSelectDropdownText.text.toString())
+                viewModel.workoutPlan.observe(viewLifecycleOwner){ workoutList->
+                    if (workoutList.isEmpty()){
+                        workoutAdapter.workoutList = emptyList()
+                        emptyList.show()
+                    }else{
+                        workoutAdapter.workoutList = workoutList.toList()
+                        emptyList.gone()
+                    }
+                }
                 viewModel.currentWorkoutPlan = homeSelectDropdownText.text.toString()
             }
         }
@@ -56,7 +77,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             showMenu(it, R.menu.popup_home_page_menu)
 //            showBottomSheet()
         }
-
     }
 
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
@@ -80,6 +100,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     true
                 }
                 R.id.option_5 -> {
+                    viewModel.deleteWorkoutPlan()
+                    collectObserver()
                     true
                 }
                 else -> super.onContextItemSelected(item)
@@ -91,7 +113,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         val builder = MaterialAlertDialogBuilder(requireContext(),R.style.ThemeOverlay_App_MaterialAlertDialog)
         val dialogLayout = layoutInflater.inflate(R.layout.custom_dialog_layout, null)
         val editText = dialogLayout.findViewById<TextInputEditText>(R.id.nameInputLayoutText)
-
         with(builder){
             setTitle(R.string.create_exercise_list)
             setPositiveButton("Ok"){dialog, which ->
@@ -100,9 +121,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 }else{
                     viewModel.createWorkout(editText.text.toString())
                 }
+                collectObserver()
             }
             setNegativeButton("Cancel"){dialog, which ->
-
             }
             setView(dialogLayout)
             show()
@@ -121,7 +142,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     toast(R.string.empty_text.toString())
                 }else{
                     viewModel.createWorkoutPlan(editText.text.toString())
+
                 }
+                collectObserver()
             }
             setNegativeButton("Cancel"){dialog, which ->
 

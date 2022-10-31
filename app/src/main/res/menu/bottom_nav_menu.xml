@@ -7,13 +7,13 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_search"
+        android:id="@+id/exerciseListFragment"
         android:icon="@drawable/ic_search"
         android:title="@string/title_search" />
 
-    <item
-        android:id="@+id/navigation_calendar"
-        android:icon="@drawable/ic_calendar"
-        android:title="@string/title_calendar" />
+<!--    <item-->
+<!--        android:id="@+id/homeFragment"-->
+<!--        android:icon="@drawable/ic_calendar"-->
+<!--        android:title="@string/title_calendar" />-->
 
 </menu>

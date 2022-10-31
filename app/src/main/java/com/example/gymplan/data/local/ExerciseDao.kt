@@ -1,7 +1,6 @@
 package com.example.gymplan.data.local
 
 import androidx.room.*
-import com.example.gymplan.data.model.ExerciseModel
 import com.example.gymplan.data.model.WorkoutModel
 import com.example.gymplan.data.model.WorkoutPlanModel
 import com.example.gymplan.data.model.relations.WorkoutPlanWithWorkout
@@ -17,5 +16,12 @@ interface ExerciseDao {
 
     @Transaction
     @Query("SELECT * FROM WorkoutPlanModel")
-    suspend fun getWorkoutPlanWithWorkout(): List<WorkoutPlanWithWorkout>
+    suspend fun getAllWorkoutPlanWithWorkout(): List<WorkoutPlanWithWorkout>
+
+    @Transaction
+    @Query("SELECT * FROM WorkoutModel WHERE workoutPlanName =:workoutPlanName")
+    suspend fun getWorkoutPlanWithWorkout(workoutPlanName: String): List<WorkoutModel>
+
+    @Query("DELETE FROM WorkoutPlanModel WHERE name =:workoutName")
+    suspend fun deleteByWorkoutPlanName(workoutName: String)
 }

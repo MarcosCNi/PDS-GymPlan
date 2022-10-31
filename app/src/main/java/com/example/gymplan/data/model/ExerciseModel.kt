@@ -1,7 +1,9 @@
 package com.example.gymplan.data.model
 
+import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+
 
 @Entity
 data class ExerciseModel (
@@ -9,9 +11,21 @@ data class ExerciseModel (
     val equipment: String? = null,
     val gifUrl: String? = null,
     val id: String? = null,
+    @NonNull
     @PrimaryKey(autoGenerate = false)
     val name: String,
-    val workoutName: String,
+    val workoutName: String? = null,
     val target: String? = null
-)
+){
+    constructor():this(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    )
+}
+
 

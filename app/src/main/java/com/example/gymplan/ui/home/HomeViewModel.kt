@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.internal.notifyAll
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,6 +27,9 @@ class HomeViewModel @Inject constructor(
     private val _workoutPlanList = MutableLiveData<List<WorkoutPlanWithWorkout>>()
     val workoutPlanList: LiveData<List<WorkoutPlanWithWorkout>> get() = _workoutPlanList
 
+    private val _workoutPlan = MutableLiveData<List<WorkoutModel>>()
+    val workoutPlan: LiveData<List<WorkoutModel>> get() = _workoutPlan
+
     var currentWorkoutPlan: String = ""
 
     init {
@@ -38,7 +42,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun fetch() {
-        _workoutPlanList.value = dao.getWorkoutPlanWithWorkout()
+        _workoutPlanList.value = dao.getAllWorkoutPlanWithWorkout()
     }
 
     private fun verifyUser() = viewModelScope.launch{
@@ -51,5 +55,13 @@ class HomeViewModel @Inject constructor(
 
     fun createWorkout(name: String) = viewModelScope.launch {
         dao.insertWorkout(WorkoutModel(name, currentWorkoutPlan))
+    }
+
+    fun getWorkoutPlan(name: String) = viewModelScope.launch {
+        _workoutPlan.value = dao.getWorkoutPlanWithWorkout(name)
+    }
+
+    fun deleteWorkoutPlan() = viewModelScope.launch {
+        dao.deleteByWorkoutPlanName(currentWorkoutPlan)
     }
 }

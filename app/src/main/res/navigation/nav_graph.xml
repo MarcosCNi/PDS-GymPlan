@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/homeFragment2">
+    app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/exerciseListFragment"
         android:name="com.example.gymplan.ui.list.ExerciseListFragment"
@@ -15,10 +15,11 @@
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" />
     <fragment
-        android:id="@+id/homeFragment2"
+        android:id="@+id/homeFragment"
         android:name="com.example.gymplan.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+    </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.gymplan.ui.login.SignUpFragment"

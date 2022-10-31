@@ -17,8 +17,7 @@
         app:hintTextColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/optionBtn"
-        app:layout_constraintBottom_toTopOf="@+id/rvPlanList">
+        app:layout_constraintEnd_toStartOf="@+id/optionBtn">
         
         <AutoCompleteTextView
             android:id="@+id/homeSelectDropdownText"
@@ -56,5 +55,17 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/item_workout"/>
+
+    <TextView
+        android:id="@+id/emptyList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nothing_here"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
