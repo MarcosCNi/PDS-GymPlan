@@ -10,13 +10,14 @@ import android.widget.PopupMenu
 import androidx.annotation.MenuRes
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.gymplan.R
 import com.example.gymplan.databinding.FragmentHomeBinding
 import com.example.gymplan.ui.adapters.WorkoutListAdapter
 import com.example.gymplan.ui.base.BaseFragment
 import com.example.gymplan.utils.gone
-import com.example.gymplan.utils.hide
 import com.example.gymplan.utils.show
 import com.example.gymplan.utils.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -33,9 +34,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        clickAdapter()
         checkUser()
         collectObserver()
         setupOptionBtn()
+    }
+
+    private fun clickAdapter() {
+        workoutAdapter.setOnclickListener { workoutModel ->
+            Log.e("HomeFragment", workoutModel.name)
+        }
     }
 
     private fun setupRecyclerView() = with(binding) {
@@ -43,13 +51,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             adapter = workoutAdapter
             layoutManager = LinearLayoutManager(context)
         }
+        ItemTouchHelper(itemTouchHelperCallback()).attachToRecyclerView(rvPlanList)
+    }
+
+    private fun itemTouchHelperCallback(): ItemTouchHelper.Callback {
+        return object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val workout = workoutAdapter.getCharacterPosition(viewHolder.adapterPosition)
+                viewModel.deleteWorkout(workout).also {
+                    collectObserver()
+                    toast(getString(R.string.message_delete_workout))
+                }
+            }
+        }
     }
 
     private fun collectObserver() = with(binding) {
+        emptyList.show()
         viewModel.getWorkoutPlan(homeSelectDropdownText.text.toString())
         viewModel.safeFetch()
         viewModel.workoutPlanList.observe(viewLifecycleOwner){
-            emptyList.gone()
             val workoutPlanNameList: ArrayList<String> = arrayListOf()
             for (item in it){
                 workoutPlanNameList.add(item.workoutPlan.name)

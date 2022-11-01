@@ -64,4 +64,8 @@ class HomeViewModel @Inject constructor(
     fun deleteWorkoutPlan() = viewModelScope.launch {
         dao.deleteByWorkoutPlanName(currentWorkoutPlan)
     }
+
+    fun deleteWorkout(workout: WorkoutModel)= viewModelScope.launch {
+        dao.deleteByWorkoutName(workout.name)
+    }
 }

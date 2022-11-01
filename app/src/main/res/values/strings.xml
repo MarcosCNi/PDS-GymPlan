@@ -93,5 +93,7 @@
     <string name="share_workout">Share workout</string>
     <string name="delete_workout">Delete workout</string>
     <string name="type_name">Type a name</string>
+    <string name="select_workout">Select a workout plan</string>
+    <string name="message_delete_workout">"Workout deleted with success "</string>
 
 </resources>

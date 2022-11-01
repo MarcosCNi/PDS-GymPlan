@@ -36,13 +36,26 @@ class WorkoutListAdapter : RecyclerView.Adapter<WorkoutListAdapter.WorkoutViewHo
         )
     }
 
+    override fun getItemCount() = workoutList.size
+
     override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
         val workout = workoutList[position]
         holder.binding.apply {
             tvNameWorkout.text = workout.name
             tvDescWorkout.text = workout.desc
         }
+        holder.itemView.setOnClickListener {
+
+        }
     }
 
-    override fun getItemCount() = workoutList.size
+    private var onItemClickListener: ((WorkoutModel) -> Unit)? = null
+
+    fun setOnclickListener(listener: (WorkoutModel) -> Unit){
+        onItemClickListener = listener
+    }
+
+    fun getCharacterPosition(position: Int): WorkoutModel {
+        return workoutList[position]
+    }
 }
