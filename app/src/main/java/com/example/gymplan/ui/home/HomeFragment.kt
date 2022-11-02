@@ -178,6 +178,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     toast(getString(R.string.empty_text))
                 }else{
                     binding.homeSelectDropdownText.text = editText.text
+                    viewModel.currentWorkoutPlan = editText.text.toString()
                     viewModel.createWorkoutPlan(editText.text.toString())
                 }
                 collectObservers()
