@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gymplan.data.model.WorkoutModel
+import com.example.gymplan.data.model.entity.WorkoutModel
 import com.example.gymplan.databinding.ItemWorkoutBinding
 
 class WorkoutListAdapter : RecyclerView.Adapter<WorkoutListAdapter.WorkoutViewHolder>() {
@@ -55,7 +55,7 @@ class WorkoutListAdapter : RecyclerView.Adapter<WorkoutListAdapter.WorkoutViewHo
         onItemClickListener = listener
     }
 
-    fun getCharacterPosition(position: Int): WorkoutModel {
+    fun getWorkoutPosition(position: Int): WorkoutModel {
         return workoutList[position]
     }
 }

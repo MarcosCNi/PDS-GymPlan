@@ -10,10 +10,10 @@ data class ExerciseModel (
     val bodyPart: String? = null,
     val equipment: String? = null,
     val gifUrl: String? = null,
-    val id: String? = null,
     @NonNull
     @PrimaryKey(autoGenerate = false)
-    val name: String,
+    val id: Int,
+    val name: String? = null,
     val workoutName: String? = null,
     val target: String? = null
 ){
@@ -21,7 +21,7 @@ data class ExerciseModel (
         "",
         "",
         "",
-        "",
+        0,
         "",
         "",
         ""

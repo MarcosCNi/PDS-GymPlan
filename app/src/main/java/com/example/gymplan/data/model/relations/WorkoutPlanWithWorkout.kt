@@ -1,8 +1,8 @@
 package com.example.gymplan.data.model.relations
 
 import androidx.room.*
-import com.example.gymplan.data.model.WorkoutModel
-import com.example.gymplan.data.model.WorkoutPlanModel
+import com.example.gymplan.data.model.entity.WorkoutModel
+import com.example.gymplan.data.model.entity.WorkoutPlanModel
 
 data class WorkoutPlanWithWorkout(
     @Embedded val workoutPlan: WorkoutPlanModel,
