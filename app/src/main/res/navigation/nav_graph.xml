@@ -29,4 +29,9 @@
         android:id="@+id/resetPasswordFragment"
         android:name="com.example.gymplan.ui.login.ResetPasswordFragment"
         android:label="ResetPasswordFragment" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.gymplan.ui.calendar.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
 </navigation>

@@ -8,11 +8,11 @@
         android:title="@string/create_exercise_list" />
     <item android:id="@+id/option_3"
         android:icon="@drawable/ic_edit"
-        android:title="@string/rename_workout" />
+        android:title="@string/edit_workout_plan" />
     <item android:id="@+id/option_4"
         android:icon="@drawable/ic_share"
         android:title="@string/share_workout" />
     <item android:id="@+id/option_5"
         android:icon="@drawable/ic_delete"
-        android:title="@string/delete_workout" />
+        android:title="@string/delete_workout_plan" />
 </menu>

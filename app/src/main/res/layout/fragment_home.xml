@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
     tools:context=".ui.home.HomeFragment">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -14,6 +13,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/select_workout"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:boxStrokeColor="?attr/colorPrimaryVariant"
         app:hintTextColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,6 +39,7 @@
         android:contentDescription="@string/option_icon_button"
         android:background="@android:color/transparent"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         app:tint="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/selectItem"
@@ -44,17 +47,24 @@
         app:layout_constraintStart_toEndOf="@+id/selectItem"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.tsuryo.swipeablerv.SwipeableRecyclerView
         android:id="@+id/rvPlanList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        app:leftBgColor="@color/red"
+        app:leftImage="@drawable/ic_delete"
+        app:leftText="Delete"
+        app:rightBgColor="@color/green_200"
+        app:rightImage="@drawable/ic_edit"
+        app:rightText="Edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/selectItem"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/item_workout"/>
+
 
     <TextView
         android:id="@+id/emptyList"

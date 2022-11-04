@@ -48,6 +48,7 @@
         <item name="delts">Delts</item>
         <item name="forearms">Forearms</item>
         <item name="glutes">Glutes</item>
+        <item name="pectorals">Pectorals</item>
         <item name="serratus_anterior">Serratus anterior</item>
         <item name="spine">Spine</item>
         <item name="traps">Traps</item>
@@ -89,11 +90,13 @@
     <!-- Home option menu items -->
     <string name="create_workout_plan">Create workout plan</string>
     <string name="create_exercise_list">Create new exercise list</string>
-    <string name="rename_workout">Rename workout</string>
-    <string name="share_workout">Share workout</string>
-    <string name="delete_workout">Delete workout</string>
+    <string name="edit_workout_plan">Edit workout plan</string>
+    <string name="share_workout">Share workout plan</string>
+    <string name="delete_workout_plan">Delete workout plan</string>
+
     <string name="type_name">Type a name</string>
     <string name="select_workout">Select a workout plan</string>
     <string name="message_delete_workout">"Workout deleted with success "</string>
+    <string name="edit_workout">Edit exercise list</string>
 
 </resources>
