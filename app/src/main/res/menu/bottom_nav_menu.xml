@@ -11,9 +11,9 @@
         android:icon="@drawable/ic_search"
         android:title="@string/title_search" />
 
-<!--    <item-->
-<!--        android:id="@+id/homeFragment"-->
-<!--        android:icon="@drawable/ic_calendar"-->
-<!--        android:title="@string/title_calendar" />-->
+    <item
+        android:id="@+id/calendarFragment"
+        android:icon="@drawable/ic_calendar"
+        android:title="@string/title_calendar" />
 
 </menu>

@@ -29,7 +29,9 @@ class HomeViewModel @Inject constructor(
     private val _workoutPlan = MutableLiveData<List<WorkoutModel>>()
     val workoutPlan: LiveData<List<WorkoutModel>> get() = _workoutPlan
 
-    var currentWorkoutPlan: String = ""
+    private val _currentWorkoutPlan = MutableLiveData<WorkoutPlanWithWorkout>()
+    val currentWorkoutPlan: LiveData<WorkoutPlanWithWorkout> get() = _currentWorkoutPlan
+
 
     init {
         verifyUser()
@@ -60,16 +62,20 @@ class HomeViewModel @Inject constructor(
         dao.insertWorkoutPlan(WorkoutPlanModel(0, name))
     }
 
-    fun createWorkout(name: String) = viewModelScope.launch {
-        dao.insertWorkout(WorkoutModel(0, name, currentWorkoutPlan))
+    fun createWorkout(name: String, workoutPlanName: String) = viewModelScope.launch {
+        dao.insertWorkout(WorkoutModel(0, name, workoutPlanName))
     }
 
-    fun getWorkoutPlan(name: String) = viewModelScope.launch {
+    fun getWorkoutList(name: String) = viewModelScope.launch {
         _workoutPlan.value = dao.getWorkoutPlanWithWorkout(name)
     }
 
+    fun getWorkoutPlanWithWorkout(name: String) = viewModelScope.launch {
+        _currentWorkoutPlan.value = dao.getWorkoutPlan(name)
+    }
+
     fun deleteWorkoutPlan() = viewModelScope.launch {
-        dao.deleteByWorkoutPlanName(currentWorkoutPlan)
+        dao.deleteByWorkoutPlanName(currentWorkoutPlan.value!!.workoutPlan.name)
     }
 
     fun deleteWorkout(workout: WorkoutModel)= viewModelScope.launch {

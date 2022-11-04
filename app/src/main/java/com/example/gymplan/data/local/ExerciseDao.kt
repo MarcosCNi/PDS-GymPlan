@@ -28,6 +28,10 @@ interface ExerciseDao {
     @Query("SELECT * FROM WorkoutModel WHERE workoutPlanName =:workoutPlanName")
     suspend fun getWorkoutPlanWithWorkout(workoutPlanName: String): List<WorkoutModel>
 
+    @Transaction
+    @Query("SELECT * FROM WorkoutPlanModel WHERE name =:workoutPlanName")
+    suspend fun getWorkoutPlan(workoutPlanName: String): WorkoutPlanWithWorkout
+
     //DELETE QUERY
     @Query("DELETE FROM WorkoutPlanModel WHERE name =:workoutName")
     suspend fun deleteByWorkoutPlanName(workoutName: String)
