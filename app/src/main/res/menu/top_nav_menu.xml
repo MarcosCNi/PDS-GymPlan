@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_back"
-        android:title="@string/title_back"
-        android:icon="@drawable/ic_back_24"/>
+        android:id="@+id/option_1"
+        android:title="@string/delete_exercise_list"
+        android:icon="@drawable/ic_delete"/>
     <item
-        android:id="@+id/navigation_options"
-        android:title="@string/title_options"
-        android:icon="@drawable/ic_options_24"/>
+        android:id="@+id/option_2"
+        android:title="@string/add_exercise"
+        android:icon="@drawable/ic_add"/>
 
 </menu>

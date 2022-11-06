@@ -14,7 +14,6 @@
             android:id="@+id/topNavigationBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="?attr/colorPrimary"
             app:title="@string/app_name"
             app:titleCentered="true"
             app:menu="@menu/top_nav_menu"
@@ -30,5 +29,15 @@
         tools:listitem="@layout/item_exercise_info">
 
     </com.tsuryo.swipeablerv.SwipeableRecyclerView>
+
+    <TextView
+        android:id="@+id/emptyList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nothing_here"
+        android:visibility="gone"
+        android:textStyle="italic"
+        android:layout_gravity="center"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

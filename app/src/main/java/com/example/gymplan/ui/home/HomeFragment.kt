@@ -28,10 +28,15 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
 
     override val viewModel: HomeViewModel by viewModels()
     private val workoutAdapter by lazy { WorkoutListAdapter() }
+
+    override fun onResume() {
+        super.onResume()
+        collectObservers()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,7 +67,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 rvPlanList.adapter?.notifyDataSetChanged()
                 toast("Edit")
             }
-
             override fun onSwipedRight(position: Int) {
                 val workout = workoutAdapter.getWorkoutPosition(position)
                 viewModel.deleteWorkout(workout).also {
@@ -198,7 +202,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             setPositiveButton("Ok"){_, _ ->
                 if (editText.text.toString().isEmpty()){
                     toast(getString(R.string.empty_text))
-                }else{
+                }else if(binding.homeSelectDropdownText.text.isEmpty()){
+                    toast(getString(R.string.empty_workout_plan_list))
+                } else{
                     viewModel.createWorkout(editText.text.toString(), binding.homeSelectDropdownText.text.toString())
                 }
                 collectObservers()

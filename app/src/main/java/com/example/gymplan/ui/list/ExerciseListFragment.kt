@@ -14,6 +14,7 @@ import com.example.gymplan.utils.Constants.DEFAULT_QUERY
 import com.example.gymplan.utils.Constants.LAST_SEARCH_QUERY
 import com.example.gymplan.utils.gone
 import com.example.gymplan.utils.show
+import com.example.gymplan.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +31,13 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
         searchInit(query)
         collectObserver()
+        clickAdapter()
+    }
+
+    private fun clickAdapter() {
+        exerciseAdapter.setOnclickListener {
+            toast(it.name.toString())
+        }
     }
 
 

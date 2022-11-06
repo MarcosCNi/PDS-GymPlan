@@ -99,5 +99,8 @@
     <string name="select_workout">Select a workout plan</string>
     <string name="message_delete_workout">"Workout deleted with success "</string>
     <string name="edit_workout">Edit exercise list</string>
+    <string name="empty_workout_plan_list">Please create a workout plan first</string>
+    <string name="add_exercise">Add a new exercise</string>
+    <string name="delete_exercise_list">Delete exercise list</string>
 
 </resources>

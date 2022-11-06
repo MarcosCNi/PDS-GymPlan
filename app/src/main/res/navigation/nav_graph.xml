@@ -45,5 +45,8 @@
         <argument
             android:name="workoutModel"
             app:argType="com.example.gymplan.data.model.entity.WorkoutModel" />
+        <action
+            android:id="@+id/action_customExerciseListFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

@@ -49,7 +49,18 @@ class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.ExerciseVie
                 exercise.gifUrl.toString(),
             )
         }
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let {
+                it(exercise)
+            }
+        }
     }
 
     override fun getItemCount() = exercises.size
+
+    private var onItemClickListener: ((ExerciseModel) -> Unit)? = null
+
+    fun setOnclickListener(listener: (ExerciseModel) -> Unit){
+        onItemClickListener = listener
+    }
 }

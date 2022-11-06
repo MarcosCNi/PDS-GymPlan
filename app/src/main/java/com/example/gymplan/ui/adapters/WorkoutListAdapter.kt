@@ -45,7 +45,9 @@ class WorkoutListAdapter : RecyclerView.Adapter<WorkoutListAdapter.WorkoutViewHo
             tvDescWorkout.text = workout.desc
         }
         holder.itemView.setOnClickListener {
-
+            onItemClickListener?.let {
+                it(workout)
+            }
         }
     }
 
