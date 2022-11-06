@@ -19,6 +19,9 @@
         android:name="com.example.gymplan.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_customExerciseListFragment"
+            app:destination="@id/customExerciseListFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -34,4 +37,13 @@
         android:name="com.example.gymplan.ui.calendar.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/customExerciseListFragment"
+        android:name="com.example.gymplan.ui.customlist.CustomExerciseListFragment"
+        android:label="fragment_custom_exercise_list"
+        tools:layout="@layout/fragment_custom_exercise_list" >
+        <argument
+            android:name="workoutModel"
+            app:argType="com.example.gymplan.data.model.entity.WorkoutModel" />
+    </fragment>
 </navigation>

@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
     val workoutPlan: LiveData<List<WorkoutModel>> get() = _workoutPlan
 
     private val _currentWorkoutPlan = MutableLiveData<WorkoutPlanWithWorkout>()
-    val currentWorkoutPlan: LiveData<WorkoutPlanWithWorkout> get() = _currentWorkoutPlan
+    private val currentWorkoutPlan: LiveData<WorkoutPlanWithWorkout> get() = _currentWorkoutPlan
 
 
     init {
@@ -67,7 +67,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getWorkoutList(name: String) = viewModelScope.launch {
-        _workoutPlan.value = dao.getWorkoutPlanWithWorkout(name)
+        _workoutPlan.value = dao.getWorkoutModelList(name)
     }
 
     fun getWorkoutPlanWithWorkout(name: String) = viewModelScope.launch {

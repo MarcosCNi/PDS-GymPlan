@@ -10,4 +10,4 @@ data class WorkoutModel(
     val name: String,
     val workoutPlanName: String,
     val desc: String? = null,
-)
+):java.io.Serializable

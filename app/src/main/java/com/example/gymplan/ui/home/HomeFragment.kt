@@ -36,15 +36,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        clickAdapter()
         checkUser()
+        clickAdapter()
         collectObservers()
         setupOptionBtn()
     }
 
     private fun clickAdapter() {
         workoutAdapter.setOnclickListener { workoutModel ->
-            Log.e("HomeFragment", workoutModel.name)
+            val action = HomeFragmentDirections
+                .actionHomeFragmentToCustomExerciseListFragment(workoutModel)
+            findNavController().navigate(action)
         }
     }
 

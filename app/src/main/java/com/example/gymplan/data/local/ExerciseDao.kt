@@ -1,9 +1,11 @@
 package com.example.gymplan.data.local
 
 import androidx.room.*
+import com.example.gymplan.data.model.entity.Exercise
 import com.example.gymplan.data.model.entity.WorkoutModel
 import com.example.gymplan.data.model.entity.WorkoutPlanModel
 import com.example.gymplan.data.model.relations.WorkoutPlanWithWorkout
+import com.example.gymplan.data.model.relations.WorkoutWithExercise
 
 @Dao
 interface ExerciseDao {
@@ -13,6 +15,9 @@ interface ExerciseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWorkout(workout: WorkoutModel)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertExercise(exercise: Exercise)
 
     @Update
     suspend fun updateWorkoutPlan(workoutPlan: WorkoutPlanModel)
@@ -26,11 +31,15 @@ interface ExerciseDao {
 
     @Transaction
     @Query("SELECT * FROM WorkoutModel WHERE workoutPlanName =:workoutPlanName")
-    suspend fun getWorkoutPlanWithWorkout(workoutPlanName: String): List<WorkoutModel>
+    suspend fun getWorkoutModelList(workoutPlanName: String): List<WorkoutModel>
 
     @Transaction
     @Query("SELECT * FROM WorkoutPlanModel WHERE name =:workoutPlanName")
     suspend fun getWorkoutPlan(workoutPlanName: String): WorkoutPlanWithWorkout
+
+    @Transaction
+    @Query("SELECT * FROM WorkoutModel WHERE name=:workoutName")
+    suspend fun getWorkoutWithExercise(workoutName: String) : WorkoutWithExercise
 
     //DELETE QUERY
     @Query("DELETE FROM WorkoutPlanModel WHERE name =:workoutName")

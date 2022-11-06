@@ -92,6 +92,7 @@
     <string name="create_exercise_list">Create new exercise list</string>
     <string name="edit_workout_plan">Edit workout plan</string>
     <string name="share_workout">Share workout plan</string>
+
     <string name="delete_workout_plan">Delete workout plan</string>
 
     <string name="type_name">Type a name</string>
