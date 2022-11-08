@@ -2,6 +2,7 @@ package com.example.gymplan.data.model.entity
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 
 @Entity
@@ -15,7 +16,7 @@ data class Exercise (
     val name: String? = null,
     val workoutName: String? = null,
     val target: String? = null
-){
+) : Serializable {
     constructor():this(
         "",
         "",

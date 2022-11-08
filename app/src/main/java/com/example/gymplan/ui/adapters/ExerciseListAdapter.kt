@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymplan.data.model.ExerciseModel
 import com.example.gymplan.databinding.ItemExerciseBinding
+import com.example.gymplan.utils.limitCharacters
 import com.example.gymplan.utils.loadImg
 
 class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.ExerciseViewHolder>() {
@@ -42,7 +43,7 @@ class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.ExerciseVie
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
         val exercise = exercises[position]
         holder.binding.apply {
-            tvNameExercise.text = exercise.name
+            tvNameExercise.text = exercise.name?.limitCharacters(20)
             tvDescExercise.text = exercise.target!!.uppercase()
             loadImg(
                 imgExercise,

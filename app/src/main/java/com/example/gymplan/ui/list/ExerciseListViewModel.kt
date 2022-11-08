@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gymplan.data.local.ExerciseDao
 import com.example.gymplan.data.model.ExerciseModel
+import com.example.gymplan.data.model.entity.Exercise
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -15,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExerciseListViewModel @Inject constructor(
-    private val firebaseDatabase: FirebaseDatabase
+    private val firebaseDatabase: FirebaseDatabase,
+    private val dao: ExerciseDao
 ) : ViewModel() {
 
     private val _list = MutableLiveData<ArrayList<ExerciseModel>>()
@@ -54,5 +57,10 @@ class ExerciseListViewModel @Inject constructor(
                 TODO("Not yet implemented")
             }
         })
+    }
+
+
+    fun addExercise(exercise: Exercise) = viewModelScope.launch {
+        dao.insertExercise(exercise)
     }
 }

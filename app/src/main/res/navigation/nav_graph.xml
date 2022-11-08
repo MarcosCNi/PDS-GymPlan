@@ -8,7 +8,16 @@
         android:id="@+id/exerciseListFragment"
         android:name="com.example.gymplan.ui.list.ExerciseListFragment"
         android:label="fragment_exercise_list"
-        tools:layout="@layout/fragment_exercise_list" />
+        tools:layout="@layout/fragment_exercise_list" >
+        <action
+            android:id="@+id/action_exerciseListFragment_to_customExerciseListFragment"
+            app:destination="@id/customExerciseListFragment" />
+        <argument
+            android:name="workoutModel"
+            app:argType="com.example.gymplan.data.model.entity.WorkoutModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/signInFragment2"
         android:name="com.example.gymplan.ui.login.SignInFragment"
@@ -39,7 +48,7 @@
         tools:layout="@layout/fragment_calendar" />
     <fragment
         android:id="@+id/customExerciseListFragment"
-        android:name="com.example.gymplan.ui.customlist.CustomExerciseListFragment"
+        android:name="com.example.gymplan.ui.customList.CustomExerciseListFragment"
         android:label="fragment_custom_exercise_list"
         tools:layout="@layout/fragment_custom_exercise_list" >
         <argument
@@ -48,5 +57,8 @@
         <action
             android:id="@+id/action_customExerciseListFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_customExerciseListFragment_to_exerciseListFragment"
+            app:destination="@id/exerciseListFragment" />
     </fragment>
 </navigation>

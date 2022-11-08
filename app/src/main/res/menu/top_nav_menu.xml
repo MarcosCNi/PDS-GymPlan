@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/option_1"
+        android:id="@+id/optionDeleteExerciseList"
         android:title="@string/delete_exercise_list"
         android:icon="@drawable/ic_delete"/>
     <item
-        android:id="@+id/option_2"
+        android:id="@+id/optionAddExercise"
         android:title="@string/add_exercise"
         android:icon="@drawable/ic_add"/>
 

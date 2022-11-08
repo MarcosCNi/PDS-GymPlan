@@ -16,18 +16,29 @@
         android:padding="12dp"
         android:background="@drawable/card_background">
 
-        <ImageView
-            android:id="@+id/imgExercise"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/imgCardView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:contentDescription="@string/app_name"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:cardCornerRadius="5dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgExercise"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        </com.google.android.material.card.MaterialCardView>
+
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvNameWorkout"
+            android:id="@+id/tvNameExerciseInfo"
             style="@style/TextAppearance.MaterialComponents.Subtitle2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -39,18 +50,18 @@
             android:textStyle="bold"
             app:autoSizeMinTextSize="12sp"
             app:autoSizeTextType="uniform"
-            app:layout_constraintStart_toEndOf="@+id/imgExercise"
+            app:layout_constraintStart_toEndOf="@+id/imgCardView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvDescWorkout"
+            android:id="@+id/tvDescExerciseInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:lines="1"
             android:text="@string/tx_item_description"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/tvNameWorkout"
-            app:layout_constraintTop_toBottomOf="@+id/tvNameWorkout" />
+            app:layout_constraintStart_toStartOf="@+id/tvNameExerciseInfo"
+            app:layout_constraintTop_toBottomOf="@+id/tvNameExerciseInfo" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputWeight"
@@ -59,7 +70,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="12dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgExercise"
+            app:layout_constraintTop_toBottomOf="@+id/imgCardView"
             android:hint="@string/weight">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -76,7 +87,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@+id/textInputWeight"
-            app:layout_constraintTop_toBottomOf="@+id/imgExercise"
+            app:layout_constraintTop_toBottomOf="@+id/imgCardView"
             android:hint="@string/sets">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -93,7 +104,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@+id/textInputSet"
-            app:layout_constraintTop_toBottomOf="@+id/imgExercise"
+            app:layout_constraintTop_toBottomOf="@+id/imgCardView"
             android:hint="@string/reps">
 
             <com.google.android.material.textfield.TextInputEditText

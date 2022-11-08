@@ -5,21 +5,23 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymplan.R
+import com.example.gymplan.data.model.entity.Exercise
 import com.example.gymplan.databinding.FragmentExerciseListBinding
 import com.example.gymplan.ui.adapters.ExerciseListAdapter
 import com.example.gymplan.ui.base.BaseFragment
 import com.example.gymplan.utils.Constants.DEFAULT_QUERY
 import com.example.gymplan.utils.Constants.LAST_SEARCH_QUERY
-import com.example.gymplan.utils.gone
-import com.example.gymplan.utils.show
 import com.example.gymplan.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseListViewModel>() {
 
+    private val args: ExerciseListFragmentArgs by navArgs()
     override val viewModel: ExerciseListViewModel by viewModels()
     private val exerciseAdapter by lazy { ExerciseListAdapter() }
 
@@ -36,7 +38,22 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
 
     private fun clickAdapter() {
         exerciseAdapter.setOnclickListener {
-            toast(it.name.toString())
+            if (args.workoutModel != null){
+                val exercise = Exercise(
+                    it.bodyPart,
+                    it.equipment,
+                    it.gifUrl,
+                    it.id!!.toInt(),
+                    it.name,
+                    args.workoutModel!!.name,
+                    it.target
+                )
+                viewModel.addExercise(exercise)
+                val action = ExerciseListFragmentDirections
+                    .actionExerciseListFragmentToCustomExerciseListFragment(args.workoutModel!!)
+                findNavController().navigate(action)
+                toast(it.name.toString())
+            }
         }
     }
 

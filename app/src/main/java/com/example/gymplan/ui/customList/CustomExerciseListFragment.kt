@@ -1,4 +1,4 @@
-package com.example.gymplan.ui.customlist
+package com.example.gymplan.ui.customList
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +8,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gymplan.R
 import com.example.gymplan.data.model.entity.WorkoutModel
 import com.example.gymplan.databinding.FragmentCustomExerciseListBinding
 import com.example.gymplan.ui.adapters.CustomExerciseListAdapter
 import com.example.gymplan.ui.base.BaseFragment
-import com.example.gymplan.ui.home.HomeFragment
 import com.example.gymplan.utils.gone
 import com.example.gymplan.utils.show
+import com.example.gymplan.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,6 +54,22 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
             val action = CustomExerciseListFragmentDirections
                 .actionCustomExerciseListFragmentToHomeFragment()
             findNavController().navigate(action)
+        }
+        topNavigationBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.optionDeleteExerciseList -> {
+                    toast(menuItem.title.toString())
+                    true
+                }
+                R.id.optionAddExercise -> {
+                    val action = CustomExerciseListFragmentDirections
+                        .actionCustomExerciseListFragmentToExerciseListFragment(workoutModel)
+                    findNavController().navigate(action)
+                    toast(menuItem.title.toString())
+                    true
+                }
+                else -> false
+            }
         }
         viewModel.getExerciseList(workoutModel.name)
     }

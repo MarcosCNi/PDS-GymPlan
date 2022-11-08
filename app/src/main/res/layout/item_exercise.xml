@@ -15,12 +15,11 @@
         android:padding="10dp"
         android:background="@drawable/card_background">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/imgCardView"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="150dp"
             app:cardCornerRadius="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -32,34 +31,36 @@
                 android:scaleType="centerCrop"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
+
 
         <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:id="@+id/tvNameExercise"
-            android:lines="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@string/tx_item_name"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:lines="1"
             app:autoSizeMinTextSize="12sp"
             app:autoSizeTextType="uniform"
+            app:layout_constraintStart_toEndOf="@+id/imgCardView"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgCardView"/>
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvDescExercise"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/tx_item_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:lines="1"
+            android:text="@string/tx_item_description"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNameExercise"/>
+            android:textAlignment="inherit"
+            app:layout_constraintStart_toStartOf="@+id/tvNameExercise"
+            app:layout_constraintTop_toBottomOf="@+id/tvNameExercise" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

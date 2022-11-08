@@ -37,3 +37,11 @@ fun View.hide(){
 fun View.gone(){
     visibility = View.GONE
 }
+
+fun String.limitCharacters(characters: Int): String {
+    if(this.length > characters){
+        val firstCharacter = 0
+        return "${this.substring(firstCharacter, characters)}..."
+    }
+    return this
+}

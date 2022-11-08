@@ -42,8 +42,8 @@ class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter
     override fun onBindViewHolder(holder: ExerciseInfoViewHolder, position: Int) {
         val exercise = exercises[position]
         holder.binding.apply {
-            tvNameWorkout.text = exercise.name
-            tvDescWorkout.text = exercise.target!!.uppercase()
+            tvNameExerciseInfo.text = exercise.name
+            tvDescExerciseInfo.text = exercise.target!!.uppercase()
             loadImg(
                 imgExercise,
                 exercise.gifUrl.toString(),
