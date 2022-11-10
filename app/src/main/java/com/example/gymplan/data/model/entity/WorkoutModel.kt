@@ -8,6 +8,6 @@ data class WorkoutModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String,
-    val workoutPlanName: String,
+    val workoutPlanId: Int,
     val desc: String? = null,
 ):java.io.Serializable

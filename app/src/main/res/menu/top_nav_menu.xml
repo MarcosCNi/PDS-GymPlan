@@ -10,4 +10,9 @@
         android:title="@string/add_exercise"
         android:icon="@drawable/ic_add"/>
 
+<!--    <item-->
+<!--        android:id="@+id/optionCompleteWorkout"-->
+<!--        android:title="@string/add_exercise"-->
+<!--        android:icon="@drawable/ic_save"/>-->
+
 </menu>

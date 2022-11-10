@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymplan.data.model.entity.Exercise
+import com.example.gymplan.data.model.entity.WorkoutModel
 import com.example.gymplan.databinding.ItemExerciseInfoBinding
 import com.example.gymplan.utils.loadImg
 
@@ -31,6 +32,8 @@ class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
+    val exercisesChecked: MutableList<Exercise> = mutableListOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseInfoViewHolder {
         return ExerciseInfoViewHolder(
             ItemExerciseInfoBinding.inflate(
@@ -49,7 +52,18 @@ class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter
                 exercise.gifUrl.toString(),
             )
         }
+        holder.binding.exerciseCheckBox.setOnClickListener {
+            if (exercisesChecked.contains(exercise)){
+                exercisesChecked.removeAt(position)
+            }else{
+                exercisesChecked.add(exercise)
+            }
+        }
     }
 
     override fun getItemCount() = exercises.size
+
+    fun getWorkoutPosition(position: Int): Exercise {
+        return exercises[position]
+    }
 }

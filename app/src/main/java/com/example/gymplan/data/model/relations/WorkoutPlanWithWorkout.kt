@@ -7,8 +7,8 @@ import com.example.gymplan.data.model.entity.WorkoutPlanModel
 data class WorkoutPlanWithWorkout(
     @Embedded val workoutPlan: WorkoutPlanModel,
     @Relation(
-        parentColumn = "name",
-        entityColumn = "workoutPlanName"
+        parentColumn = "id",
+        entityColumn = "workoutPlanId"
     )
     val workoutList: List<WorkoutModel>
 )

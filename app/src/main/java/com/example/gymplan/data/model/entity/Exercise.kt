@@ -14,7 +14,7 @@ data class Exercise (
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val name: String? = null,
-    val workoutName: String? = null,
+    val workoutId: Int? = null,
     val target: String? = null
 ) : Serializable {
     constructor():this(
@@ -23,7 +23,7 @@ data class Exercise (
         "",
         0,
         "",
-        "",
+        0,
         ""
     )
 }

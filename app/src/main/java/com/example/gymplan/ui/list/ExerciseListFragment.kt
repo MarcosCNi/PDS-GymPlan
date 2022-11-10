@@ -45,7 +45,7 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
                     it.gifUrl,
                     it.id!!.toInt(),
                     it.name,
-                    args.workoutModel!!.name,
+                    args.workoutModel!!.id,
                     it.target
                 )
                 viewModel.addExercise(exercise)

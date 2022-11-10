@@ -18,7 +18,7 @@ class WorkoutListAdapter : RecyclerView.Adapter<WorkoutListAdapter.WorkoutViewHo
             return oldItem.hashCode() == newItem.hashCode()
         }
         override fun areContentsTheSame(oldItem: WorkoutModel, newItem: WorkoutModel): Boolean {
-            return oldItem.name == newItem.name && oldItem.desc == newItem.desc && oldItem.workoutPlanName == newItem.workoutPlanName
+            return oldItem.name == newItem.name && oldItem.desc == newItem.desc && oldItem.workoutPlanId == newItem.workoutPlanId
         }
     }
 

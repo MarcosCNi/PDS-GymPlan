@@ -25,21 +25,24 @@ interface ExerciseDao {
     @Update
     suspend fun updateWorkout(workout: WorkoutModel)
 
+    @Update
+    suspend fun updateExercise(exercise: Exercise)
+
     @Transaction
     @Query("SELECT * FROM WorkoutPlanModel")
     suspend fun getAllWorkoutPlanWithWorkout(): List<WorkoutPlanWithWorkout>
 
     @Transaction
-    @Query("SELECT * FROM WorkoutModel WHERE workoutPlanName =:workoutPlanName")
-    suspend fun getWorkoutModelList(workoutPlanName: String): List<WorkoutModel>
+    @Query("SELECT * FROM WorkoutModel WHERE workoutPlanId =:workoutPlanId")
+    suspend fun getWorkoutModelList(workoutPlanId: Int): List<WorkoutModel>
 
     @Transaction
     @Query("SELECT * FROM WorkoutPlanModel WHERE name =:workoutPlanName")
     suspend fun getWorkoutPlan(workoutPlanName: String): WorkoutPlanWithWorkout
 
     @Transaction
-    @Query("SELECT * FROM WorkoutModel WHERE name=:workoutName")
-    suspend fun getWorkoutWithExercise(workoutName: String) : WorkoutWithExercise
+    @Query("SELECT * FROM WorkoutModel WHERE id=:id")
+    suspend fun getWorkoutWithExercise(id: Int) : WorkoutWithExercise
 
     //DELETE QUERY
     @Query("DELETE FROM WorkoutPlanModel WHERE name =:workoutName")
@@ -48,4 +51,6 @@ interface ExerciseDao {
     @Query("DELETE FROM WorkoutModel WHERE name =:name")
     suspend fun deleteByWorkoutName(name: String)
 
+    @Query("DELETE FROM Exercise WHERE name =:name")
+    suspend fun deleteExercise(name: String)
 }

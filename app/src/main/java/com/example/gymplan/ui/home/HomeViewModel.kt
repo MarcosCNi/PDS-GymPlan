@@ -26,11 +26,8 @@ class HomeViewModel @Inject constructor(
     private val _workoutPlanList = MutableLiveData<List<WorkoutPlanWithWorkout>>()
     val workoutPlanList: LiveData<List<WorkoutPlanWithWorkout>> get() = _workoutPlanList
 
-    private val _workoutPlan = MutableLiveData<List<WorkoutModel>>()
-    val workoutPlan: LiveData<List<WorkoutModel>> get() = _workoutPlan
-
     private val _currentWorkoutPlan = MutableLiveData<WorkoutPlanWithWorkout>()
-    private val currentWorkoutPlan: LiveData<WorkoutPlanWithWorkout> get() = _currentWorkoutPlan
+    val currentWorkoutPlan: LiveData<WorkoutPlanWithWorkout> get() = _currentWorkoutPlan
 
 
     init {
@@ -62,15 +59,11 @@ class HomeViewModel @Inject constructor(
         dao.insertWorkoutPlan(WorkoutPlanModel(0, name))
     }
 
-    fun createWorkout(name: String, workoutPlanName: String) = viewModelScope.launch {
-        dao.insertWorkout(WorkoutModel(0, name, workoutPlanName))
+    fun createWorkout(name: String, workoutPlanId: Int) = viewModelScope.launch {
+        dao.insertWorkout(WorkoutModel(0, name, workoutPlanId))
     }
 
-    fun getWorkoutList(name: String) = viewModelScope.launch {
-        _workoutPlan.value = dao.getWorkoutModelList(name)
-    }
-
-    fun getWorkoutPlanWithWorkout(name: String) = viewModelScope.launch {
+    fun getCurrentWorkoutPlan(name: String) = viewModelScope.launch {
         _currentWorkoutPlan.value = dao.getWorkoutPlan(name)
     }
 

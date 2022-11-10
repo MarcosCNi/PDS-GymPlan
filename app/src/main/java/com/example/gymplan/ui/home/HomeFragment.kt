@@ -1,7 +1,6 @@
 package com.example.gymplan.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymplan.R
 import com.example.gymplan.data.model.entity.WorkoutModel
-import com.example.gymplan.data.model.entity.WorkoutPlanModel
 import com.example.gymplan.databinding.FragmentHomeBinding
 import com.example.gymplan.ui.adapters.WorkoutListAdapter
 import com.example.gymplan.ui.base.BaseFragment
@@ -64,7 +62,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
             override fun onSwipedLeft(position: Int) {
                 val workout = workoutAdapter.getWorkoutPosition(position)
                 setupRenameWorkoutDialog(workout)
-                rvPlanList.adapter?.notifyDataSetChanged()
                 toast("Edit")
             }
             override fun onSwipedRight(position: Int) {
@@ -73,14 +70,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                     collectObservers()
                     toast(getString(R.string.message_delete_workout))
                 }
-                rvPlanList.adapter?.notifyDataSetChanged()
             }
         })
     }
 
     private fun collectObservers() = with(binding) {
         emptyList.show()
-        viewModel.getWorkoutList(homeSelectDropdownText.text.toString())
         viewModel.safeFetch()
         viewModel.workoutPlanList.observe(viewLifecycleOwner){
             val workoutPlanNameList: ArrayList<String> = arrayListOf()
@@ -88,22 +83,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                 workoutPlanNameList.add(item.workoutPlan.name)
             }
             if (workoutPlanNameList.isNotEmpty() && homeSelectDropdownText.text.isEmpty()){
-                homeSelectDropdownText.setText(workoutPlanNameList[0])
-                viewModel.getWorkoutList(homeSelectDropdownText.text.toString())
-                viewModel.getWorkoutPlanWithWorkout(homeSelectDropdownText.text.toString())
+                homeSelectDropdownText.setText(it[0].workoutPlan.name)
+                viewModel.getCurrentWorkoutPlan(it[0].workoutPlan.name)
             }
             val equipmentAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, workoutPlanNameList)
             homeSelectDropdownText.setAdapter(equipmentAdapter)
-            homeSelectDropdownText.setOnItemClickListener { _, _, _, _ ->
-                viewModel.getWorkoutList(homeSelectDropdownText.text.toString())
-                viewModel.getWorkoutPlanWithWorkout(homeSelectDropdownText.text.toString())
+            homeSelectDropdownText.setOnItemClickListener { _, _, id, _ ->
+                viewModel.getCurrentWorkoutPlan(homeSelectDropdownText.text.toString())
             }
-            viewModel.workoutPlan.observe(viewLifecycleOwner){ workoutList->
-                if (workoutList.isEmpty()){
+            viewModel.currentWorkoutPlan.observe(viewLifecycleOwner){ currentWorkoutPlan->
+                if (currentWorkoutPlan.workoutList.isEmpty()){
                     workoutAdapter.workoutList = emptyList()
                     emptyList.show()
                 }else{
-                    workoutAdapter.workoutList = workoutList.toList()
+                    workoutAdapter.workoutList = currentWorkoutPlan.workoutList.toList()
                     emptyList.gone()
                 }
             }
@@ -182,8 +175,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                     toast(getString(R.string.empty_text))
                 }else{
                     binding.homeSelectDropdownText.text = editText.text
-                    viewModel.getWorkoutPlanWithWorkout(editText.text.toString())
                     viewModel.createWorkoutPlan(editText.text.toString())
+                    viewModel.getCurrentWorkoutPlan(editText.text.toString())
                 }
                 collectObservers()
             }
@@ -205,7 +198,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                 }else if(binding.homeSelectDropdownText.text.isEmpty()){
                     toast(getString(R.string.empty_workout_plan_list))
                 } else{
-                    viewModel.createWorkout(editText.text.toString(), binding.homeSelectDropdownText.text.toString())
+                    viewModel.createWorkout(editText.text.toString(), viewModel.currentWorkoutPlan.value!!.workoutPlan.id)
                 }
                 collectObservers()
             }
@@ -229,7 +222,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                         WorkoutModel(
                             workout.id,
                             editText.text.toString(),
-                            binding.homeSelectDropdownText.text.toString(),
+                            viewModel.currentWorkoutPlan.value!!.workoutPlan.id,
                         )
                     )
                 }
