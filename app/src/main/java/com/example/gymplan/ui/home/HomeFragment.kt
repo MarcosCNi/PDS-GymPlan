@@ -62,11 +62,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
             override fun onSwipedLeft(position: Int) {
                 val workout = workoutAdapter.getWorkoutPosition(position)
                 setupRenameWorkoutDialog(workout)
+                rvPlanList.adapter?.notifyItemChanged(position)
                 toast("Edit")
             }
             override fun onSwipedRight(position: Int) {
                 val workout = workoutAdapter.getWorkoutPosition(position)
                 viewModel.deleteWorkout(workout).also {
+                    rvPlanList.adapter?.notifyItemChanged(position)
                     collectObservers()
                     toast(getString(R.string.message_delete_workout))
                 }
@@ -77,6 +79,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
     private fun collectObservers() = with(binding) {
         emptyList.show()
         viewModel.safeFetch()
+        if (homeSelectDropdownText.text.isNotEmpty()){
+            viewModel.getCurrentWorkoutPlan(homeSelectDropdownText.text.toString())
+        }
         viewModel.workoutPlanList.observe(viewLifecycleOwner){
             val workoutPlanNameList: ArrayList<String> = arrayListOf()
             for (item in it){
@@ -88,7 +93,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
             }
             val equipmentAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, workoutPlanNameList)
             homeSelectDropdownText.setAdapter(equipmentAdapter)
-            homeSelectDropdownText.setOnItemClickListener { _, _, id, _ ->
+            homeSelectDropdownText.setOnItemClickListener { _, _, _, _ ->
                 viewModel.getCurrentWorkoutPlan(homeSelectDropdownText.text.toString())
             }
             viewModel.currentWorkoutPlan.observe(viewLifecycleOwner){ currentWorkoutPlan->
@@ -226,6 +231,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                         )
                     )
                 }
+                workoutAdapter.notifyDataSetChanged()
                 collectObservers()
             }
             setNegativeButton("Cancel"){_, _ -> }
