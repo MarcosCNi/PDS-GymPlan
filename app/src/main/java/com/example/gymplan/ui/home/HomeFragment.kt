@@ -45,6 +45,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         setupOptionBtn()
     }
 
+
     private fun clickAdapter() {
         workoutAdapter.setOnclickListener { workoutModel ->
             val action = HomeFragmentDirections
@@ -77,7 +78,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
     }
 
     private fun collectObservers() = with(binding) {
-        emptyList.show()
         viewModel.safeFetch()
         if (homeSelectDropdownText.text.isNotEmpty()){
             viewModel.getCurrentWorkoutPlan(homeSelectDropdownText.text.toString())
@@ -93,15 +93,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
             }
             val equipmentAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, workoutPlanNameList)
             homeSelectDropdownText.setAdapter(equipmentAdapter)
+            if (homeSelectDropdownText.adapter.isEmpty){
+                viewModel.createWorkoutPlan(getString(R.string.auto_workout_plan))
+            }
             homeSelectDropdownText.setOnItemClickListener { _, _, _, _ ->
                 viewModel.getCurrentWorkoutPlan(homeSelectDropdownText.text.toString())
             }
             viewModel.currentWorkoutPlan.observe(viewLifecycleOwner){ currentWorkoutPlan->
                 if (currentWorkoutPlan.workoutList.isEmpty()){
                     workoutAdapter.workoutList = emptyList()
+                    leftBottomAddFab.gone()
+                    centerAddFab.show()
                     emptyList.show()
                 }else{
                     workoutAdapter.workoutList = currentWorkoutPlan.workoutList.toList()
+                    leftBottomAddFab.show()
+                    centerAddFab.gone()
                     emptyList.gone()
                 }
             }
