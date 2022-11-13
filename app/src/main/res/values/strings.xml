@@ -106,5 +106,6 @@
     <string name="auto_workout_plan">My workout plan</string>
     <string name="fab_content_desc">Add new workout</string>
     <string name="empty_workout_list">You don\'t have any exercise list</string>
+    <string name="empty_exercise_list">You don\'t have any exercise</string>
 
 </resources>

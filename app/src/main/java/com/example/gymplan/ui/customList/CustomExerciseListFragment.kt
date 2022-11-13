@@ -56,14 +56,25 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
             if (it.exerciseList.isEmpty()){
                 customExerciseAdapter.exercises = listOf()
                 emptyList.show()
+                centerAddFab.show()
+                leftBottomAddFab.gone()
             }else{
                 customExerciseAdapter.exercises = it.exerciseList.toList()
                 emptyList.gone()
+                centerAddFab.gone()
+                leftBottomAddFab.show()
             }
         }
     }
 
     private fun setData() = with(binding) {
+        leftBottomAddFab.setOnClickListener {
+            navigateToExerciseList()
+
+        }
+        centerAddFab.setOnClickListener {
+            navigateToExerciseList()
+        }
         topNavigationBar.title = workoutModel.name
         topNavigationBar.setNavigationOnClickListener {
             val action = CustomExerciseListFragmentDirections
@@ -77,9 +88,7 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
                     true
                 }
                 R.id.optionAddExercise -> {
-                    val action = CustomExerciseListFragmentDirections
-                        .actionCustomExerciseListFragmentToExerciseListFragment(workoutModel)
-                    findNavController().navigate(action)
+                    navigateToExerciseList()
                     toast(menuItem.title.toString())
                     true
                 }
@@ -87,6 +96,12 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
             }
         }
         viewModel.getExerciseList(workoutModel.id)
+    }
+
+    private fun navigateToExerciseList() {
+        val action = CustomExerciseListFragmentDirections
+            .actionCustomExerciseListFragmentToExerciseListFragment(workoutModel)
+        findNavController().navigate(action)
     }
 
     private fun setupRecyclerView() = with(binding) {

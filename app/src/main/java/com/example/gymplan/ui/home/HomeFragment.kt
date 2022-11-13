@@ -43,6 +43,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         clickAdapter()
         collectObservers()
         setupOptionBtn()
+        setupFAB()
+    }
+
+    private fun setupFAB() = with(binding) {
+        centerAddFab.setOnClickListener {
+            setupWorkoutDialog()
+        }
+        leftBottomAddFab.setOnClickListener {
+            setupWorkoutDialog()
+        }
     }
 
 
