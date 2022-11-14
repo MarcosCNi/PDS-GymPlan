@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymplan.R
 import com.example.gymplan.data.model.entity.WorkoutModel
+import com.example.gymplan.data.model.entity.WorkoutPlanModel
 import com.example.gymplan.databinding.FragmentHomeBinding
 import com.example.gymplan.ui.adapters.WorkoutListAdapter
 import com.example.gymplan.ui.base.BaseFragment
@@ -53,6 +54,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         leftBottomAddFab.setOnClickListener {
             setupWorkoutDialog()
         }
+        val equipmentAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, arrayListOf(getString(R.string.auto_workout_plan)))
+        homeSelectDropdownText.setAdapter(equipmentAdapter)
+        homeSelectDropdownText.setOnItemClickListener { _, _, _, _ ->
+            viewModel.getCurrentWorkoutPlan(homeSelectDropdownText.text.toString())
+        }
     }
 
 
@@ -93,33 +99,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
             viewModel.getCurrentWorkoutPlan(homeSelectDropdownText.text.toString())
         }
         viewModel.workoutPlanList.observe(viewLifecycleOwner){
-            val workoutPlanNameList: ArrayList<String> = arrayListOf()
-            for (item in it){
-                workoutPlanNameList.add(item.workoutPlan.name)
-            }
-            if (workoutPlanNameList.isNotEmpty() && homeSelectDropdownText.text.isEmpty()){
-                homeSelectDropdownText.setText(it[0].workoutPlan.name)
-                viewModel.getCurrentWorkoutPlan(it[0].workoutPlan.name)
-            }
-            val equipmentAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, workoutPlanNameList)
-            homeSelectDropdownText.setAdapter(equipmentAdapter)
-            if (homeSelectDropdownText.adapter.isEmpty){
-                viewModel.createWorkoutPlan(getString(R.string.auto_workout_plan))
-            }
-            homeSelectDropdownText.setOnItemClickListener { _, _, _, _ ->
-                viewModel.getCurrentWorkoutPlan(homeSelectDropdownText.text.toString())
-            }
-            viewModel.currentWorkoutPlan.observe(viewLifecycleOwner){ currentWorkoutPlan->
-                if (currentWorkoutPlan.workoutList.isEmpty()){
-                    workoutAdapter.workoutList = emptyList()
-                    leftBottomAddFab.gone()
-                    centerAddFab.show()
-                    emptyList.show()
-                }else{
-                    workoutAdapter.workoutList = currentWorkoutPlan.workoutList.toList()
-                    leftBottomAddFab.show()
-                    centerAddFab.gone()
-                    emptyList.gone()
+            val autoWorkout = getString(R.string.auto_workout_plan)
+            val workoutPlanNameList: ArrayList<String> = arrayListOf(autoWorkout)
+            if (it.isNullOrEmpty()){
+                workoutPlanNameList.add(autoWorkout)
+                viewModel.createWorkoutPlan(autoWorkout)
+                viewModel.getCurrentWorkoutPlan(autoWorkout)
+            }else{
+                for (item in it){
+                    if (item.workoutPlan.name != autoWorkout)
+                    workoutPlanNameList.add(item.workoutPlan.name)
+                }
+                if (workoutPlanNameList.isNotEmpty() && homeSelectDropdownText.text.isEmpty()){
+                    homeSelectDropdownText.setText(it[0].workoutPlan.name)
+                    viewModel.getCurrentWorkoutPlan(it[0].workoutPlan.name)
+                }
+                val equipmentAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, workoutPlanNameList)
+                homeSelectDropdownText.setAdapter(equipmentAdapter)
+                viewModel.currentWorkoutPlan.observe(viewLifecycleOwner){ currentWorkoutPlan->
+                    if (currentWorkoutPlan.workoutList.isEmpty()){
+                        workoutAdapter.workoutList = emptyList()
+                        leftBottomAddFab.gone()
+                        centerAddFab.show()
+                        emptyList.show()
+                    }else{
+                        workoutAdapter.workoutList = currentWorkoutPlan.workoutList.toList()
+                        leftBottomAddFab.show()
+                        centerAddFab.gone()
+                        emptyList.gone()
+                    }
                 }
             }
         }
@@ -146,6 +154,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                     true
                 }
                 R.id.option_3 -> {
+                    setupRenameWorkoutPlanDialog(viewModel.currentWorkoutPlan.value!!.workoutPlan)
                     true
                 }
                 R.id.option_4 -> {
@@ -161,9 +170,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
     }
 
     private fun deleteWorkoutPlan() {
-        viewModel.deleteWorkoutPlan()
-        findNavController().navigate(R.id.homeFragment)
-        collectObservers()
+        if (viewModel.currentWorkoutPlan.value!!.workoutPlan.name != getString(R.string.auto_workout_plan)){
+            viewModel.deleteWorkoutPlan()
+            findNavController().navigate(R.id.homeFragment)
+            collectObservers()
+        }
     }
 
     private fun checkUser(){
@@ -248,6 +259,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                         )
                     )
                 }
+                workoutAdapter.notifyDataSetChanged()
+                collectObservers()
+            }
+            setNegativeButton("Cancel"){_, _ -> }
+            setView(dialogLayout)
+            show()
+        }
+    }
+
+    private fun setupRenameWorkoutPlanDialog(workoutPlan: WorkoutPlanModel) {
+        val builder = MaterialAlertDialogBuilder(requireContext(), R.style.ThemeOverlay_App_MaterialAlertDialog)
+        val dialogLayout = layoutInflater.inflate(R.layout.custom_dialog_layout, null)
+        val editText = dialogLayout.findViewById<TextInputEditText>(R.id.nameInputLayoutText)
+        with(builder){
+            setTitle(R.string.edit_workout)
+            setPositiveButton("Ok"){_, _ ->
+                if (editText.text!!.isEmpty()){
+                    toast(getString(R.string.empty_text))
+                }else{
+                    viewModel.editWorkoutPlan(
+                        WorkoutPlanModel(
+                            workoutPlan.id,
+                            editText.text.toString()
+                        )
+                    )
+                }
+                binding.homeSelectDropdownText.text = editText.text
                 workoutAdapter.notifyDataSetChanged()
                 collectObservers()
             }
