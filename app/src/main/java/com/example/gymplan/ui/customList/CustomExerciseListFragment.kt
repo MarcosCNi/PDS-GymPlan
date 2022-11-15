@@ -1,7 +1,6 @@
 package com.example.gymplan.ui.customList
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,12 +39,17 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
         collectObserver()
         checkWorkoutProgress()
     }
-
-
-
+    
     private fun checkWorkoutProgress() {
-        if(customExerciseAdapter.exercises == customExerciseAdapter.exercisesChecked){
-            Log.d("CustomExerciseListFragmentLog", customExerciseAdapter.exercisesChecked.toString())
+        customExerciseAdapter.setOnCheckBoxclickListener {
+            if (customExerciseAdapter.exercisesChecked.contains(it)){
+                customExerciseAdapter.exercisesChecked.remove(it)
+            }else{
+                customExerciseAdapter.exercisesChecked.add(it)
+            }
+            if (customExerciseAdapter.exercises == customExerciseAdapter.exercisesChecked){
+                toast("All the exercises are completed")
+            }
         }
     }
 

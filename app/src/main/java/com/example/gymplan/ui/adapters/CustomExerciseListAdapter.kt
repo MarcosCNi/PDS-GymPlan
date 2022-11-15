@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gymplan.data.model.ExerciseModel
 import com.example.gymplan.data.model.entity.Exercise
-import com.example.gymplan.data.model.entity.WorkoutModel
 import com.example.gymplan.databinding.ItemExerciseInfoBinding
 import com.example.gymplan.utils.loadImg
 
@@ -53,15 +53,20 @@ class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter
             )
         }
         holder.binding.exerciseCheckBox.setOnClickListener {
-            if (exercisesChecked.contains(exercise)){
-                exercisesChecked.removeAt(position)
-            }else{
-                exercisesChecked.add(exercise)
+            onCheckBoxClickListener?.let {
+                it(exercise)
             }
         }
     }
 
     override fun getItemCount() = exercises.size
+
+
+    private var onCheckBoxClickListener: ((Exercise) -> Unit)? = null
+
+    fun setOnCheckBoxclickListener(listener: (Exercise) -> Unit) {
+        onCheckBoxClickListener = listener
+    }
 
     fun getWorkoutPosition(position: Int): Exercise {
         return exercises[position]

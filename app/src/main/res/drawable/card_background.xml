@@ -3,7 +3,7 @@
     <gradient
         android:angle="0"
         android:startColor="?attr/cardBackgroundColor"
-        android:endColor="?attr/colorPrimary"
+        android:endColor="?attr/colorPrimaryVariant"
         android:centerColor="?attr/cardBackgroundColor"
         android:type="linear"
         android:centerX="35%"
