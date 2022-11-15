@@ -1,6 +1,7 @@
 package com.example.gymplan.data.local
 
 import androidx.room.*
+import com.example.gymplan.data.model.entity.CompletedWorkoutModel
 import com.example.gymplan.data.model.entity.Exercise
 import com.example.gymplan.data.model.entity.WorkoutModel
 import com.example.gymplan.data.model.entity.WorkoutPlanModel
@@ -18,6 +19,9 @@ interface ExerciseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExercise(exercise: Exercise)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCompletedWorkout(completedWorkoutModel: CompletedWorkoutModel)
 
     @Update
     suspend fun updateWorkoutPlan(workoutPlan: WorkoutPlanModel)
@@ -51,6 +55,6 @@ interface ExerciseDao {
     @Query("DELETE FROM WorkoutModel WHERE name =:name")
     suspend fun deleteByWorkoutName(name: String)
 
-    @Query("DELETE FROM Exercise WHERE name =:name")
-    suspend fun deleteExercise(name: String)
+    @Query("DELETE FROM Exercise WHERE id =:id")
+    suspend fun deleteExercise(id: Int)
 }

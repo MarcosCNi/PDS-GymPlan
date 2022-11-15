@@ -21,6 +21,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.tsuryo.swipeablerv.SwipeLeftRightCallback
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
 
 @AndroidEntryPoint
 class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBinding, CustomExerciseListViewModel>(){
@@ -37,24 +38,28 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
         setupRecyclerView()
         setData()
         collectObserver()
-        checkWorkoutProgress()
+        setupAdapterFunctions()
     }
     
-    private fun checkWorkoutProgress() {
-        customExerciseAdapter.setOnCheckBoxclickListener {
+    private fun setupAdapterFunctions() {
+        customExerciseAdapter.setOnCheckBoxClickListener {
             if (customExerciseAdapter.exercisesChecked.contains(it)){
                 customExerciseAdapter.exercisesChecked.remove(it)
             }else{
                 customExerciseAdapter.exercisesChecked.add(it)
             }
             if (customExerciseAdapter.exercises == customExerciseAdapter.exercisesChecked){
-                toast("All the exercises are completed")
+                viewModel.createCompletedWorkout(LocalDate.now().toString() ,customExerciseAdapter.exercisesChecked)
+                toast(getString(R.string.completed_workout))
             }
+        }
+        customExerciseAdapter.setDoOnTextChanged {
+            viewModel.editExercise(it)
+            toast(it.weight.toString())
         }
     }
 
     private fun collectObserver() = with(binding) {
-        emptyList.gone()
         viewModel.getExerciseList(workoutModel.id)
         viewModel.workout.observe(viewLifecycleOwner){
             if (it.exerciseList.isEmpty()){
@@ -150,6 +155,7 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
                             exercise.id,
                             editText.text.toString(),
                             workoutModel.id,
+                            null,
                             exercise.target
                         )
                     )

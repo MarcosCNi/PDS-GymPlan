@@ -105,6 +105,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                 workoutPlanNameList.add(autoWorkout)
                 viewModel.createWorkoutPlan(autoWorkout)
                 viewModel.getCurrentWorkoutPlan(autoWorkout)
+                homeSelectDropdownText.setText(autoWorkout)
+                emptyList.show()
+                centerAddFab.show()
             }else{
                 for (item in it){
                     if (item.workoutPlan.name != autoWorkout)

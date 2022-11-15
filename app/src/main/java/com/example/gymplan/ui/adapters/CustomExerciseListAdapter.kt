@@ -1,10 +1,15 @@
 package com.example.gymplan.ui.adapters
 
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import androidx.annotation.NonNull
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.PrimaryKey
 import com.example.gymplan.data.model.ExerciseModel
 import com.example.gymplan.data.model.entity.Exercise
 import com.example.gymplan.databinding.ItemExerciseInfoBinding
@@ -51,20 +56,79 @@ class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter
                 imgExercise,
                 exercise.gifUrl.toString(),
             )
+            textInputEditTextWeight.setText(exercise.weight)
+            textInputEditTextReps.setText(exercise.reps)
+            textInputEditTextSets.setText(exercise.sets)
         }
         holder.binding.exerciseCheckBox.setOnClickListener {
             onCheckBoxClickListener?.let {
                 it(exercise)
             }
         }
+        holder.binding.textInputEditTextWeight.doOnTextChanged{ inputText, _, _, _ ->
+            doOnTextChanged?.let {
+                it(Exercise(
+                    exercise.bodyPart,
+                    exercise.equipment,
+                    exercise.gifUrl,
+                    exercise.id,
+                    exercise.name,
+                    exercise.workoutId,
+                    exercise.completedWorkoutId,
+                    exercise.target,
+                    inputText.toString(),
+                    exercise.sets,
+                    exercise.reps
+                ))
+            }
+        }
+        holder.binding.textInputEditTextSets.doOnTextChanged{ inputText, _, _, _ ->
+            doOnTextChanged?.let {
+                it(Exercise(
+                    exercise.bodyPart,
+                    exercise.equipment,
+                    exercise.gifUrl,
+                    exercise.id,
+                    exercise.name,
+                    exercise.workoutId,
+                    exercise.completedWorkoutId,
+                    exercise.target,
+                    exercise.weight,
+                    inputText.toString(),
+                    exercise.reps
+                ))
+            }
+        }
+        holder.binding.textInputEditTextReps.doOnTextChanged{ inputText, _, _, _ ->
+            doOnTextChanged?.let {
+                it(Exercise(
+                    exercise.bodyPart,
+                    exercise.equipment,
+                    exercise.gifUrl,
+                    exercise.id,
+                    exercise.name,
+                    exercise.workoutId,
+                    exercise.completedWorkoutId,
+                    exercise.target,
+                    exercise.weight,
+                    exercise.sets,
+                    inputText.toString(),
+                ))
+            }
+        }
     }
 
     override fun getItemCount() = exercises.size
 
+    private var doOnTextChanged: ((Exercise) -> Unit)? = null
 
     private var onCheckBoxClickListener: ((Exercise) -> Unit)? = null
 
-    fun setOnCheckBoxclickListener(listener: (Exercise) -> Unit) {
+    fun setDoOnTextChanged(listener: (Exercise) -> Unit){
+        doOnTextChanged = listener
+    }
+
+    fun setOnCheckBoxClickListener(listener: (Exercise) -> Unit) {
         onCheckBoxClickListener = listener
     }
 

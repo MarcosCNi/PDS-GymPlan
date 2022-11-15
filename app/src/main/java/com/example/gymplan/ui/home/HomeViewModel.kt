@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gymplan.data.local.ExerciseDao
+import com.example.gymplan.data.model.entity.CompletedWorkoutModel
 import com.example.gymplan.data.model.entity.WorkoutModel
 import com.example.gymplan.data.model.entity.WorkoutPlanModel
 import com.example.gymplan.data.model.relations.WorkoutPlanWithWorkout

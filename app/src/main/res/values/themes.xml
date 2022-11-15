@@ -3,7 +3,7 @@
     <style name="Theme.GymPlan" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/green_200</item>
-        <item name="colorPrimaryVariant">@color/green_500</item>
+        <item name="colorPrimaryVariant">@color/green_300</item>
         <item name="colorOnPrimary">@color/black</item>
         <item name="navigationIconTint">@color/black</item>
         <item name="cardBackgroundColor">@color/white</item>

@@ -43,10 +43,14 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
                     it.bodyPart,
                     it.equipment,
                     it.gifUrl,
-                    it.id!!.toInt(),
+                    0,
                     it.name,
                     args.workoutModel!!.id,
-                    it.target
+                    null,
+                    it.target,
+                    "0",
+                    "0",
+                    "0"
                 )
                 viewModel.addExercise(exercise)
                 val action = ExerciseListFragmentDirections

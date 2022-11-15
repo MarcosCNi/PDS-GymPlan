@@ -11,11 +11,15 @@ data class Exercise (
     val equipment: String? = null,
     val gifUrl: String? = null,
     @NonNull
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String? = null,
     val workoutId: Int? = null,
-    val target: String? = null
+    val completedWorkoutId: String? = null,
+    val target: String? = null,
+    val weight: String? = null,
+    val sets: String? = null,
+    val reps: String? = null
 ) : Serializable {
     constructor():this(
         "",
