@@ -56,7 +56,6 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
                 val action = ExerciseListFragmentDirections
                     .actionExerciseListFragmentToCustomExerciseListFragment(args.workoutModel!!)
                 findNavController().navigate(action)
-                toast(it.name.toString())
             }
         }
     }

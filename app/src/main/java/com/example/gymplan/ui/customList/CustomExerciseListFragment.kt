@@ -55,7 +55,6 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
         }
         customExerciseAdapter.setDoOnTextChanged {
             viewModel.editExercise(it)
-            toast(it.weight.toString())
         }
     }
 
@@ -79,7 +78,6 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
     private fun setData() = with(binding) {
         leftBottomAddFab.setOnClickListener {
             navigateToExerciseList()
-
         }
         centerAddFab.setOnClickListener {
             navigateToExerciseList()

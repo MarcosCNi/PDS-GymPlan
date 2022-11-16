@@ -65,7 +65,11 @@ class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter
                 it(exercise)
             }
         }
+        var weight = exercise.weight?: "0"
+        var sets = exercise.sets?: "0"
+        var reps = exercise.reps?: "0"
         holder.binding.textInputEditTextWeight.doOnTextChanged{ inputText, _, _, _ ->
+            weight = inputText.toString()
             doOnTextChanged?.let {
                 it(Exercise(
                     exercise.bodyPart,
@@ -76,13 +80,14 @@ class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter
                     exercise.workoutId,
                     exercise.completedWorkoutId,
                     exercise.target,
-                    inputText.toString(),
-                    exercise.sets,
-                    exercise.reps
+                    weight,
+                    sets,
+                    reps
                 ))
             }
         }
         holder.binding.textInputEditTextSets.doOnTextChanged{ inputText, _, _, _ ->
+            sets = inputText.toString()
             doOnTextChanged?.let {
                 it(Exercise(
                     exercise.bodyPart,
@@ -93,13 +98,14 @@ class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter
                     exercise.workoutId,
                     exercise.completedWorkoutId,
                     exercise.target,
-                    exercise.weight,
-                    inputText.toString(),
-                    exercise.reps
+                    weight,
+                    sets,
+                    reps
                 ))
             }
         }
         holder.binding.textInputEditTextReps.doOnTextChanged{ inputText, _, _, _ ->
+            reps = inputText.toString()
             doOnTextChanged?.let {
                 it(Exercise(
                     exercise.bodyPart,
@@ -110,9 +116,9 @@ class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter
                     exercise.workoutId,
                     exercise.completedWorkoutId,
                     exercise.target,
-                    exercise.weight,
-                    exercise.sets,
-                    inputText.toString(),
+                    weight,
+                    sets,
+                    reps
                 ))
             }
         }
