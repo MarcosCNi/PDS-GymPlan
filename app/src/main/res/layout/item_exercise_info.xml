@@ -69,9 +69,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="12dp"
+            android:hint="@string/weight"
+            app:boxStrokeColor="?attr/colorOnPrimary"
+            app:hintTextColor="?attr/colorOnPrimary"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgCardView"
-            android:hint="@string/weight">
+            app:layout_constraintTop_toBottomOf="@+id/imgCardView">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEditTextWeight"
@@ -88,9 +90,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
+            android:hint="@string/sets"
+            app:boxStrokeColor="?attr/colorOnPrimary"
+            app:hintTextColor="?attr/colorOnPrimary"
             app:layout_constraintStart_toEndOf="@+id/textInputWeight"
-            app:layout_constraintTop_toBottomOf="@+id/imgCardView"
-            android:hint="@string/sets">
+            app:layout_constraintTop_toBottomOf="@+id/imgCardView">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEditTextSets"
@@ -107,9 +111,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
+            android:hint="@string/reps"
+            app:boxStrokeColor="?attr/colorOnPrimary"
+            app:hintTextColor="?attr/colorOnPrimary"
             app:layout_constraintStart_toEndOf="@+id/textInputSet"
-            app:layout_constraintTop_toBottomOf="@+id/imgCardView"
-            android:hint="@string/reps">
+            app:layout_constraintTop_toBottomOf="@+id/imgCardView">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputEditTextReps"
@@ -127,8 +133,8 @@
             android:layout_marginStart="8dp"
             app:buttonTint="?attr/colorOnPrimary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textInputReps"
-            app:layout_constraintTop_toTopOf="@+id/textInputReps" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,22 +24,8 @@ class CustomExerciseListViewModel @Inject constructor(
         _workout.value = dao.getWorkoutWithExercise(id)
     }
 
-    fun createCompletedWorkout(id: String, exerciseList: List<Exercise>) = viewModelScope.launch {
+    fun createCompletedWorkout(id: String) = viewModelScope.launch {
         dao.insertCompletedWorkout(CompletedWorkoutModel(id))
-        exerciseList.map {
-            dao.insertExercise(
-                Exercise(
-                    it.bodyPart,
-                    it.equipment,
-                    it.gifUrl,
-                    it.id,
-                    it.name,
-                    null,
-                    id,
-                    it.target
-                )
-            )
-        }
     }
 
     fun editExercise(exercise: Exercise) = viewModelScope.launch {
@@ -48,5 +34,9 @@ class CustomExerciseListViewModel @Inject constructor(
 
     fun deleteExercise(exercise: Exercise) = viewModelScope.launch {
         dao.deleteExercise(exercise.id)
+    }
+
+    fun insertCompletedExercise(exercise: Exercise) = viewModelScope.launch {
+        dao.insertExercise(exercise)
     }
 }

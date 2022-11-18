@@ -9,7 +9,7 @@ data class CompletedWorkoutWithExercise (
     @Embedded val completedWorkout: CompletedWorkoutModel,
     @Relation(
         parentColumn = "id",
-        entityColumn = "workoutId"
+        entityColumn = "completedWorkoutId"
     )
     val exerciseList: List<Exercise>
 )

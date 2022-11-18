@@ -21,7 +21,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.tsuryo.swipeablerv.SwipeLeftRightCallback
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
+import java.util.*
 
 @AndroidEntryPoint
 class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBinding, CustomExerciseListViewModel>(){
@@ -48,9 +48,29 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
             }else{
                 customExerciseAdapter.exercisesChecked.add(it)
             }
-            if (customExerciseAdapter.exercises == customExerciseAdapter.exercisesChecked){
-                viewModel.createCompletedWorkout(LocalDate.now().toString() ,customExerciseAdapter.exercisesChecked)
+            if (customExerciseAdapter.exercises == customExerciseAdapter.exercisesChecked && customExerciseAdapter.exercises.size > 1){
+                val calendar = Calendar.getInstance()
+                val id = calendar.get(Calendar.MONTH).toString() + calendar.get(Calendar.DAY_OF_MONTH).toString() + calendar.get(Calendar.YEAR).toString()
+                viewModel.createCompletedWorkout(id)
                 toast(getString(R.string.completed_workout))
+                customExerciseAdapter.exercisesChecked.map { completedExercise ->
+                    val exercise = Exercise(
+                        completedExercise.bodyPart,
+                        completedExercise.equipment,
+                        completedExercise.gifUrl,
+                        0,
+                        completedExercise.name,
+                        null,
+                        id,
+                        completedExercise.target,
+                        completedExercise.weight,
+                        completedExercise.sets,
+                        completedExercise.reps
+                    )
+                    viewModel.insertCompletedExercise(exercise)
+                }
+            }else if (customExerciseAdapter.exercises.size <= 1){
+                toast(getString(R.string.short_exercise_list))
             }
         }
         customExerciseAdapter.setDoOnTextChanged {
@@ -96,7 +116,6 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
                 }
                 R.id.optionAddExercise -> {
                     navigateToExerciseList()
-                    toast(menuItem.title.toString())
                     true
                 }
                 else -> false

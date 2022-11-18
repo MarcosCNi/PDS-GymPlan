@@ -108,5 +108,6 @@
     <string name="empty_workout_list">You don\'t have any exercise list</string>
     <string name="empty_exercise_list">You don\'t have any exercise</string>
     <string name="completed_workout">The workout is completed</string>
+    <string name="short_exercise_list">The list of exercises must have more than one</string>
 
 </resources>

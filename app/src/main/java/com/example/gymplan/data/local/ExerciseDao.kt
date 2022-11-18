@@ -5,6 +5,7 @@ import com.example.gymplan.data.model.entity.CompletedWorkoutModel
 import com.example.gymplan.data.model.entity.Exercise
 import com.example.gymplan.data.model.entity.WorkoutModel
 import com.example.gymplan.data.model.entity.WorkoutPlanModel
+import com.example.gymplan.data.model.relations.CompletedWorkoutWithExercise
 import com.example.gymplan.data.model.relations.WorkoutPlanWithWorkout
 import com.example.gymplan.data.model.relations.WorkoutWithExercise
 
@@ -47,6 +48,10 @@ interface ExerciseDao {
     @Transaction
     @Query("SELECT * FROM WorkoutModel WHERE id=:id")
     suspend fun getWorkoutWithExercise(id: Int) : WorkoutWithExercise
+
+    @Transaction
+    @Query("SELECT * FROM CompletedWorkoutModel WHERE id=:id")
+    suspend fun getCompletedWorkoutWithExercise(id: String) : CompletedWorkoutWithExercise
 
     //DELETE QUERY
     @Query("DELETE FROM WorkoutPlanModel WHERE name =:workoutName")
