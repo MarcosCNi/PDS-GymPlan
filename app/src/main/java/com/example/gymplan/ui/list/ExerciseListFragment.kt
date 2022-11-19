@@ -15,7 +15,6 @@ import com.example.gymplan.ui.adapters.ExerciseListAdapter
 import com.example.gymplan.ui.base.BaseFragment
 import com.example.gymplan.utils.Constants.DEFAULT_QUERY
 import com.example.gymplan.utils.Constants.LAST_SEARCH_QUERY
-import com.example.gymplan.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,7 +27,7 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        muscleFilter()
+        bodyPartFilter()
         equipmentFilter()
         val query = savedInstanceState?.getString(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
         searchInit(query)
@@ -61,15 +60,15 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
     }
 
 
-    private fun muscleFilter() = with(binding){
-        val muscleItems = resources.getStringArray(R.array.muscle_list)
-        val muscleAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, muscleItems)
-        muscleFilterDropdownText.setAdapter(muscleAdapter)
-        muscleFilterDropdownText.setOnItemClickListener { _, _, id, _ ->
+    private fun bodyPartFilter() = with(binding){
+        val bodyPartItems = resources.getStringArray(R.array.body_part_list)
+        val bodyPartAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, bodyPartItems)
+        bodyPartFilterDropdownText.setAdapter(bodyPartAdapter)
+        bodyPartFilterDropdownText.setOnItemClickListener { _, _, id, _ ->
             if (id == 0) {
-                viewModel.muscleFilter = ""
+                viewModel.bodyPartFilter = ""
             } else {
-                viewModel.muscleFilter = muscleFilterDropdownText.text.toString().lowercase()
+                viewModel.bodyPartFilter = bodyPartFilterDropdownText.text.toString().lowercase()
             }
             viewModel.fetch()
         }

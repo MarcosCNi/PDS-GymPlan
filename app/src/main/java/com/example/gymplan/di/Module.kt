@@ -6,6 +6,7 @@ import com.example.gymplan.data.local.ExerciseDatabase
 import com.example.gymplan.utils.Constants.DATABASE_NAME
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,4 +39,8 @@ object Module {
     @Singleton
     @Provides
     fun providesFirebaseDatabase() = FirebaseDatabase.getInstance()
+
+    @Singleton
+    @Provides
+    fun providesFirestoreDatabase() = FirebaseFirestore.getInstance()
 }

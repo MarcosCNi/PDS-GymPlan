@@ -30,7 +30,6 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarViewModel
     }
 
     private fun collectObservers() = with(binding) {
-        emptyCalendarList.show()
         if (calendarListAdapter.exercises.isNullOrEmpty()){
             val calendar = Calendar.getInstance()
             viewModel.fetch(calendar.get(Calendar.MONTH).toString()+calendar.get(Calendar.DAY_OF_MONTH).toString()+calendar.get(Calendar.YEAR))

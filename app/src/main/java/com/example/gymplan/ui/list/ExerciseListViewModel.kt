@@ -25,7 +25,7 @@ class ExerciseListViewModel @Inject constructor(
     val list: LiveData<ArrayList<ExerciseModel>> get() = _list
 
     var query: String = ""
-    var muscleFilter: String = ""
+    var bodyPartFilter: String = ""
     var equipmentFilter: String = ""
 
     init {
@@ -44,7 +44,7 @@ class ExerciseListViewModel @Inject constructor(
                     for (data in snapshot.children) {
                         val exercise = data.getValue(ExerciseModel::class.java)
                             when(exercise != null){
-                                (exercise?.name!!.contains(query)&&exercise.equipment!!.contains(equipmentFilter)&&exercise.target!!.contains(muscleFilter))
+                                (exercise?.name!!.contains(query)&&exercise.equipment!!.contains(equipmentFilter)&&exercise.bodyPart!!.contains(bodyPartFilter))
                                     -> exercises.add(exercise)
                                 else -> {}
                             }

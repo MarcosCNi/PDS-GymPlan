@@ -31,29 +31,23 @@
     <string name="an_error_occurred">An error occurred</string>
     <string name="search_hint">Search a exercise</string>
     <string name="muscle">Muscle</string>
-    <string name="body_part">Part</string>
+    <string name="body_part">Body part</string>
     <string name="equipment">Equipment</string>
     <string name="option_icon_button">Options menu</string>
     <string name="nothing_here">Nothing here</string>
 
     <!-- Muscle list resource -->
-    <string-array name="muscle_list">
-        <item name="any_muscle">Any muscle</item>
-        <item name="abductors">Abductors</item>
-        <item name="abs">Abs</item>
-        <item name="adductors">Adductors</item>
-        <item name="biceps">Biceps</item>
-        <item name="calves">Calves</item>
+    <string-array name="body_part_list">
+        <item name="back">Back</item>
         <item name="cardio">Cardio</item>
-        <item name="delts">Delts</item>
-        <item name="forearms">Forearms</item>
-        <item name="glutes">Glutes</item>
-        <item name="pectorals">Pectorals</item>
-        <item name="serratus_anterior">Serratus anterior</item>
-        <item name="spine">Spine</item>
-        <item name="traps">Traps</item>
-        <item name="triceps">Triceps</item>
-        <item name="upper_back">Upper back</item>
+        <item name="chest">Chest</item>
+        <item name="lower_arms">Lower arms</item>
+        <item name="lower_legs">Lower legs</item>
+        <item name="neck">Neck</item>
+        <item name="shoulders">Shoulders</item>
+        <item name="upper_arms">Upper arms</item>
+        <item name="upper_legs">Upper legs</item>
+        <item name="waist">Waist</item>
     </string-array>
 
     <!-- Equipment list resource -->
@@ -99,7 +93,7 @@
     <string name="select_workout">Select a workout plan</string>
     <string name="message_delete_workout">"Workout deleted with success "</string>
     <string name="edit_workout">Edit exercise list</string>
-    <string name="empty_workout_plan_list">Please create a workout plan first</string>
+    <string name="empty_workout_plan_list">Please create a workout plan</string>
     <string name="add_exercise">Add a new exercise</string>
     <string name="delete_exercise_list">Delete exercise list</string>
     <string name="edit_exercise">Edit exercise</string>

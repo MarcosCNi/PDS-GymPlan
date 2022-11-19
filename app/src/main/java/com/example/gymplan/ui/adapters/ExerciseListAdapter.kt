@@ -44,7 +44,7 @@ class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.ExerciseVie
         val exercise = exercises[position]
         holder.binding.apply {
             tvNameExercise.text = exercise.name?.limitCharacters(20)
-            tvDescExercise.text = exercise.target!!.uppercase()
+            tvDescExercise.text = exercise.bodyPart!!.uppercase()
             loadImg(
                 imgExercise,
                 exercise.gifUrl.toString(),
@@ -55,13 +55,25 @@ class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.ExerciseVie
                 it(exercise)
             }
         }
+        holder.itemView.setOnLongClickListener {
+            onLongClickListener?.let{
+                it(exercise)
+            }
+            true
+        }
     }
 
     override fun getItemCount() = exercises.size
 
     private var onItemClickListener: ((ExerciseModel) -> Unit)? = null
 
+    private var onLongClickListener: ((ExerciseModel) -> Unit)? = null
+
     fun setOnclickListener(listener: (ExerciseModel) -> Unit){
         onItemClickListener = listener
+    }
+
+    fun setOnLongClickListener(listener: (ExerciseModel) -> Unit){
+        onLongClickListener = listener
     }
 }

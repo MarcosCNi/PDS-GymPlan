@@ -47,7 +47,7 @@ class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter
         val exercise = exercises[position]
         holder.binding.apply {
             tvNameExerciseInfo.text = exercise.name
-            tvDescExerciseInfo.text = exercise.target!!.uppercase()
+            tvDescExerciseInfo.text = exercise.bodyPart!!.uppercase()
             loadImg(
                 imgExercise,
                 exercise.gifUrl.toString(),

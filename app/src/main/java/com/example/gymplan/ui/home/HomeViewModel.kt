@@ -11,6 +11,8 @@ import com.example.gymplan.data.model.entity.WorkoutPlanModel
 import com.example.gymplan.data.model.relations.WorkoutPlanWithWorkout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
+    private val firebaseDatabase: FirebaseDatabase,
     private val dao: ExerciseDao
 ) : ViewModel() {
 
@@ -33,7 +36,6 @@ class HomeViewModel @Inject constructor(
 
     init {
         verifyUser()
-        safeFetch()
     }
 
     fun safeFetch() = viewModelScope.launch {
@@ -56,8 +58,8 @@ class HomeViewModel @Inject constructor(
         dao.updateWorkout(workout)
     }
 
-    fun createWorkoutPlan(name: String) = viewModelScope.launch{
-        dao.insertWorkoutPlan(WorkoutPlanModel(0, name))
+    fun createWorkoutPlan(workoutPlan: WorkoutPlanModel) = viewModelScope.launch{
+        dao.insertWorkoutPlan(workoutPlan)
     }
 
     fun createWorkout(name: String, workoutPlanId: Int) = viewModelScope.launch {
@@ -74,5 +76,13 @@ class HomeViewModel @Inject constructor(
 
     fun deleteWorkout(workout: WorkoutModel)= viewModelScope.launch {
         dao.deleteByWorkoutName(workout.name)
+    }
+
+    fun addToRealtimeDatabase(workoutPlan: WorkoutPlanModel) = viewModelScope.launch{
+        firebaseDatabase.getReference("workoutPlan").child(_user.value!!.uid).child(workoutPlan.id.toString()).setValue(workoutPlan)
+    }
+
+    fun deleteFromRealtimeDatabase(workoutPlan: WorkoutPlanModel) = viewModelScope.launch {
+        firebaseDatabase.getReference("workoutPlan").child(_user.value!!.uid).child(workoutPlan.id.toString()).removeValue()
     }
 }

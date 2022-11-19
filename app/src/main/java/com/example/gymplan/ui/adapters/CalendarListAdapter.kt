@@ -46,7 +46,7 @@ class CalendarListAdapter : RecyclerView.Adapter<CalendarListAdapter.ExerciseInf
         holder.binding.apply {
             exerciseCheckBox.gone()
             tvNameExerciseInfo.text = exercise.name
-            tvDescExerciseInfo.text = exercise.target!!.uppercase()
+            tvDescExerciseInfo.text = exercise.bodyPart!!.uppercase()
             loadImg(
                 imgExercise,
                 exercise.gifUrl.toString(),

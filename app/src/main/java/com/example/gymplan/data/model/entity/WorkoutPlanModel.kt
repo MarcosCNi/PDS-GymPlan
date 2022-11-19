@@ -9,4 +9,5 @@ data class WorkoutPlanModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String,
+    val athleteUid: String? = null
 )
