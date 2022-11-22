@@ -30,24 +30,24 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarViewModel
     }
 
     private fun collectObservers() = with(binding) {
-        if (calendarListAdapter.exercises.isNullOrEmpty()){
-            val calendar = Calendar.getInstance()
-            viewModel.fetch(calendar.get(Calendar.MONTH).toString()+calendar.get(Calendar.DAY_OF_MONTH).toString()+calendar.get(Calendar.YEAR))
-        }
-        viewModel.workout.observe(viewLifecycleOwner){
-            if (it == null){
-                calendarListAdapter.exercises = listOf()
-                emptyCalendarList.show()
-            }else{
-                if (it.exerciseList.isEmpty()){
-                    calendarListAdapter.exercises = listOf()
-                    emptyCalendarList.show()
-                }else{
-                    calendarListAdapter.exercises = it.exerciseList.toList()
-                    emptyCalendarList.gone()
-                }
-            }
-        }
+//        if (calendarListAdapter.exercises.isNullOrEmpty()){
+//            val calendar = Calendar.getInstance()
+//            viewModel.fetch(calendar.get(Calendar.MONTH).toString()+calendar.get(Calendar.DAY_OF_MONTH).toString()+calendar.get(Calendar.YEAR))
+//        }
+//        viewModel.workout.observe(viewLifecycleOwner){
+//            if (it == null){
+//                calendarListAdapter.exercises = listOf()
+//                emptyCalendarList.show()
+//            }else{
+//                if (it.exerciseList.isEmpty()){
+//                    calendarListAdapter.exercises = listOf()
+//                    emptyCalendarList.show()
+//                }else{
+//                    calendarListAdapter.exercises = it.exerciseList.toList()
+//                    emptyCalendarList.gone()
+//                }
+//            }
+//        }
     }
 
     private fun setupRecyclerView() = with(binding) {
@@ -58,13 +58,13 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarViewModel
     }
 
     private fun setupCalendar() = with(binding) {
-        val calendar = calendarDatePicker
-        val actualDate = Calendar.getInstance()
-        calendar.init(actualDate.get(Calendar.YEAR), actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH)){ _, year, month, day ->
-            val id = month.toString()+day.toString()+year.toString()
-            viewModel.fetch(id)
-            collectObservers()
-        }
+//        val calendar = calendarDatePicker
+//        val actualDate = Calendar.getInstance()
+//        calendar.init(actualDate.get(Calendar.YEAR), actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH)){ _, year, month, day ->
+//            val id = month.toString()+day.toString()+year.toString()
+//            viewModel.fetch(id)
+//            collectObservers()
+//        }
     }
 
     override fun getViewBinding(

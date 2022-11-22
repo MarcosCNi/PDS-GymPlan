@@ -1,5 +1,4 @@
 package com.example.gymplan.ui.customList
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +8,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymplan.R
-import com.example.gymplan.data.model.entity.Exercise
-import com.example.gymplan.data.model.entity.WorkoutModel
+import com.example.gymplan.data.model.Workout
+import com.example.gymplan.data.model.Exercise
 import com.example.gymplan.databinding.FragmentCustomExerciseListBinding
 import com.example.gymplan.ui.adapters.CustomExerciseListAdapter
 import com.example.gymplan.ui.base.BaseFragment
+import com.example.gymplan.ui.home.HomeViewModel
 import com.example.gymplan.utils.gone
 import com.example.gymplan.utils.show
 import com.example.gymplan.utils.toast
@@ -21,26 +21,33 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.tsuryo.swipeablerv.SwipeLeftRightCallback
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+
 
 @AndroidEntryPoint
-class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBinding, CustomExerciseListViewModel>(){
+class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBinding, HomeViewModel>(){
 
-    override val viewModel: CustomExerciseListViewModel by viewModels()
+    override val viewModel: HomeViewModel by viewModels()
 
     private val args: CustomExerciseListFragmentArgs by navArgs()
     private val customExerciseAdapter: CustomExerciseListAdapter by lazy { CustomExerciseListAdapter() }
-    private lateinit var workoutModel: WorkoutModel
+    private lateinit var workoutModel: Workout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        workoutModel = args.workoutModel
+        workoutModel = args.workout
         setupRecyclerView()
         setData()
         collectObserver()
         setupAdapterFunctions()
+        if (args.exercise != null) {
+            addExercise(args.exercise!!)
+        }
     }
-    
+    private fun addExercise(exercise: Exercise) = with(binding) {
+        viewModel.addExercise(exercise, workoutModel)
+        collectObserver()
+    }
+
     private fun setupAdapterFunctions() {
         customExerciseAdapter.setOnCheckBoxClickListener {
             if (customExerciseAdapter.exercisesChecked.contains(it)){
@@ -48,46 +55,43 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
             }else{
                 customExerciseAdapter.exercisesChecked.add(it)
             }
-            if (customExerciseAdapter.exercises == customExerciseAdapter.exercisesChecked && customExerciseAdapter.exercises.size > 1){
-                val calendar = Calendar.getInstance()
-                val id = calendar.get(Calendar.MONTH).toString() + calendar.get(Calendar.DAY_OF_MONTH).toString() + calendar.get(Calendar.YEAR).toString()
-                viewModel.createCompletedWorkout(id)
-                toast(getString(R.string.completed_workout))
-                customExerciseAdapter.exercisesChecked.map { completedExercise ->
-                    val exercise = Exercise(
-                        completedExercise.bodyPart,
-                        completedExercise.equipment,
-                        completedExercise.gifUrl,
-                        0,
-                        completedExercise.name,
-                        null,
-                        id,
-                        completedExercise.target,
-                        completedExercise.weight,
-                        completedExercise.sets,
-                        completedExercise.reps
-                    )
-                    viewModel.insertCompletedExercise(exercise)
-                }
-            }else if (customExerciseAdapter.exercises.size <= 1){
-                toast(getString(R.string.short_exercise_list))
-            }
+//            if (customExerciseAdapter.exercises == customExerciseAdapter.exercisesChecked && customExerciseAdapter.exercises.size > 1){
+//                val calendar = Calendar.getInstance()
+//                val id = calendar.get(Calendar.MONTH).toString() + calendar.get(Calendar.DAY_OF_MONTH).toString() + calendar.get(Calendar.YEAR).toString()
+//                viewModel.createCompletedWorkout(id)
+//                toast(getString(R.string.completed_workout))
+//                customExerciseAdapter.exercisesChecked.map { completedExercise ->
+//                    val exercise = Exercise(
+//                        completedExercise.bodyPart,
+//                        completedExercise.equipment,
+//                        completedExercise.gifUrl,
+//                        completedExercise.name,
+//                        completedExercise.target,
+//                        completedExercise.weight,
+//                        completedExercise.sets,
+//                        completedExercise.reps
+//                    )
+//                    viewModel.insertCompletedExercise(exercise)
+//                }
+//            }else if (customExerciseAdapter.exercises.size <= 1){
+//                toast(getString(R.string.short_exercise_list))
+//            }
         }
         customExerciseAdapter.setDoOnTextChanged {
-            viewModel.editExercise(it)
+            viewModel.editExercise(it, workoutModel)
         }
     }
 
     private fun collectObserver() = with(binding) {
-        viewModel.getExerciseList(workoutModel.id)
-        viewModel.workout.observe(viewLifecycleOwner){
-            if (it.exerciseList.isEmpty()){
+        viewModel.getExerciseList(workoutModel)
+        viewModel.exerciseList.observe(viewLifecycleOwner){
+            if(it.isNullOrEmpty()){
                 customExerciseAdapter.exercises = listOf()
                 emptyList.show()
                 centerAddFab.show()
                 leftBottomAddFab.gone()
             }else{
-                customExerciseAdapter.exercises = it.exerciseList.toList()
+                customExerciseAdapter.exercises = it.toList()
                 emptyList.gone()
                 centerAddFab.gone()
                 leftBottomAddFab.show()
@@ -121,7 +125,6 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
                 else -> false
             }
         }
-        viewModel.getExerciseList(workoutModel.id)
     }
 
     private fun navigateToExerciseList() {
@@ -140,14 +143,12 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
                 val exercise = customExerciseAdapter.getWorkoutPosition(position)
                 setupRenameExerciseDialog(exercise)
                 rvCustomExerciseList.adapter?.notifyDataSetChanged()
-                toast("Edit")
             }
             override fun onSwipedRight(position: Int) {
                 val exercise = customExerciseAdapter.getWorkoutPosition(position)
-                viewModel.deleteExercise(exercise).also {
-                    collectObserver()
-                    toast(getString(R.string.message_delete_workout))
-                }
+                viewModel.deleteExercise(exercise, workoutModel)
+                collectObserver()
+                toast(getString(R.string.message_delete_workout))
                 rvCustomExerciseList.adapter?.notifyDataSetChanged()
             }
         })
@@ -171,10 +172,12 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
                             exercise.gifUrl,
                             exercise.id,
                             editText.text.toString(),
-                            workoutModel.id,
-                            null,
-                            exercise.target
-                        )
+                            exercise.target,
+                            exercise.weight,
+                            exercise.sets,
+                            exercise.reps,
+                        ),
+                        workoutModel
                     )
                 }
                 customExerciseAdapter.notifyDataSetChanged()

@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-data class ExerciseModel (
+data class StaticExerciseModel (
     val bodyPart: String? = null,
     val equipment: String? = null,
     val gifUrl: String? = null,

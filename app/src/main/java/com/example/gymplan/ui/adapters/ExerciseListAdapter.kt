@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gymplan.data.model.ExerciseModel
+import com.example.gymplan.data.model.StaticExerciseModel
 import com.example.gymplan.databinding.ItemExerciseBinding
 import com.example.gymplan.utils.limitCharacters
 import com.example.gymplan.utils.loadImg
@@ -15,11 +15,11 @@ class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.ExerciseVie
     inner class ExerciseViewHolder(val binding: ItemExerciseBinding):
             RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<ExerciseModel>(){
-        override fun areItemsTheSame(oldItem: ExerciseModel, newItem: ExerciseModel): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<StaticExerciseModel>(){
+        override fun areItemsTheSame(oldItem: StaticExerciseModel, newItem: StaticExerciseModel): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
-        override fun areContentsTheSame(oldItem: ExerciseModel, newItem: ExerciseModel): Boolean {
+        override fun areContentsTheSame(oldItem: StaticExerciseModel, newItem: StaticExerciseModel): Boolean {
             return oldItem.id == newItem.id && oldItem.name == newItem.name &&
                     oldItem.bodyPart == newItem.bodyPart && oldItem.gifUrl == newItem.gifUrl &&
                     oldItem.equipment == newItem.equipment && oldItem.target == newItem.target
@@ -28,7 +28,7 @@ class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.ExerciseVie
 
     private val differ = AsyncListDiffer(this, differCallback)
 
-    var exercises: List<ExerciseModel>
+    var exercises: List<StaticExerciseModel>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
@@ -65,15 +65,15 @@ class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.ExerciseVie
 
     override fun getItemCount() = exercises.size
 
-    private var onItemClickListener: ((ExerciseModel) -> Unit)? = null
+    private var onItemClickListener: ((StaticExerciseModel) -> Unit)? = null
 
-    private var onLongClickListener: ((ExerciseModel) -> Unit)? = null
+    private var onLongClickListener: ((StaticExerciseModel) -> Unit)? = null
 
-    fun setOnclickListener(listener: (ExerciseModel) -> Unit){
+    fun setOnclickListener(listener: (StaticExerciseModel) -> Unit){
         onItemClickListener = listener
     }
 
-    fun setOnLongClickListener(listener: (ExerciseModel) -> Unit){
+    fun setOnLongClickListener(listener: (StaticExerciseModel) -> Unit){
         onLongClickListener = listener
     }
 }

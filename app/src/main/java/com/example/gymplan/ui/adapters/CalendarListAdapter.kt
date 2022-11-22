@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gymplan.data.model.entity.Exercise
+import com.example.gymplan.data.model.Exercise
 import com.example.gymplan.databinding.ItemExerciseInfoBinding
 import com.example.gymplan.utils.gone
 import com.example.gymplan.utils.loadImg

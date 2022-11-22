@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymplan.R
-import com.example.gymplan.data.model.entity.Exercise
+import com.example.gymplan.data.model.Exercise
 import com.example.gymplan.databinding.FragmentExerciseListBinding
 import com.example.gymplan.ui.adapters.ExerciseListAdapter
 import com.example.gymplan.ui.base.BaseFragment
@@ -37,23 +37,20 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
 
     private fun clickAdapter() {
         exerciseAdapter.setOnclickListener {
-            if (args.workoutModel != null){
+            if (args.workout != null){
                 val exercise = Exercise(
                     it.bodyPart,
                     it.equipment,
                     it.gifUrl,
-                    0,
-                    it.name,
-                    args.workoutModel!!.id,
                     null,
+                    it.name,
                     it.target,
                     "0",
                     "0",
                     "0"
                 )
-                viewModel.addExercise(exercise)
                 val action = ExerciseListFragmentDirections
-                    .actionExerciseListFragmentToCustomExerciseListFragment(args.workoutModel!!)
+                    .actionExerciseListFragmentToCustomExerciseListFragment(args.workout!!, exercise)
                 findNavController().navigate(action)
             }
         }

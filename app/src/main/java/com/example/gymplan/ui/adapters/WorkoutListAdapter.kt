@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gymplan.data.model.entity.WorkoutModel
+import com.example.gymplan.data.model.Workout
 import com.example.gymplan.databinding.ItemWorkoutBinding
 
 class WorkoutListAdapter : RecyclerView.Adapter<WorkoutListAdapter.WorkoutViewHolder>() {
@@ -13,18 +13,18 @@ class WorkoutListAdapter : RecyclerView.Adapter<WorkoutListAdapter.WorkoutViewHo
     inner class WorkoutViewHolder(val binding: ItemWorkoutBinding):
         RecyclerView.ViewHolder(binding.root)
 
-    private val differCallback = object : DiffUtil.ItemCallback<WorkoutModel>(){
-        override fun areItemsTheSame(oldItem: WorkoutModel, newItem: WorkoutModel): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<Workout>(){
+        override fun areItemsTheSame(oldItem: Workout, newItem: Workout): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
-        override fun areContentsTheSame(oldItem: WorkoutModel, newItem: WorkoutModel): Boolean {
-            return oldItem.name == newItem.name && oldItem.desc == newItem.desc && oldItem.workoutPlanId == newItem.workoutPlanId
+        override fun areContentsTheSame(oldItem: Workout, newItem: Workout): Boolean {
+            return oldItem.name == newItem.name && oldItem.desc == newItem.desc
         }
     }
 
     private val differ = AsyncListDiffer(this, differCallback)
 
-    var workoutList: List<WorkoutModel>
+    var workoutList: List<Workout>
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
@@ -51,13 +51,13 @@ class WorkoutListAdapter : RecyclerView.Adapter<WorkoutListAdapter.WorkoutViewHo
         }
     }
 
-    private var onItemClickListener: ((WorkoutModel) -> Unit)? = null
+    private var onItemClickListener: ((Workout) -> Unit)? = null
 
-    fun setOnclickListener(listener: (WorkoutModel) -> Unit){
+    fun setOnclickListener(listener: (Workout) -> Unit){
         onItemClickListener = listener
     }
 
-    fun getWorkoutPosition(position: Int): WorkoutModel {
+    fun getWorkoutPosition(position: Int): Workout {
         return workoutList[position]
     }
 }
