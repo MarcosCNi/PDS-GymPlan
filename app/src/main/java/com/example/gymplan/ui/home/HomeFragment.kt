@@ -52,10 +52,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
             val workoutPlanNameList: ArrayList<String> = arrayListOf()
             for (item in it){
                 if (item.name == homeSelectDropdownText.text.toString()){
-                    workoutAdapter.workoutList = emptyList()
-                    leftBottomAddFab.gone()
-                    centerAddFab.show()
-                    emptyList.show()
                     viewModel.getWorkoutList(item)
                 }
                 workoutPlanNameList.add(item.name!!)
@@ -80,7 +76,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                 }
             }
         }
-
     }
 
     private fun setupFAB() = with(binding) {

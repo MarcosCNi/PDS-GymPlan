@@ -10,11 +10,13 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymplan.R
 import com.example.gymplan.data.model.Exercise
+import com.example.gymplan.data.model.Workout
 import com.example.gymplan.databinding.FragmentExerciseListBinding
 import com.example.gymplan.ui.adapters.ExerciseListAdapter
 import com.example.gymplan.ui.base.BaseFragment
 import com.example.gymplan.utils.Constants.DEFAULT_QUERY
 import com.example.gymplan.utils.Constants.LAST_SEARCH_QUERY
+import com.example.gymplan.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,6 +54,8 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
                 val action = ExerciseListFragmentDirections
                     .actionExerciseListFragmentToCustomExerciseListFragment(args.workout!!, exercise)
                 findNavController().navigate(action)
+            }else{
+                toast(it.name!!)
             }
         }
     }

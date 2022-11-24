@@ -77,7 +77,7 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
 //                toast(getString(R.string.short_exercise_list))
 //            }
         }
-        customExerciseAdapter.setDoOnTextChanged {
+        customExerciseAdapter.setDoOnFocusChanged {
             viewModel.editExercise(it, workoutModel)
         }
     }
@@ -140,16 +140,14 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
         }
         rvCustomExerciseList.setListener(object : SwipeLeftRightCallback.Listener {
             override fun onSwipedLeft(position: Int) {
-                val exercise = customExerciseAdapter.getWorkoutPosition(position)
+                val exercise = customExerciseAdapter.getExercisePosition(position)
                 setupRenameExerciseDialog(exercise)
                 rvCustomExerciseList.adapter?.notifyDataSetChanged()
             }
             override fun onSwipedRight(position: Int) {
-                val exercise = customExerciseAdapter.getWorkoutPosition(position)
+                val exercise = customExerciseAdapter.getExercisePosition(position)
                 viewModel.deleteExercise(exercise, workoutModel)
                 collectObserver()
-                toast(getString(R.string.message_delete_workout))
-                rvCustomExerciseList.adapter?.notifyDataSetChanged()
             }
         })
     }
@@ -176,6 +174,7 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
                             exercise.weight,
                             exercise.sets,
                             exercise.reps,
+                            exercise.workoutId
                         ),
                         workoutModel
                     )

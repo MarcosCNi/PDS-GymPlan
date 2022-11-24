@@ -14,7 +14,8 @@ data class Exercise(
     val target: String? = null,
     val weight: String? = null,
     val sets: String? = null,
-    val reps: String? = null
+    val reps: String? = null,
+    val workoutId: String? = null
 ) : Serializable {
 
     @Exclude
@@ -29,6 +30,7 @@ data class Exercise(
             "weight" to weight,
             "sets" to sets,
             "reps" to reps,
+            "workoutId" to workoutId
         )
     }
 }

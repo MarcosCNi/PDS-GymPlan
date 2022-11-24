@@ -7,7 +7,7 @@ data class Workout(
     val id: String? = null,
     val name: String? = null,
     val desc: String? = null,
-    val exerciseList: ArrayList<Exercise>? = null
+    val workoutPlanId: String? = null
 ) : Serializable {
 
     @Exclude
@@ -15,7 +15,8 @@ data class Workout(
         return mapOf(
             "id" to id,
             "name" to name,
-            "desc" to desc
+            "desc" to desc,
+            "workoutPlanId" to workoutPlanId
         )
     }
 }

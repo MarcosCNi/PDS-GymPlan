@@ -15,7 +15,8 @@
         <argument
             android:name="workout"
             app:argType="com.example.gymplan.data.model.Workout"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment2"

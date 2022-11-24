@@ -7,7 +7,6 @@ data class WorkoutPlan (
     val id: String? = null,
     val name: String? = null,
     val athleteUid: String? = null,
-    val workoutList: ArrayList<Workout>? = null
 ){
     @Exclude
     fun toMap(): Map<String, Any?>{
@@ -16,7 +15,6 @@ data class WorkoutPlan (
             "id" to id,
             "name" to name,
             "athleteUid" to athleteUid,
-            "workoutList" to workoutList
         )
     }
 }

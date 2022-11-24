@@ -61,80 +61,89 @@ class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter
                 it(exercise)
             }
         }
-        var weight = exercise.weight ?: "0"
-        var sets = exercise.sets ?: "0"
-        var reps = exercise.reps ?: "0"
-        holder.binding.textInputEditTextWeight.doOnTextChanged { inputText, _, _, _ ->
-            weight = inputText.toString()
-            doOnTextChanged?.let {
-                it(
-                    Exercise(
-                        exercise.bodyPart,
-                        exercise.equipment,
-                        exercise.gifUrl,
-                        exercise.id,
-                        exercise.name,
-                        exercise.target,
-                        weight,
-                        sets,
-                        reps
+        var weight = exercise.weight
+        var sets = exercise.sets
+        var reps = exercise.reps
+        holder.binding.textInputEditTextWeight.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus){
+                weight = holder.binding.textInputEditTextWeight.text.toString()
+                doOnFocusChanged?.let {
+                    it(
+                        Exercise(
+                            exercise.bodyPart,
+                            exercise.equipment,
+                            exercise.gifUrl,
+                            exercise.id,
+                            exercise.name,
+                            exercise.target,
+                            weight,
+                            sets,
+                            reps,
+                            exercise.workoutId
+                        )
                     )
-                )
+                }
             }
         }
-        holder.binding.textInputEditTextSets.doOnTextChanged { inputText, _, _, _ ->
-            sets = inputText.toString()
-            doOnTextChanged?.let {
-                it(
-                    Exercise(
-                        exercise.bodyPart,
-                        exercise.equipment,
-                        exercise.gifUrl,
-                        exercise.id,
-                        exercise.name,
-                        exercise.target,
-                        weight,
-                        sets,
-                        reps
+        holder.binding.textInputEditTextSets.setOnFocusChangeListener { _, hasFocus ->
+            if(!hasFocus){
+                sets = holder.binding.textInputEditTextSets.text.toString()
+                doOnFocusChanged?.let {
+                    it(
+                        Exercise(
+                            exercise.bodyPart,
+                            exercise.equipment,
+                            exercise.gifUrl,
+                            exercise.id,
+                            exercise.name,
+                            exercise.target,
+                            weight,
+                            sets,
+                            reps,
+                            exercise.workoutId
+                        )
                     )
-                )
+                }
             }
         }
-        holder.binding.textInputEditTextReps.doOnTextChanged { inputText, _, _, _ ->
-            reps = inputText.toString()
-            doOnTextChanged?.let {
-                it(
-                    Exercise(
-                        exercise.bodyPart,
-                        exercise.equipment,
-                        exercise.gifUrl,
-                        exercise.id,
-                        exercise.name,
-                        exercise.target,
-                        weight,
-                        sets,
-                        reps
+        holder.binding.textInputEditTextReps.setOnFocusChangeListener { _, hasFocus ->
+            if(!hasFocus){
+                reps = holder.binding.textInputEditTextReps.text.toString()
+                doOnFocusChanged?.let {
+                    it(
+                        Exercise(
+                            exercise.bodyPart,
+                            exercise.equipment,
+                            exercise.gifUrl,
+                            exercise.id,
+                            exercise.name,
+                            exercise.target,
+                            weight,
+                            sets,
+                            reps,
+                            exercise.workoutId
+                        )
                     )
-                )
+                }
             }
         }
     }
 
     override fun getItemCount() = exercises.size
 
-    private var doOnTextChanged: ((Exercise) -> Unit)? = null
+    private var doOnFocusChanged: ((Exercise) -> Unit)? = null
 
     private var onCheckBoxClickListener: ((Exercise) -> Unit)? = null
 
-    fun setDoOnTextChanged(listener: (Exercise) -> Unit) {
-        doOnTextChanged = listener
+    fun setDoOnFocusChanged(listener: (Exercise) -> Unit) {
+        doOnFocusChanged = listener
     }
 
     fun setOnCheckBoxClickListener(listener: (Exercise) -> Unit) {
         onCheckBoxClickListener = listener
     }
 
-    fun getWorkoutPosition(position: Int): Exercise {
+    fun getExercisePosition(position: Int): Exercise {
         return exercises[position]
     }
 }
