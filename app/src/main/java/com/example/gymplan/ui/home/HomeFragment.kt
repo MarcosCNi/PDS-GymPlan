@@ -1,5 +1,7 @@
 package com.example.gymplan.ui.home
 
+import android.R.id.shareText
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
 import androidx.annotation.MenuRes
+import androidx.core.app.ShareCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymplan.R
 import com.example.gymplan.data.model.Workout
@@ -28,8 +32,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
 
+    private val args: HomeFragmentArgs by navArgs()
     override val viewModel: HomeViewModel by viewModels()
     private val workoutAdapter by lazy { WorkoutListAdapter() }
+    private var workoutPlanId = ""
 
     override fun onResume() {
         super.onResume()
@@ -44,35 +50,47 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         clickAdapter()
         setupOptionBtn()
         setupFAB()
+        workoutPlanId = args.workoutPlanId ?: ""
+        if (workoutPlanId != ""){
+            loadWorkoutPlan()
+        }
+    }
+
+    private fun loadWorkoutPlan() {
+        viewModel.addSharedWorkoutPlan(workoutPlanId)
     }
 
     private fun realtimeDatabaseCollectObservers() = with(binding) {
         viewModel.getWorkoutPlanList()
         viewModel.workoutPlanList.observe(viewLifecycleOwner){
-            val workoutPlanNameList: ArrayList<String> = arrayListOf()
-            for (item in it){
-                if (item.name == homeSelectDropdownText.text.toString()){
-                    viewModel.getWorkoutList(item)
+            if(it.isNullOrEmpty()){
+                toast(getString(R.string.create_workout_plan))
+            }else{
+                val workoutPlanNameList: ArrayList<String> = arrayListOf()
+                for (item in it){
+                    if (item.name == homeSelectDropdownText.text.toString()){
+                        viewModel.getWorkoutList(item)
+                    }
+                    workoutPlanNameList.add(item.name?:"")
                 }
-                workoutPlanNameList.add(item.name!!)
-            }
-            val workoutPlanNameAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, workoutPlanNameList)
-            homeSelectDropdownText.setAdapter(workoutPlanNameAdapter)
-            if (workoutPlanNameList.isNotEmpty() && homeSelectDropdownText.text.toString() == getString(R.string.empty_workout_plan_list)) {
-                homeSelectDropdownText.setText(it[0].name)
-                viewModel.getWorkoutList(it[0])
-            }
-            viewModel.workoutList.observe(viewLifecycleOwner){ workoutList ->
-                if(workoutList.isNullOrEmpty()){
-                    workoutAdapter.workoutList = emptyList()
-                    leftBottomAddFab.gone()
-                    centerAddFab.show()
-                    emptyList.show()
-                }else{
-                    workoutAdapter.workoutList = workoutList.toList()
-                    leftBottomAddFab.show()
-                    centerAddFab.gone()
-                    emptyList.gone()
+                val workoutPlanNameAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, workoutPlanNameList)
+                homeSelectDropdownText.setAdapter(workoutPlanNameAdapter)
+                if (workoutPlanNameList.isNotEmpty() && homeSelectDropdownText.text.toString() == getString(R.string.empty_workout_plan_list)) {
+                    homeSelectDropdownText.setText(it[0].name)
+                    viewModel.getWorkoutList(it[0])
+                }
+                viewModel.workoutList.observe(viewLifecycleOwner){ workoutList ->
+                    if(workoutList.isNullOrEmpty()){
+                        workoutAdapter.workoutList = emptyList()
+                        leftBottomAddFab.gone()
+                        centerAddFab.show()
+                        emptyList.show()
+                    }else{
+                        workoutAdapter.workoutList = workoutList.toList()
+                        leftBottomAddFab.show()
+                        centerAddFab.gone()
+                        emptyList.gone()
+                    }
                 }
             }
         }
@@ -150,6 +168,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                     true
                 }
                 R.id.option_4 -> {
+                    shareWorkoutPlan()
                     true
                 }
                 R.id.option_5 -> {
@@ -157,6 +176,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                     true
                 }
                 else -> super.onContextItemSelected(item)
+            }
+        }
+    }
+
+    private fun shareWorkoutPlan() = with(binding) {
+        viewModel.workoutPlanList.value!!.map {
+            if (it.name == homeSelectDropdownText.text.toString()){
+                val workoutPlanId = it.id.toString()
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, workoutPlanId)
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
             }
         }
     }

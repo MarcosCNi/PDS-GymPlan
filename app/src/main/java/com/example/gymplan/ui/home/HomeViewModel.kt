@@ -75,29 +75,49 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getWorkoutPlanList() = viewModelScope.launch {
+        val uid = _user.value?.uid ?: ""
         firebaseDatabase.child("data")
             .child("workoutPlan")
-            .orderByChild("uid")
-            .equalTo(_user.value!!.uid)
-            .addValueEventListener(object : ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()){
-                        val workoutPlanList = arrayListOf<WorkoutPlan>()
-                        for(item in snapshot.children){
-                        val newWorkoutPlan = item.getValue(WorkoutPlan::class.java)
-                            if(newWorkoutPlan != null) {
-                                workoutPlanList.add(newWorkoutPlan)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                if (snapshot.exists()){
+                    val workoutPlanList = arrayListOf<WorkoutPlan>()
+                    for (item in snapshot.children){
+                        val workoutPlan = item.getValue(WorkoutPlan::class.java)
+                        if (workoutPlan!= null){
+                            if(workoutPlan.uid.equals(uid) || workoutPlan.athleteUid.equals(uid)){
+                                workoutPlanList.add(workoutPlan)
                             }
                         }
-                        _workoutPlanList.value = workoutPlanList
-                    }else{
-                        _workoutPlanList.value = arrayListOf()
                     }
+                    _workoutPlanList.value = workoutPlanList
+                }else{
+                    _workoutList.value = arrayListOf()
                 }
-                override fun onCancelled(error: DatabaseError) {
-                    _workoutPlanList.value = arrayListOf()
-                }
-            })
+            }
+//        firebaseDatabase.child("data")
+//            .child("workoutPlan")
+//            .orderByChild("uid")
+//            .equalTo(_user.value!!.uid)
+//            .addValueEventListener(object : ValueEventListener{
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    if (snapshot.exists()){
+//                        val workoutPlanList = arrayListOf<WorkoutPlan>()
+//                        for(item in snapshot.children){
+//                        val newWorkoutPlan = item.getValue(WorkoutPlan::class.java)
+//                            if(newWorkoutPlan != null) {
+//                                workoutPlanList.add(newWorkoutPlan)
+//                            }
+//                        }
+//                        _workoutPlanList.value = workoutPlanList
+//                    }else{
+//                        _workoutPlanList.value = arrayListOf()
+//                    }
+//                }
+//                override fun onCancelled(error: DatabaseError) {
+//                    _workoutPlanList.value = arrayListOf()
+//                }
+//            })
     }
 
     fun getWorkoutList(workoutPlan: WorkoutPlan) {
@@ -152,6 +172,15 @@ class HomeViewModel @Inject constructor(
             })
     }
 
+    fun addSharedWorkoutPlan(workoutPlanId: String){
+        val uid = _user.value?.uid ?: ""
+        val childUpdates = hashMapOf<String, Any>(
+            "/workoutPlan/$workoutPlanId/athleteUid" to uid,
+            "/user-workout/$uid/workoutPlanList/$workoutPlanId" to true,
+        )
+        firebaseDatabase.child("data").updateChildren(childUpdates)
+    }
+
     fun addWorkoutPlan(name: String){
         val key = firebaseDatabase.child("workoutPlan").push().key
         if(key == null){
@@ -167,7 +196,7 @@ class HomeViewModel @Inject constructor(
         val workoutPlanValues = workoutPlan.toMap()
         val childUpdates = hashMapOf<String, Any>(
             "/workoutPlan/$key" to workoutPlanValues,
-            "/user-workout/$uid/workoutPlanList/$key" to workoutPlanValues
+            "/user-workout/$uid/workoutPlanList/$key" to true,
         )
         firebaseDatabase.child("data").updateChildren(childUpdates)
     }
