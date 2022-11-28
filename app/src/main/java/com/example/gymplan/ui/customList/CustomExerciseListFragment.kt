@@ -52,30 +52,11 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
         customExerciseAdapter.setOnCheckBoxClickListener {
             if (customExerciseAdapter.exercisesChecked.contains(it)){
                 customExerciseAdapter.exercisesChecked.remove(it)
+                viewModel.deleteCompletedWorkout(it)
             }else{
                 customExerciseAdapter.exercisesChecked.add(it)
+                viewModel.addCompletedWorkout(it)
             }
-//            if (customExerciseAdapter.exercises == customExerciseAdapter.exercisesChecked && customExerciseAdapter.exercises.size > 1){
-//                val calendar = Calendar.getInstance()
-//                val id = calendar.get(Calendar.MONTH).toString() + calendar.get(Calendar.DAY_OF_MONTH).toString() + calendar.get(Calendar.YEAR).toString()
-//                viewModel.createCompletedWorkout(id)
-//                toast(getString(R.string.completed_workout))
-//                customExerciseAdapter.exercisesChecked.map { completedExercise ->
-//                    val exercise = Exercise(
-//                        completedExercise.bodyPart,
-//                        completedExercise.equipment,
-//                        completedExercise.gifUrl,
-//                        completedExercise.name,
-//                        completedExercise.target,
-//                        completedExercise.weight,
-//                        completedExercise.sets,
-//                        completedExercise.reps
-//                    )
-//                    viewModel.insertCompletedExercise(exercise)
-//                }
-//            }else if (customExerciseAdapter.exercises.size <= 1){
-//                toast(getString(R.string.short_exercise_list))
-//            }
         }
         customExerciseAdapter.setDoOnFocusChanged {
             viewModel.editExercise(it, workoutModel)

@@ -6,10 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.gymplan.data.model.Exercise
-import com.example.gymplan.data.model.User
-import com.example.gymplan.data.model.Workout
-import com.example.gymplan.data.model.WorkoutPlan
+import com.example.gymplan.data.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -18,6 +15,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,6 +35,9 @@ class HomeViewModel @Inject constructor(
 
     private val _exerciseList = MutableLiveData<List<Exercise>>()
     val exerciseList: LiveData<List<Exercise>> get() = _exerciseList
+
+    private val _completedExerciseList = MutableLiveData<List<Exercise>>()
+    val completedExerciseList: LiveData<List<Exercise>> get() = _completedExerciseList
 
     init {
         verifyUser()
@@ -95,29 +96,6 @@ class HomeViewModel @Inject constructor(
                     _workoutList.value = arrayListOf()
                 }
             }
-//        firebaseDatabase.child("data")
-//            .child("workoutPlan")
-//            .orderByChild("uid")
-//            .equalTo(_user.value!!.uid)
-//            .addValueEventListener(object : ValueEventListener{
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    if (snapshot.exists()){
-//                        val workoutPlanList = arrayListOf<WorkoutPlan>()
-//                        for(item in snapshot.children){
-//                        val newWorkoutPlan = item.getValue(WorkoutPlan::class.java)
-//                            if(newWorkoutPlan != null) {
-//                                workoutPlanList.add(newWorkoutPlan)
-//                            }
-//                        }
-//                        _workoutPlanList.value = workoutPlanList
-//                    }else{
-//                        _workoutPlanList.value = arrayListOf()
-//                    }
-//                }
-//                override fun onCancelled(error: DatabaseError) {
-//                    _workoutPlanList.value = arrayListOf()
-//                }
-//            })
     }
 
     fun getWorkoutList(workoutPlan: WorkoutPlan) {
@@ -172,6 +150,29 @@ class HomeViewModel @Inject constructor(
             })
     }
 
+    fun getCompletedExerciseList(id: String) {
+        firebaseDatabase.child("data")
+            .child("user-workout")
+            .child(_user.value!!.uid)
+            .child("completedExerciseList")
+            .child(id)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                if (snapshot.exists()){
+                    val exerciseList = arrayListOf<Exercise>()
+                    for (item in snapshot.children){
+                        val newExercise = item.getValue(Exercise::class.java)
+                        if (newExercise!= null){
+                            exerciseList.add(newExercise)
+                        }
+                    }
+                    _completedExerciseList.value = exerciseList
+                }else{
+                    _completedExerciseList.value = arrayListOf()
+                }
+            }
+    }
+
     fun addSharedWorkoutPlan(workoutPlanId: String){
         val uid = _user.value?.uid ?: ""
         val childUpdates = hashMapOf<String, Any>(
@@ -217,6 +218,17 @@ class HomeViewModel @Inject constructor(
         val childUpdates = hashMapOf<String, Any>(
             "/workout/$key" to workoutValues,
             "/workoutPlan/${workoutPlan.id}/workoutList/$key" to workoutValues
+        )
+        firebaseDatabase.child("data").updateChildren(childUpdates)
+    }
+
+    fun addCompletedWorkout(exercise: Exercise) {
+        val calendar = Calendar.getInstance()
+        val completedDate = calendar.get(Calendar.MONTH).toString() + calendar.get(Calendar.DAY_OF_MONTH).toString() + calendar.get(Calendar.YEAR).toString()
+        val exerciseValues = exercise.toMap()
+        val childUpdates = hashMapOf<String, Any>(
+            "/completedExercise/$completedDate" to exerciseValues,
+            "/user-workout/${_user.value!!.uid}/completedExerciseList/$completedDate/${exercise.id}" to exerciseValues
         )
         firebaseDatabase.child("data").updateChildren(childUpdates)
     }
@@ -286,6 +298,18 @@ class HomeViewModel @Inject constructor(
         val childUpdates = hashMapOf<String, Any>(
             "/exercise/${exercise.id}" to exerciseValues,
             "/workout/${exercise.workoutId}/exerciseList/${exercise.id}" to exerciseValues
+        )
+        firebaseDatabase.child("data").updateChildren(childUpdates)
+    }
+
+    fun deleteCompletedWorkout(exercise: Exercise) {
+        val calendar = Calendar.getInstance()
+        val completedDate = calendar.get(Calendar.MONTH).toString() + calendar.get(Calendar.DAY_OF_MONTH).toString() + calendar.get(Calendar.YEAR).toString()
+        val newExercise = Exercise()
+        val exerciseValues = newExercise.toMap()
+        val childUpdates = hashMapOf<String, Any>(
+            "/completedExercise/$completedDate" to exerciseValues,
+            "/user-workout/${_user.value!!.uid}/completedExerciseList/$completedDate/${exercise.id}" to exerciseValues
         )
         firebaseDatabase.child("data").updateChildren(childUpdates)
     }

@@ -1,6 +1,5 @@
 package com.example.gymplan.ui.home
 
-import android.R.id.shareText
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
 import androidx.annotation.MenuRes
-import androidx.core.app.ShareCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -28,11 +26,9 @@ import com.google.android.material.textfield.TextInputEditText
 import com.tsuryo.swipeablerv.SwipeLeftRightCallback
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
 
-    private val args: HomeFragmentArgs by navArgs()
     override val viewModel: HomeViewModel by viewModels()
     private val workoutAdapter by lazy { WorkoutListAdapter() }
     private var workoutPlanId = ""
@@ -50,10 +46,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         clickAdapter()
         setupOptionBtn()
         setupFAB()
-        workoutPlanId = args.workoutPlanId ?: ""
-        if (workoutPlanId != ""){
-            loadWorkoutPlan()
-        }
     }
 
     private fun loadWorkoutPlan() {
@@ -71,7 +63,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                     if (item.name == homeSelectDropdownText.text.toString()){
                         viewModel.getWorkoutList(item)
                     }
-                    workoutPlanNameList.add(item.name?:"")
+                    item.name?.let { itemName -> workoutPlanNameList.add(itemName) }
                 }
                 val workoutPlanNameAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, workoutPlanNameList)
                 homeSelectDropdownText.setAdapter(workoutPlanNameAdapter)
