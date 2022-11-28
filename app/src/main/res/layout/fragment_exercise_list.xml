@@ -10,10 +10,10 @@
         android:id="@+id/tvInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:textColor="?attr/colorOnPrimary"
-        android:textColorHint="?attr/colorOnPrimary"
         android:layout_marginHorizontal="8dp"
+        android:paddingBottom="4dp"
+        app:boxStrokeColor="?attr/colorOnPrimary"
+        app:hintTextColor="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,8 +26,7 @@
             android:hint="@string/search_hint"
             android:imeOptions="actionSearch"
             android:inputType="textNoSuggestions"
-            android:selectAllOnFocus="true"
-            android:textColor="?attr/colorOnPrimary"/>
+            android:selectAllOnFocus="true"/>
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -38,9 +37,10 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/body_part"
-        android:textColorHint="?attr/colorOnPrimary"
         android:paddingRight="4dp"
+        android:hint="@string/body_part"
+        app:boxStrokeColor="?attr/colorOnPrimary"
+        app:hintTextColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toStartOf="@id/tvInputLayout"
         app:layout_constraintTop_toBottomOf="@id/tvInputLayout"
         app:layout_constraintEnd_toStartOf="@id/equipmentFilter">
@@ -60,9 +60,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
         android:hint="@string/equipment"
-        android:textColorHint="?attr/colorOnPrimary"
         android:paddingLeft="4dp"
         android:paddingBottom="8dp"
+        app:boxStrokeColor="?attr/colorOnPrimary"
+        app:hintTextColor="?attr/colorOnPrimary"
         app:layout_constraintStart_toEndOf="@id/bodyPartFilter"
         app:layout_constraintEnd_toEndOf="@id/tvInputLayout"
         app:layout_constraintTop_toBottomOf="@id/tvInputLayout">

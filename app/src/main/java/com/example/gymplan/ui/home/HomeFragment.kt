@@ -56,8 +56,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         viewModel.getWorkoutPlanList()
         viewModel.workoutPlanList.observe(viewLifecycleOwner){
             if(it.isNullOrEmpty()){
-                toast(getString(R.string.create_workout_plan))
+                emptyWokoutPlan.show()
+//                toast(getString(R.string.create_workout_plan))
             }else{
+                emptyWokoutPlan.gone()
                 val workoutPlanNameList: ArrayList<String> = arrayListOf()
                 for (item in it){
                     if (item.name == homeSelectDropdownText.text.toString()){

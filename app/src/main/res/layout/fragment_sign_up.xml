@@ -52,7 +52,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:autofillHints="emailAddress"
-                android:textColor="?attr/colorOnPrimary">
+                app:boxStrokeColor="?attr/colorOnPrimary"
+                app:hintTextColor="?attr/colorOnPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -73,7 +74,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:autofillHints="password"
-                android:textColor="?attr/colorOnPrimary">
+                app:boxStrokeColor="?attr/colorOnPrimary"
+                app:hintTextColor="?attr/colorOnPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -96,7 +98,8 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 android:autofillHints="password"
-                android:textColor="?attr/colorOnPrimary" >
+                app:boxStrokeColor="?attr/colorOnPrimary"
+                app:hintTextColor="?attr/colorOnPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"

@@ -38,6 +38,7 @@
 
     <!-- Muscle list resource -->
     <string-array name="body_part_list">
+        <item name="any_body_part">Any body part</item>
         <item name="back">Back</item>
         <item name="cardio">Cardio</item>
         <item name="chest">Chest</item>
