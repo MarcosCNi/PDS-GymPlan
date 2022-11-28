@@ -43,7 +43,6 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, LoginViewModel>() {
             }else{
                 viewModel.signIn(context)
             }
-
         }
         goToSignUpBtn.setOnClickListener {
             findNavController().navigate(R.id.signUpFragment)

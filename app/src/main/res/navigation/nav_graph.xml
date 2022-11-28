@@ -19,7 +19,7 @@
             android:defaultValue="@null" />
     </fragment>
     <fragment
-        android:id="@+id/signInFragment2"
+        android:id="@+id/signInFragment"
         android:name="com.example.gymplan.ui.login.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" />

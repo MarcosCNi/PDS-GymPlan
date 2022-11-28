@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.gymplan.R
 import com.example.gymplan.databinding.FragmentResetPasswordBinding
 import com.example.gymplan.ui.base.BaseFragment
@@ -29,6 +30,9 @@ class ResetPasswordFragment : BaseFragment<FragmentResetPasswordBinding, LoginVi
                 viewModel.email = resetPasswordTextInput.editText?.text.toString()
                 viewModel.resetPassword(context)
             }
+        }
+        backToLogin.setOnClickListener {
+            findNavController().navigate(R.id.signInFragment)
         }
     }
 

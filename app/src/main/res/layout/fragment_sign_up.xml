@@ -33,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="64dp"
+                android:src="@drawable/tittle"
                 app:layout_constraintBottom_toTopOf="@+id/userEmail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -87,13 +88,13 @@
                 android:id="@+id/confirmNewPassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginBottom="36dp"
+                android:layout_marginBottom="16dp"
                 android:hint="@string/confirm_new_password"
                 android:imeActionLabel="Sign-in"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:selectAllOnFocus="true"
-                app:layout_constraintBottom_toTopOf="@+id/signUpBtn"
+                app:layout_constraintBottom_toTopOf="@+id/alreadyHaveAccount"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -106,6 +107,19 @@
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/alreadyHaveAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/have_account"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSecondary"
+                app:layout_constraintBottom_toTopOf="@+id/signUpBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/signUpBtn"

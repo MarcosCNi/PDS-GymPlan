@@ -207,7 +207,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                 navBar?.show()
             } else {
                 navBar?.gone()
-                navController.navigate(R.id.signInFragment2)
+                navController.navigate(R.id.signInFragment)
             }
         }
     }

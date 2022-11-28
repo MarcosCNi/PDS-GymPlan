@@ -1,7 +1,6 @@
 package com.example.gymplan.ui.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,13 +32,16 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, LoginViewModel>() {
                 if(viewModel.email.isNullOrEmpty() || viewModel.password.isNullOrEmpty()){
                     Toast.makeText(context, R.string.empty_text, Toast.LENGTH_SHORT).show()
                 }else{
-//                Log.e("SignUpFragment", newPassword.editText?.text.toString())
                     viewModel.signUp(context)
-                    findNavController().navigate(R.id.signInFragment2)
+                    if(viewModel.user.value != null)
+                    findNavController().navigate(R.id.signInFragment)
                 }
             }else{
                 Toast.makeText(context, R.string.different_password, Toast.LENGTH_SHORT).show()
             }
+        }
+        alreadyHaveAccount.setOnClickListener {
+            findNavController().navigate(R.id.signInFragment)
         }
     }
 
