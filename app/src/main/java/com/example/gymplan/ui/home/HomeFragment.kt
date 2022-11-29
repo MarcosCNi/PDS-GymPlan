@@ -29,35 +29,40 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
 
+    private val homeFragmentArgs : HomeFragmentArgs by navArgs()
     override val viewModel: HomeViewModel by viewModels()
     private val workoutAdapter by lazy { WorkoutListAdapter() }
     private var workoutPlanId = ""
 
     override fun onResume() {
         super.onResume()
-        realtimeDatabaseCollectObservers()
+        collectObservers()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkUser()
         setupRecyclerView()
-        realtimeDatabaseCollectObservers()
+        collectObservers()
         clickAdapter()
         setupOptionBtn()
         setupFAB()
+        if (homeFragmentArgs.workoutPlanId != null){
+            workoutPlanId = homeFragmentArgs.workoutPlanId!!
+            loadWorkoutPlan()
+        }
     }
 
     private fun loadWorkoutPlan() {
         viewModel.addSharedWorkoutPlan(workoutPlanId)
+        collectObservers()
     }
 
-    private fun realtimeDatabaseCollectObservers() = with(binding) {
+    private fun collectObservers() = with(binding) {
         viewModel.getWorkoutPlanList()
         viewModel.workoutPlanList.observe(viewLifecycleOwner){
             if(it.isNullOrEmpty()){
                 emptyWokoutPlan.show()
-//                toast(getString(R.string.create_workout_plan))
             }else{
                 emptyWokoutPlan.gone()
                 val workoutPlanNameList: ArrayList<String> = arrayListOf()
@@ -69,7 +74,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                 }
                 val workoutPlanNameAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, workoutPlanNameList)
                 homeSelectDropdownText.setAdapter(workoutPlanNameAdapter)
-                if (workoutPlanNameList.isNotEmpty() && homeSelectDropdownText.text.toString() == getString(R.string.empty_workout_plan_list)) {
+                if (workoutPlanNameList.isNotEmpty() && (homeSelectDropdownText.text.toString() == getString(R.string.empty_workout_plan_list) || homeSelectDropdownText.text.isNullOrEmpty())) {
                     homeSelectDropdownText.setText(it[0].name)
                     viewModel.getWorkoutList(it[0])
                 }
@@ -101,7 +106,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         homeSelectDropdownText.setAdapter(equipmentAdapter)
         homeSelectDropdownText.setOnItemClickListener { _, _, position, _ ->
             viewModel.getWorkoutList(viewModel.workoutPlanList.value!![position])
-            realtimeDatabaseCollectObservers()
+            collectObservers()
         }
     }
 
@@ -130,7 +135,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                     if (it.name == homeSelectDropdownText.text.toString()){
                         val workout = workoutAdapter.getWorkoutPosition(position)
                         viewModel.deleteWorkout(workout, it)
-                        realtimeDatabaseCollectObservers()
+                        collectObservers()
                     }
                 }
             }
@@ -178,23 +183,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         viewModel.workoutPlanList.value!!.map {
             if (it.name == homeSelectDropdownText.text.toString()){
                 val workoutPlanId = it.id.toString()
+                val uri = "www.gymplan.com/workoutplan/$workoutPlanId"
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, workoutPlanId)
+                    putExtra(Intent.EXTRA_TEXT, uri)
                     type = "text/plain"
                 }
-                val shareIntent = Intent.createChooser(sendIntent, null)
+                val shareIntent = Intent.createChooser(sendIntent, "Share link using")
                 startActivity(shareIntent)
             }
         }
     }
+
+
 
     private fun deleteWorkoutPlan() = with(binding) {
         viewModel.workoutPlanList.value!!.map {
             if (it.name == homeSelectDropdownText.text.toString()){
                 viewModel.deleteWorkoutPlan(it)
                 findNavController().navigate(R.id.homeFragment)
-                realtimeDatabaseCollectObservers()
+                collectObservers()
             }
         }
     }
@@ -229,7 +237,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                     toast(getString(R.string.empty_text))
                 }else{
                     viewModel.addWorkoutPlan(editText.text.toString())
-                    realtimeDatabaseCollectObservers()
+                    collectObservers()
                     binding.homeSelectDropdownText.text = editText.text
                 }
             }
@@ -254,7 +262,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                     viewModel.workoutPlanList.value!!.map{
                         if(it.name == homeSelectDropdownText.text.toString()){
                             viewModel.addWorkout(editText.text.toString(), it)
-                            realtimeDatabaseCollectObservers()
+                            collectObservers()
                         }
                     }
                 }
@@ -279,7 +287,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                     viewModel.workoutPlanList.value!!.map {
                         if(it.name == homeSelectDropdownText.text.toString()){
                             viewModel.editWorkout(editText.text.toString(), workout, it)
-                            realtimeDatabaseCollectObservers()
+                            collectObservers()
                         }
                     }
                 }
@@ -306,7 +314,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
                             homeSelectDropdownText.text = editText.text
                         }
                     }
-                    realtimeDatabaseCollectObservers()
+                    collectObservers()
                 }
             }
             setNegativeButton("Cancel"){_, _ -> }
