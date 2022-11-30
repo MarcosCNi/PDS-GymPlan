@@ -1,6 +1,7 @@
 package com.example.gymplan.ui.home
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,8 @@ import com.example.gymplan.utils.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.dynamiclinks.ktx.*
+import com.google.firebase.ktx.Firebase
 import com.tsuryo.swipeablerv.SwipeLeftRightCallback
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -183,10 +186,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         viewModel.workoutPlanList.value!!.map {
             if (it.name == homeSelectDropdownText.text.toString()){
                 val workoutPlanId = it.id.toString()
-                val uri = "www.gymplan.com/workoutplan/$workoutPlanId"
+                val dynamicLink = Firebase.dynamicLinks.dynamicLink { // or Firebase.dynamicLinks.shortLinkAsync
+                    link = Uri.parse("https://www.gymplan.com/workoutplan/$workoutPlanId")
+                    domainUriPrefix = "https://gymplanapp.page.link"
+                    androidParameters("com.example.android") {
+                        minimumVersion = 125
+                    }
+                }
+//                val uri = "www.gymplan.com/workoutplan/$workoutPlanId"
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, uri)
+                    putExtra(Intent.EXTRA_TEXT, dynamicLink.uri)
                     type = "text/plain"
                 }
                 val shareIntent = Intent.createChooser(sendIntent, "Share link using")
