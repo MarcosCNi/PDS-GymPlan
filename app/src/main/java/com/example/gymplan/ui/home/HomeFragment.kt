@@ -24,6 +24,8 @@ import com.example.gymplan.utils.toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.dynamiclinks.ktx.*
 import com.google.firebase.ktx.Firebase
 import com.tsuryo.swipeablerv.SwipeLeftRightCallback
@@ -186,17 +188,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         viewModel.workoutPlanList.value!!.map {
             if (it.name == homeSelectDropdownText.text.toString()){
                 val workoutPlanId = it.id.toString()
-                val dynamicLink = Firebase.dynamicLinks.dynamicLink { // or Firebase.dynamicLinks.shortLinkAsync
-                    link = Uri.parse("https://www.gymplan.com/workoutplan/$workoutPlanId")
-                    domainUriPrefix = "https://gymplanapp.page.link"
-                    androidParameters("com.example.android") {
-                        minimumVersion = 125
-                    }
-                }
+//                val dynamicLink = Firebase.dynamicLinks.dynamicLink { // or Firebase.dynamicLinks.shortLinkAsync
+//                    link = Uri.parse()
+//                    domainUriPrefix = "https://gymplanapp.page.link"
+//                    androidParameters("com.example.gymplan") {
+//                        minimumVersion = 23
+//                    }
+//                }
+                val dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                    .setLink(Uri.parse("http://gymplanapp.com/workout/?workout=$workoutPlanId"))
+                    .setDomainUriPrefix("https://gymplanapp.page.link")
+                    .setAndroidParameters(DynamicLink.AndroidParameters.Builder().build())
+//                .setIosParameters(DynamicLink.IosParameters.Builder("ibi").build())
+                    .buildDynamicLink()
 //                val uri = "www.gymplan.com/workoutplan/$workoutPlanId"
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, dynamicLink.uri)
+                    putExtra(Intent.EXTRA_TEXT, dynamicLink.uri.toString())
                     type = "text/plain"
                 }
                 val shareIntent = Intent.createChooser(sendIntent, "Share link using")
