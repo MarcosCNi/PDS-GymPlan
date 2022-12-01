@@ -2,16 +2,12 @@ package com.example.gymplan.ui.activity
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.navArgs
-import androidx.navigation.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.example.gymplan.R
 import com.example.gymplan.databinding.ActivityMainBinding
-import com.example.gymplan.ui.home.HomeFragmentArgs
 import com.example.gymplan.ui.home.HomeViewModel
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
@@ -21,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private val homeFragmentArgs : HomeFragmentArgs by navArgs()
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var binding: ActivityMainBinding
     private val homeViewModel: HomeViewModel by viewModels()

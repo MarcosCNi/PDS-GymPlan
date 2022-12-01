@@ -11,7 +11,6 @@ import android.widget.PopupMenu
 import androidx.annotation.MenuRes
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymplan.R
 import com.example.gymplan.data.model.Workout
@@ -26,15 +25,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
-import com.google.firebase.dynamiclinks.ktx.*
-import com.google.firebase.ktx.Firebase
 import com.tsuryo.swipeablerv.SwipeLeftRightCallback
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
 
-    private val homeFragmentArgs : HomeFragmentArgs by navArgs()
     override val viewModel: HomeViewModel by viewModels()
     private val workoutAdapter by lazy { WorkoutListAdapter() }
     private var workoutPlanId = ""
@@ -52,15 +48,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         clickAdapter()
         setupOptionBtn()
         setupFAB()
-        if (homeFragmentArgs.workoutPlanId != null){
-            workoutPlanId = homeFragmentArgs.workoutPlanId!!
-            loadWorkoutPlan()
-        }
-    }
-
-    private fun loadWorkoutPlan() {
-        viewModel.addSharedWorkoutPlan(workoutPlanId)
-        collectObservers()
     }
 
     private fun collectObservers() = with(binding) {

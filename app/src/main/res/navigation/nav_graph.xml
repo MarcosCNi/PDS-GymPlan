@@ -31,15 +31,6 @@
         <action
             android:id="@+id/action_homeFragment_to_customExerciseListFragment"
             app:destination="@id/customExerciseListFragment" />
-        <argument
-            android:name="workoutPlanId"
-            android:defaultValue="null"
-            app:argType="string"
-            app:nullable="true" />
-        <deepLink
-            android:id="@+id/deepLink"
-            android:autoVerify="true"
-            app:uri="www.gymplan.com/workoutplan/{workoutPlanId}" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
