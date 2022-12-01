@@ -30,11 +30,11 @@
             />
 
     </com.google.android.material.textfield.TextInputLayout>
-    
+
     <ImageButton
         android:id="@+id/optionBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:src="@drawable/ic_options_24"
         android:scaleType="fitXY"
         android:contentDescription="@string/option_icon_button"

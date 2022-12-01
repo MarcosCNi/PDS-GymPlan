@@ -1,14 +1,19 @@
 package com.example.gymplan.ui.home
 
 import android.content.Intent
+import android.graphics.drawable.InsetDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
 import androidx.annotation.MenuRes
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -141,8 +146,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
     }
 
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
-        val popup = PopupMenu(requireContext(), v)
+        val popup = PopupMenu(context!!, v)
         popup.menuInflater.inflate(menuRes, popup.menu)
+        if (popup.menu is MenuBuilder) {
+            val menuBuilder = popup.menu as MenuBuilder
+            menuBuilder.setOptionalIconsVisible(true)
+            for (item in menuBuilder.visibleItems) {
+                val iconMarginPx =
+                    TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 4.toFloat(), resources.displayMetrics)
+                        .toInt()
+                if (item.icon != null) {
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                        item.icon = InsetDrawable(item.icon, iconMarginPx, 0, iconMarginPx,0)
+                    } else {
+                        item.icon =
+                            object : InsetDrawable(item.icon, iconMarginPx, 0, iconMarginPx, 0) {
+                                override fun getIntrinsicWidth(): Int {
+                                    return intrinsicHeight + iconMarginPx + iconMarginPx
+                                }
+                            }
+                    }
+                }
+            }
+        }
         popup.show()
         popup.setOnMenuItemClickListener { item ->
             when(item.itemId){

@@ -45,6 +45,7 @@ class LoginViewModel @Inject constructor(
             if (task.isSuccessful){
                 Toast.makeText(context, "User registered", Toast.LENGTH_SHORT).show()
                 firebaseAuth.currentUser?.reload()
+                _user.value = firebaseAuth.currentUser
             } else {
                 Toast.makeText(context, task.exception!!.message, Toast.LENGTH_SHORT).show()
             }

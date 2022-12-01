@@ -65,7 +65,6 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, HomeViewModel>() 
         calendar.init(actualDate.get(Calendar.YEAR), actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH)){ _, year, month, day ->
             val id = month.toString()+day.toString()+year.toString()
             viewModel.getCompletedExerciseList(id)
-            collectObservers()
         }
     }
 

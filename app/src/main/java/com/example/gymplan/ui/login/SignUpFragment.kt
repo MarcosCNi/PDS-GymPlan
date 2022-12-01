@@ -33,7 +33,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding, LoginViewModel>() {
                     Toast.makeText(context, R.string.empty_text, Toast.LENGTH_SHORT).show()
                 }else{
                     viewModel.signUp(context)
-                    if(viewModel.user.value != null)
+                    if(viewModel.email!!.contains("@"))
                     findNavController().navigate(R.id.signInFragment)
                 }
             }else{
