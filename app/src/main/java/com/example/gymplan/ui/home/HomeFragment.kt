@@ -312,6 +312,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         val editText = dialogLayout.findViewById<TextInputEditText>(R.id.nameInputLayoutText)
         with(builder){
             setTitle(R.string.edit_workout)
+            editText.setText(workout.name)
             setPositiveButton("Ok"){_, _ ->
                 if (editText.text.isNullOrEmpty()){
                     toast(getString(R.string.empty_text))
@@ -335,7 +336,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(){
         val dialogLayout = layoutInflater.inflate(R.layout.custom_dialog_layout, null)
         val editText = dialogLayout.findViewById<TextInputEditText>(R.id.nameInputLayoutText)
         with(builder){
-            setTitle(R.string.edit_workout)
+            setTitle(R.string.edit_workout_plan)
+            editText.text = homeSelectDropdownText.text
             setPositiveButton("Ok"){_, _ ->
                 if (editText.text!!.isEmpty()){
                     toast(getString(R.string.empty_text))
