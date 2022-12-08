@@ -41,8 +41,9 @@ class ExerciseListViewModel @Inject constructor(
                     for (data in snapshot.children) {
                         val exercise = data.getValue(StaticExerciseModel::class.java)
                             when(exercise != null){
-                                (exercise?.name!!.contains(query)&&exercise.equipment!!.contains(equipmentFilter)&&exercise.bodyPart!!.contains(bodyPartFilter))
-                                    -> exercises.add(exercise)
+                                (exercise?.name!!.contains(query)&&exercise.equipment!!.contains(equipmentFilter)&&exercise.bodyPart!!.contains(bodyPartFilter)) -> {
+                                    exercises.add(exercise)
+                                }
                                 else -> {}
                             }
 

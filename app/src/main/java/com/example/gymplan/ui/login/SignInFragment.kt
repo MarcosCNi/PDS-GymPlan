@@ -1,7 +1,6 @@
 package com.example.gymplan.ui.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.gymplan.R
 import com.example.gymplan.databinding.FragmentSignInBinding
 import com.example.gymplan.ui.base.BaseFragment
-import com.example.gymplan.utils.gone
-import com.example.gymplan.utils.show
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

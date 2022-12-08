@@ -38,58 +38,96 @@
 
     <!-- Muscle list resource -->
     <string-array name="body_part_list">
-        <item name="any_body_part">Any body part</item>
-        <item name="back">Back</item>
-        <item name="cardio">Cardio</item>
-        <item name="chest">Chest</item>
-        <item name="lower_arms">Lower arms</item>
-        <item name="lower_legs">Lower legs</item>
-        <item name="neck">Neck</item>
-        <item name="shoulders">Shoulders</item>
-        <item name="upper_arms">Upper arms</item>
-        <item name="upper_legs">Upper legs</item>
-        <item name="waist">Waist</item>
+        <item name="any_body_part">@string/any_body_part</item>
+        <item name="back">@string/back</item>
+        <item name="cardio">@string/cardio</item>
+        <item name="chest">@string/chest</item>
+        <item name="lower_arms">@string/lower_arms</item>
+        <item name="lower_legs">@string/lower_legs</item>
+        <item name="neck">@string/neck</item>
+        <item name="shoulders">@string/shoulders</item>
+        <item name="upper_arms">@string/upper_arms</item>
+        <item name="upper_legs">@string/upper_legs</item>
+        <item name="waist">@string/waist</item>
     </string-array>
+
+    <string name="any_body_part">Any body part</string>
+    <string name="back">Back</string>
+    <string name="cardio">Cardio</string>
+    <string name="chest">Chest</string>
+    <string name="lower_arms">Lower arms</string>
+    <string name="lower_legs">Lower legs</string>
+    <string name="neck">Neck</string>
+    <string name="shoulders">Shoulders</string>
+    <string name="upper_arms">Upper arms</string>
+    <string name="upper_legs">Upper legs</string>
+    <string name="waist">Waist</string>
 
     <!-- Equipment list resource -->
     <string-array name="equipment_list">
-        <item name="any_equipment">Any equipment</item>
-        <item name="assisted">Assisted</item>
-        <item name="band">Band</item>
-        <item name="barbel">Barbell</item>
-        <item name="body_weight">Body weight</item>
-        <item name="bosu_ball">Bosu ball</item>
-        <item name="dumbbell">Dumbbell</item>
-        <item name="elliptical_machine">Elliptical machine</item>
-        <item name="ez_barbell">Ez barbell</item>
-        <item name="hammer">Hammer</item>
-        <item name="kettlebell">Kettlebell</item>
-        <item name="leverage_machine">Leverage machine</item>
-        <item name="olympic_barbell">Olympic barbell</item>
-        <item name="resistance_band">Resistance band</item>
-        <item name="roller">Roller</item>
-        <item name="rope">Rope</item>
-        <item name="skierg_machine">Skierg machine</item>
-        <item name="sled_machine">Sled machine</item>
-        <item name="smith_machine">Smith machine</item>
-        <item name="stability_ball">Stability ball</item>
-        <item name="stationary_bike">Stationary bike</item>
-        <item name="stepmill_machine">Stepmill machine</item>
-        <item name="tire">Tire</item>
-        <item name="trap bar">Trap bar</item>
-        <item name="upper_body_ergometer">Upper body ergometer</item>
-        <item name="weighted">Weighted</item>
-        <item name="wheel_roller">Weighted</item>
+        <item name="any_equipment">@string/any_equipment</item>
+        <item name="assisted">@string/assisted</item>
+        <item name="band">@string/band</item>
+        <item name="barbel">@string/barbel</item>
+        <item name="body_weight">@string/body_weight</item>
+        <item name="bosu_ball">@string/bosu_ball</item>
+        <item name="dumbbell">@string/dumbbell</item>
+        <item name="elliptical_machine">@string/elliptical_machine</item>
+        <item name="ez_barbell">@string/ez_barbell</item>
+        <item name="hammer">@string/hammer</item>
+        <item name="kettlebell">@string/kettlebell</item>
+        <item name="leverage_machine">@string/leverage_machine</item>
+        <item name="olympic_barbell">@string/olympic_barbell</item>
+        <item name="resistance_band">@string/resistance_band</item>
+        <item name="roller">@string/roller</item>
+        <item name="rope">@string/rope</item>
+        <item name="skierg_machine">@string/skierg_machine</item>
+        <item name="sled_machine">@string/sled_machine</item>
+        <item name="smith_machine">@string/smith_machine</item>
+        <item name="stability_ball">@string/stability_ball</item>
+        <item name="stationary_bike">@string/stationary_bike</item>
+        <item name="stepmill_machine">@string/stepmill_machine</item>
+        <item name="tire">@string/tire</item>
+        <item name="trap_bar">@string/trap_bar</item>
+        <item name="upper_body_ergometer">@string/upper_body_ergometer</item>
+        <item name="weighted">@string/weighted</item>
+        <item name="wheel_roller">@string/wheel_roller</item>
     </string-array>
+
+    <string name="any_equipment">Any equipment</string>
+    <string name="assisted">Assisted</string>
+    <string name="band">Band</string>
+    <string name="barbel">Barbell</string>
+    <string name="body_weight">Body weight</string>
+    <string name="bosu_ball">Bosu ball</string>
+    <string name="dumbbell">Dumbbell</string>
+    <string name="elliptical_machine">Elliptical machine</string>
+    <string name="ez_barbell">Ez barbell</string>
+    <string name="hammer">Hammer</string>
+    <string name="kettlebell">Kettlebell</string>
+    <string name="leverage_machine">Leverage machine</string>
+    <string name="olympic_barbell">Olympic barbell</string>
+    <string name="resistance_band">Resistance band</string>
+    <string name="roller">Roller</string>
+    <string name="rope">Rope</string>
+    <string name="skierg_machine">Skierg machine</string>
+    <string name="sled_machine">Sled machine</string>
+    <string name="smith_machine">Smith machine</string>
+    <string name="stability_ball">Stability ball</string>
+    <string name="stationary_bike">Stationary bike</string>
+    <string name="stepmill_machine">Stepmill machine</string>
+    <string name="tire">Tire</string>
+    <string name="trap_bar">Trap bar</string>
+    <string name="upper_body_ergometer">Upper body ergometer</string>
+    <string name="weighted">Weighted</string>
+    <string name="wheel_roller">Wheel roller</string>
 
     <!-- Home option menu items -->
     <string name="create_workout_plan">Create workout plan</string>
     <string name="create_exercise_list">Create new exercise list</string>
     <string name="edit_workout_plan">Edit workout plan</string>
     <string name="share_workout">Share workout plan</string>
-
     <string name="delete_workout_plan">Delete workout plan</string>
-
     <string name="type_name">Type a name</string>
     <string name="select_workout">Select a workout plan</string>
     <string name="message_delete_workout">"Workout deleted with success "</string>
@@ -102,7 +140,6 @@
     <string name="empty_workout_list">You don\'t have any exercise list</string>
     <string name="empty_exercise_list">You don\'t have any exercise</string>
     <string name="completed_workout">The workout is completed</string>
-    <string name="short_exercise_list">The list of exercises must have more than one</string>
     <string name="have_account">Have a account? Login here</string>
     <string name="back_login">Back to Login</string>
 

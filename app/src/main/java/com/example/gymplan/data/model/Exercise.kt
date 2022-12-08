@@ -1,7 +1,5 @@
 package com.example.gymplan.data.model
 
-import androidx.annotation.NonNull
-import androidx.room.PrimaryKey
 import com.google.firebase.database.Exclude
 import java.io.Serializable
 

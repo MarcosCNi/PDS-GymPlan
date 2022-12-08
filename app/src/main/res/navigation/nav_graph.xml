@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_homeFragment_to_customExerciseListFragment"
             app:destination="@id/customExerciseListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_homeBottomSheet"
+            app:destination="@id/homeBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -66,4 +69,18 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <dialog
+        android:id="@+id/homeBottomSheet"
+        android:name="com.example.gymplan.ui.home.HomeBottomSheet"
+        android:label="HomeBottomSheet"
+        tools:layout="@layout/home_bottom_sheet">
+        <action
+            android:id="@+id/action_homeBottomSheet_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="currentWorkoutPlan"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+    </dialog>
 </navigation>

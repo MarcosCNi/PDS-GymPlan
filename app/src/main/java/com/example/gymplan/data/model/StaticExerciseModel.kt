@@ -1,10 +1,5 @@
 package com.example.gymplan.data.model
 
-import androidx.annotation.NonNull
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-
 data class StaticExerciseModel (
     val bodyPart: String? = null,
     val equipment: String? = null,

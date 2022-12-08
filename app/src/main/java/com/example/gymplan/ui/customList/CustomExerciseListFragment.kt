@@ -127,7 +127,7 @@ class CustomExerciseListFragment : BaseFragment<FragmentCustomExerciseListBindin
             }
             override fun onSwipedRight(position: Int) {
                 val exercise = customExerciseAdapter.getExercisePosition(position)
-                viewModel.deleteExercise(exercise, workoutModel)
+                viewModel.deleteExercise(exercise)
                 collectObserver()
             }
         })

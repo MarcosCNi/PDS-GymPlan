@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymplan.databinding.FragmentCalendarBinding
@@ -13,7 +12,6 @@ import com.example.gymplan.ui.base.BaseFragment
 import com.example.gymplan.ui.home.HomeViewModel
 import com.example.gymplan.utils.gone
 import com.example.gymplan.utils.show
-import com.example.gymplan.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -31,7 +29,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, HomeViewModel>() 
     }
 
     private fun collectObservers() = with(binding) {
-        if (calendarListAdapter.exercises.isNullOrEmpty()){
+        if (calendarListAdapter.exercises.isEmpty()){
             val calendar = Calendar.getInstance()
             val completedDate = calendar.get(Calendar.MONTH).toString() + calendar.get(Calendar.DAY_OF_MONTH).toString() + calendar.get(Calendar.YEAR).toString()
             viewModel.getCompletedExerciseList(completedDate)

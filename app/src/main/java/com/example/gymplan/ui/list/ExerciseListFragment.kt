@@ -1,7 +1,10 @@
 package com.example.gymplan.ui.list
 
 import android.os.Bundle
-import android.view.*
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
@@ -10,7 +13,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gymplan.R
 import com.example.gymplan.data.model.Exercise
-import com.example.gymplan.data.model.Workout
 import com.example.gymplan.databinding.FragmentExerciseListBinding
 import com.example.gymplan.ui.adapters.ExerciseListAdapter
 import com.example.gymplan.ui.base.BaseFragment
@@ -60,17 +62,51 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
         }
     }
 
-
     private fun bodyPartFilter() = with(binding){
         val bodyPartItems = resources.getStringArray(R.array.body_part_list)
         val bodyPartAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, bodyPartItems)
         bodyPartFilterDropdownText.setAdapter(bodyPartAdapter)
         bodyPartFilterDropdownText.setOnItemClickListener { _, _, id, _ ->
-            if (id == 0) {
-                viewModel.bodyPartFilter = ""
-            } else {
-                viewModel.bodyPartFilter = bodyPartFilterDropdownText.text.toString().lowercase()
+            when(id){
+                1 ->{
+                    viewModel.bodyPartFilter = "back"
+                }
+                2 ->{
+                    viewModel.bodyPartFilter = "cardio"
+                }
+                3 ->{
+                    viewModel.bodyPartFilter = "chest"
+                }
+                4 ->{
+                    viewModel.bodyPartFilter = "lower arms"
+                }
+                5 ->{
+                    viewModel.bodyPartFilter = "lower legs"
+                }
+                6 ->{
+                    viewModel.bodyPartFilter = "neck"
+                }
+                7 ->{
+                    viewModel.bodyPartFilter = "shoulders"
+                }
+                8 ->{
+                    viewModel.bodyPartFilter = "upper arms"
+                }
+                9 ->{
+                    viewModel.bodyPartFilter = "upper legs"
+                }
+                10 ->{
+                    viewModel.bodyPartFilter = "waist"
+                }
+                else ->{
+                    viewModel.bodyPartFilter = ""
+                }
             }
+//            if (id == 0) {
+//                viewModel.bodyPartFilter = ""
+//            } else {
+//                viewModel.bodyPartFilter = bodyPartFilterDropdownText.text.toString()
+//            }
             viewModel.fetch()
         }
     }
@@ -80,11 +116,94 @@ class ExerciseListFragment : BaseFragment<FragmentExerciseListBinding, ExerciseL
         val equipmentAdapter = ArrayAdapter(requireContext(), R.layout.menu_filter_item, equipmentItems)
         equipmentFilterDropdownText.setAdapter(equipmentAdapter)
         equipmentFilterDropdownText.setOnItemClickListener { _, _, id, _ ->
-            if (id == 0) {
-                viewModel.equipmentFilter = ""
-            } else {
-                viewModel.equipmentFilter = equipmentFilterDropdownText.text.toString().lowercase()
+            when(id){
+                1 ->{
+                    viewModel.equipmentFilter = "assisted"
+                }
+                2 ->{
+                    viewModel.equipmentFilter = "band"
+                }
+                3 ->{
+                    viewModel.equipmentFilter = "barbel"
+                }
+                4 ->{
+                    viewModel.equipmentFilter = "body weight"
+                }
+                5 ->{
+                    viewModel.equipmentFilter = "bosu ball"
+                }
+                6 ->{
+                    viewModel.equipmentFilter = "dumbbell"
+                }
+                7 ->{
+                    viewModel.equipmentFilter = "elliptical machine"
+                }
+                8 ->{
+                    viewModel.equipmentFilter = "ez barbell"
+                }
+                9 ->{
+                    viewModel.equipmentFilter = "hammer"
+                }
+                10 ->{
+                    viewModel.equipmentFilter = "kettlebell"
+                }
+                11 ->{
+                    viewModel.equipmentFilter = "leverage machine"
+                }
+                12 ->{
+                    viewModel.equipmentFilter = "olympic barbell"
+                }
+                13 ->{
+                    viewModel.equipmentFilter = "resistance band"
+                }
+                14 ->{
+                    viewModel.equipmentFilter = "roller"
+                }
+                15 ->{
+                    viewModel.equipmentFilter = "rope"
+                }
+                16 ->{
+                    viewModel.equipmentFilter = "skierg machine"
+                }
+                17 ->{
+                    viewModel.equipmentFilter = "sled machine"
+                }
+                18 ->{
+                    viewModel.equipmentFilter = "smith machine"
+                }
+                19 ->{
+                    viewModel.equipmentFilter = "stability ball"
+                }
+                20 ->{
+                    viewModel.equipmentFilter = "stationary bike"
+                }
+                21 ->{
+                    viewModel.equipmentFilter = "stepmill machine"
+                }
+                22 ->{
+                    viewModel.equipmentFilter = "tire"
+                }
+                23 ->{
+                    viewModel.equipmentFilter = "trap bar"
+                }
+                24 ->{
+                    viewModel.equipmentFilter = "upper body ergometer"
+                }
+                25 ->{
+                    viewModel.equipmentFilter = "weighted"
+                }
+                26 ->{
+                    viewModel.equipmentFilter = "wheel roller"
+                }
+                else ->{
+                    viewModel.equipmentFilter = ""
+                }
             }
+//            if (id == 0) {
+//                viewModel.equipmentFilter = ""
+//            } else {
+//                viewModel.equipmentFilter = equipmentFilterDropdownText.text.toString().lowercase()
+//            }
             viewModel.fetch()
         }
     }

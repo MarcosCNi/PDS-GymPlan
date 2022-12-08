@@ -195,7 +195,7 @@ class HomeViewModel @Inject constructor(
             name = name
         )
         val workoutPlanValues = workoutPlan.toMap()
-        val childUpdates = hashMapOf<String, Any>(
+        val childUpdates = hashMapOf(
             "/workoutPlan/$key" to workoutPlanValues,
             "/user-workout/$uid/workoutPlanList/$key" to true,
         )
@@ -286,12 +286,12 @@ class HomeViewModel @Inject constructor(
         firebaseDatabase.child("data").updateChildren(childUpdates)
         if(_exerciseList.value != null){
             for(item in _exerciseList.value!!){
-                deleteExercise(item, workout)
+                deleteExercise(item)
             }
         }
     }
 
-    fun deleteExercise(exercise: Exercise, workout: Workout) = viewModelScope.launch{
+    fun deleteExercise(exercise: Exercise) = viewModelScope.launch{
         firebaseDatabase.child("data").child("exercise")
         val newExercise = Exercise()
         val exerciseValues = newExercise.toMap()
