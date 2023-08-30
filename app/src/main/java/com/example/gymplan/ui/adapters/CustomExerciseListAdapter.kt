@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gymplan.data.model.Exercise
 import com.example.gymplan.databinding.ItemExerciseInfoBinding
 import com.example.gymplan.utils.loadImg
+import com.example.gymplan.utils.show
 
 class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter.ExerciseInfoViewHolder>() {
 
@@ -47,10 +48,13 @@ class CustomExerciseListAdapter : RecyclerView.Adapter<CustomExerciseListAdapter
         holder.binding.apply {
             tvNameExerciseInfo.text = exercise.name
             tvDescExerciseInfo.text = exercise.bodyPart!!.uppercase()
-            loadImg(
-                imgExercise,
-                exercise.gifUrl.toString(),
-            )
+            exercise.gifUrl?.let {
+                imgExercise.show()
+                loadImg(
+                    imgExercise,
+                    exercise.gifUrl.toString(),
+                )
+            }
             textInputEditTextWeight.setText(exercise.weight)
             textInputEditTextReps.setText(exercise.reps)
             textInputEditTextSets.setText(exercise.sets)

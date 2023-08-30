@@ -9,6 +9,7 @@ import com.example.gymplan.data.model.StaticExerciseModel
 import com.example.gymplan.databinding.ItemExerciseBinding
 import com.example.gymplan.utils.limitCharacters
 import com.example.gymplan.utils.loadImg
+import com.example.gymplan.utils.show
 
 class ExerciseListAdapter : RecyclerView.Adapter<ExerciseListAdapter.ExerciseViewHolder>() {
 
